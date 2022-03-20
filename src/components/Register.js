@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useState } from "react"
+import { Navbar } from "./Navbar"
 
 export function Register() {
   const history = useNavigate()
@@ -26,17 +27,31 @@ export function Register() {
   }
 
   useEffect(() => {
-    fetch("/isUserAuth", {
-      header: {
-        "x-access-token": localStorage.getItem("token")
+    async function Authorization() {
+      try {
+        const token = localStorage.getItem("token")
+        const res = await fetch("http://localhost:5000/isUserAuth", {
+          headers: {
+            "x-access-token": token
+          }
+        })
+        const data = await res.json()
+        console.log(data.isLoggedIn)
+        console.log("Is person logged in? = " + JSON.stringify(data))
+
+        return data.isLoggedIn ? null : history("/login")
+      } catch (error) {
+        console.log("islogged in?:" + error)
       }
-    })
-      .then(res => res.json)
-      .then(data => (data.isLoggedIn ? history.push("/dashboard") : null))
-  }, [])
+    }
+
+    Authorization()
+  }, [history])
 
   return (
     <>
+      <Navbar />
+
       <form onSubmit={event => handleRegister(event)}>
         <label for="username">Username:</label>
         <br />

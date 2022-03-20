@@ -1,33 +1,38 @@
-import { useHistory, Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 export function Navbar() {
-  const history = useHistory()
+  const history = useNavigate()
 
-  const [username, setUsername] = useState(null)
-
+  const [user, setUser] = useState(null)
+  console.log(user)
   async function logout() {
     localStorage.removeItem("token")
-    await history.push("/login")
+
+    await history("/login")
   }
 
   useEffect(() => {
     fetch("/isUserAuth", {
-      header: {
+      headers: {
         "x-access-token": localStorage.getItem("token")
       }
     })
       .then(res => res.json())
-      .then(data => (data.isLoggedIn ? setUsername(data.username) : null))
+      .then(data => (data.isLoggedIn ? setUser(data.user) : null))
   }, [])
+
+  //expose user object for use in the nav.
 
   return (
     <div>
       <Link to="/home">Home</Link>
-      {username ? (
+      {user ? (
         <div>
-          <Link to={"/u/" + username}>Profile</Link>
+          <Link to={"/u/" + user.id}>Profile</Link>
           <div onClick={logout}>Logout</div>
+          <Link to="/posts/new">Create Post</Link>
+          {/* create case form */}
         </div>
       ) : (
         <div>

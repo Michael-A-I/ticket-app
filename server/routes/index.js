@@ -1,8 +1,12 @@
+require("dotenv").config()
+
 const router = require("express").Router()
 /* Login + Register*/
-const jwt = require("jsonwebtoken")
+
 const bcrypt = require("bcrypt")
 const User = require("../models/user")
+const jwt = require("jsonwebtoken")
+const verifyJWT = require("../verifyJWT")
 
 router.get("/", (req, res) => {
   console.log("home")
@@ -65,11 +69,11 @@ router.post("/login", (req, res) => {
             expiresIn: 86400
           },
           (err, token) => {
-            console.log(token)
+            console.log("/login Server token set = " + token)
             if (err) return res.json({ message: err })
             return res.json({
               message: "Success",
-              token: "Bearer" + token
+              token: "Bearer " + token
             })
           }
         )
@@ -83,39 +87,17 @@ router.post("/login", (req, res) => {
 })
 
 /* dashboard */
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", verifyJWT, (req, res) => {
   console.log("dashboard")
   res.send("dashboard")
 })
 
 /* verify user can access route */
-function verifyJWT(req, res, next) {
-  const token = req.headers["x-access-token"]?.split[1]
-
-  console.log("Token: " + token)
-  if (token) {
-    jwt.verify(token.process.env.PASSPORTSECRET, (err, decoded) => {
-      if (err) {
-        return res.json({
-          isLoggedIn: false,
-          message: "Failed to Authenticate"
-        })
-      }
-
-      req.user = {}
-      req.user.id = decoded.id
-      req.user.username = decoded.username
-      next()
-    })
-  } else {
-    res.json({ message: "incorrect Token Given", isLoggedIn: false })
-  }
-}
 
 router.get("/isUserAuth", verifyJWT, (req, res) => {
   console.log("prxy")
 
-  return res.json({ isLoggedIn: true, username: req.user.username })
+  return res.json({ isLoggedIn: true, user: req.user })
 })
 
 router.get("/getUsername", verifyJWT, (req, res) => {

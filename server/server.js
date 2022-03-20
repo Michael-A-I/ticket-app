@@ -7,6 +7,9 @@ const path = require("path")
 const mongoose = require("mongoose")
 const cors = require("cors")
 
+const index = require("./routes/index")
+const posts = require("./routes/posts")
+
 const app = express()
 app.use(cors())
 
@@ -17,7 +20,9 @@ app.use(bodyParser.json())
 const dbURI = process.env.URI
 /* routes */
 
-app.use("/", require("./routes/index"))
+app.use("/", index)
+app.use("/", posts)
+
 console.log(process.env.PORT_SERVER)
 /* Connect to MongDB database */
 mongoose

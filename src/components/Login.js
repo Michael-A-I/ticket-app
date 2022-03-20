@@ -1,6 +1,8 @@
 import { useNavigate, Navigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import ValidationError from "./ValidationError"
+import Dashboard from "./Dashboard.js"
+import { Navbar } from "./Navbar"
 
 export function Login() {
   const [login, setLogin] = useState()
@@ -24,8 +26,9 @@ export function Login() {
       const data = await res.json()
 
       localStorage.setItem("token", data.token)
-      console.log("/login token: " + data.token)
-      console.log("/login message: " + data.message)
+
+      // console.log("/login token: " + data.token)
+      // console.log("/login message: " + data.message)
       setMessage(data.message)
     } catch (error) {
       setMessage(error)
@@ -35,33 +38,38 @@ export function Login() {
   useEffect(() => {
     async function Authorization() {
       try {
+        const token = localStorage.getItem("token")
         const res = await fetch("http://localhost:5000/isUserAuth", {
-          header: {
-            "x-access-token": localStorage.getItem("token")
+          headers: {
+            "x-access-token": token
           }
         })
         const data = await res.json()
-        console.log(data)
-        return data.isLoggedIn ? history.push("/api/dashboard") : null
-        // .then(res => res.json)
-        // .then(data => (data.isLoggedIn ? history.push("/dashboard") : null))
-        // }, [history])
+        console.log(data.isLoggedIn)
+        console.log("Is person logged in? = " + JSON.stringify(data))
+
+        return data.isLoggedIn ? history("/dashboard") : null
       } catch (error) {
-        console.log(error)
+        console.log("islogged in?:" + error)
       }
     }
-    console.log(history)
+
     Authorization()
   }, [history])
 
   return (
-    <div>
-      <form onSubmit={event => handleLogin(event)}>
-        <input required type="text" />
-        <input required type="password" />
-        <input type="submit" value="Submit" />
-      </form>
-      {message === "Success" ? <Navigate to="/dashboard" /> : <ValidationError message={message} />}
-    </div>
+    <>
+      <Navbar />
+
+      <div>
+        <form onSubmit={event => handleLogin(event)}>
+          <input required type="text" />
+          <input required type="password" />
+          <input type="submit" value="Submit" />
+
+          {message === "" ? null : message === "Success" ? <Navigate to="/dashboard" /> : <ValidationError message={message} />}
+        </form>
+      </div>
+    </>
   )
 }

@@ -1,9 +1,13 @@
 import React from "react"
+import { Navbar } from "../components/Navbar"
 
 function ValidationError(prop) {
   return (
     <>
-      <div>{/* <h1>{prop.message}</h1> */}</div>
+      {/* <Navbar /> */}
+      <div>
+        <h1>{"Error" + prop.message}</h1>
+      </div>
     </>
   )
 }
