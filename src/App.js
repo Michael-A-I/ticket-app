@@ -5,8 +5,10 @@ import { Register } from "./components/Register"
 import { Login } from "./components/Login"
 import { Profile } from "./components/Profile"
 import { CreatePost } from "./components/CreatePost"
-// import { Home } from "./components/Home"
+import { PostsIndex } from "./components/PostsIndex"
+import { Home } from "./components/Home"
 import Dashboard from "./components/Dashboard"
+import { Post } from "./components/Post"
 import Auth from "./Auth"
 
 function App() {
@@ -14,13 +16,15 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route element={<Home />} exact path="/home" />
           <Route element={<Dashboard />} exact path="/" />
           <Route element={<Dashboard />} exact path="/dashboard" />
           <Route element={<Register />} exact path="/register" />
           <Route element={<Login />} exact path="/login" />
           <Route element={<Profile />} exact path="/u/:userId" />
           <Route element={<CreatePost />} exact path="/posts/new" />
-          <Route element={<Posts />} exact path="/posts/" />
+          <Route element={<PostsIndex />} exact path="/posts/index" />
+          <Route element={<Post />} exact path="/posts/:id" />
         </Routes>
       </BrowserRouter>
     </>

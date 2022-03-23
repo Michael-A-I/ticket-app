@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken")
 
 function verifyJWT(req, res, next) {
-  console.log("req.headers " + JSON.stringify(req.headers))
-  console.log("req.headers x-access-token " + req.headers["x-access-token"])
+  // console.log("req.headers " + JSON.stringify(req.headers))
+  // console.log("req.headers x-access-token " + req.headers["x-access-token"])
 
   const token = req.headers["x-access-token"].split(" ")[1]
   console.log("verifyJWT")

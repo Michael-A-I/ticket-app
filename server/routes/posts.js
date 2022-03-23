@@ -1,5 +1,5 @@
 require("dotenv").config()
-
+const mongoose = require("mongoose")
 const router = require("express").Router()
 /* Login + Register*/
 const jwt = require("jsonwebtoken")
@@ -20,8 +20,22 @@ router.post("/posts/new", verifyJWT, (req, res) => {
   res.json({ message: "Success" })
 })
 
-router.get("/posts", verifyJWT, (req, res) => {
-  // show all posts
+router.get("/posts/index", verifyJWT, async (req, res) => {
+  const post = await Post.find({})
+  console.log("trying to send data to front end")
+
+  // console.log(res.json)
+  return res.json(post)
+})
+
+router.get("/posts/:id", verifyJWT, async (req, res) => {
+  console.log(typeof req.params.id)
+  let paramsId = req.params.id
+  const post = await Post.findById({ _id: `${req.params.id}` }).exec()
+  console.log("trying to send data to front end")
+
+  console.log(res.json(post))
+  // return res.json(post)
 })
 
 // router.get("/posts/isUserAuth", verifyJWT, (req, res) => {
