@@ -1,0 +1,4 @@
+.comments-container {
+  font-size: clamp(1rem, 2vw, 2.5rem);
+  color: gray;
+}

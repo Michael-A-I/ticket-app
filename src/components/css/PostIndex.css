@@ -1,0 +1,26 @@
+.post__container {
+  display: flex;
+  flex-flow: column;
+  align-items: left;
+  max-width: 1120px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.post__wrapper {
+  position: relative;
+  margin: 10px;
+}
+
+.created {
+  font-size: clamp(0.5rem, 2vw, 2.5rem);
+}
+.post__description {
+  margin: 15px;
+}
+
+.comments {
+}
+.post__title {
+  margin: 10px;
+}

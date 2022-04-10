@@ -15,7 +15,31 @@ const userSchema = mongoose.Schema(
       required: true
     },
     image: String,
-    bio: String
+    bio: String,
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+      }
+    ],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comments"
+      }
+    ],
+    likedPosts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+      }
+    ],
+    hasUserLiked: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+      }
+    ]
   },
   { timestamps: true }
 )
@@ -23,3 +47,5 @@ const userSchema = mongoose.Schema(
 const User = mongoose.model("User", userSchema)
 
 module.exports = User
+
+/* delete users from db and recreate with posts/comments */

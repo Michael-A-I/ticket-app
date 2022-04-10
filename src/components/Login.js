@@ -61,11 +61,27 @@ export function Login() {
     <>
       <Navbar />
 
-      <div>
+      <div class="input-form">
         <form onSubmit={event => handleLogin(event)}>
-          <input required type="text" />
-          <input required type="password" />
-          <input type="submit" value="Submit" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">
+                Username
+              </span>
+            </div>
+            <input required type="text" />
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">
+                Password
+              </span>
+            </div>
+            <input required type="password" />
+          </div>
+          <div class="input-group mb-3">
+            <input type="submit" value="Submit" />
+          </div>
 
           {message === "" ? null : message === "Success" ? <Navigate to="/dashboard" /> : <ValidationError message={message} />}
         </form>

@@ -1,7 +1,7 @@
 import { React, useEffect } from "react"
 import { Navbar } from "./Navbar"
 import { useNavigate, Navigate } from "react-router-dom"
-
+import { PostsIndex } from "./PostsIndex"
 function Dashboard() {
   const history = useNavigate()
 
@@ -32,8 +32,8 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-
       <h1>Dashboard</h1>
+      <PostsIndex />
     </>
   )
 }

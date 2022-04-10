@@ -1,0 +1,11 @@
+.card {
+  margin: 10px;
+}
+
+.card-title {
+  font-size: clamp(1rem, 2vw, 2.5rem);
+  color: gray;
+  margin: 1px;
+
+  /* font-size: 1rem; */
+}

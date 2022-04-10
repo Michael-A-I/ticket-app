@@ -18,8 +18,6 @@ router.post("/register", async (req, res) => {
 
   const user = req.body
 
-  console.log(req.body)
-
   const takenUsername = await User.findOne({ username: user.username })
   const takenEmail = await User.findOne({ email: user.email })
 
@@ -45,10 +43,10 @@ router.post("/login", (req, res) => {
   const userLoggingIn = req.body
   /* find record of user */
 
-  console.log(req.body.username)
+  // console.log("USERNAME " + req.body.username)
 
   User.findOne({ username: userLoggingIn.username }).then(dbUser => {
-    console.log(dbUser)
+    // console.log(dbUser)
     if (!dbUser) {
       return res.json({
         message: "invalid Username or Password"
@@ -56,7 +54,7 @@ router.post("/login", (req, res) => {
     }
 
     bcrypt.compare(userLoggingIn.password, dbUser.password).then(isCorrect => {
-      console.log("/login password correct?:" + isCorrect)
+      // console.log("/login password correct?:" + isCorrect)
       if (isCorrect) {
         const payload = {
           id: dbUser._id,
@@ -69,11 +67,12 @@ router.post("/login", (req, res) => {
             expiresIn: 86400
           },
           (err, token) => {
-            console.log("/login Server token set = " + token)
+            // console.log("/login Server token set = " + token)
             if (err) return res.json({ message: err })
             return res.json({
               message: "Success",
-              token: "Bearer " + token
+              token: "Bearer " + token,
+              user: dbUser.username
             })
           }
         )
@@ -92,17 +91,17 @@ router.get("/dashboard", verifyJWT, (req, res) => {
   res.send("dashboard")
 })
 
-/* verify user can access route */
+/* If use is logged send back user information */
 
 router.get("/isUserAuth", verifyJWT, (req, res) => {
-  console.log("prxy")
+  console.log("isUserAuth")
 
   return res.json({ isLoggedIn: true, user: req.user })
 })
 
 router.get("/getUsername", verifyJWT, (req, res) => {
   console.log("prxy")
-  res.json({ isLoggedIn: true, username: req.user.username })
+  res.json({ isLoggedIn: true, user: req.user.username })
 })
 
 module.exports = router

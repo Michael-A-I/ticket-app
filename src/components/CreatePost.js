@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import ValidationError from "./ValidationError"
 import Dashboard from "./Dashboard.js"
 import { Navbar } from "./Navbar"
+import swal from "sweetalert"
+import "./css/CreatePost.css"
 
 export function CreatePost() {
   const history = useNavigate()
@@ -31,6 +33,10 @@ export function CreatePost() {
     Authorization()
   }, [history])
 
+  function swalLoad() {
+    swal({ text: "New Post", icon: "success", buttons: false, timer: 1500 })
+  }
+
   async function handleCreatePost(event) {
     event.preventDefault()
 
@@ -48,33 +54,44 @@ export function CreatePost() {
         },
         body: JSON.stringify(createPost)
       })
+
+      const postResponse = await res.json()
+      console.log(postResponse)
+
+      history(`/posts/${postResponse._id}`, { state: { message: postResponse.message } })
+
+      return swalLoad()
     } catch (error) {
       console.log(error)
     }
   }
 
+  // redirect to post created.
+
   return (
     <>
       <Navbar />
-      <h1>Create Post</h1>
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-          <form onSubmit={event => handleCreatePost(event)}>
-            <legend>New Post</legend>
-            <div class="form-group">
-              <label for="post-title">Title</label>
-              <input type="text" name="title" class="form-control" id="post-title" placeholder="Title" />
-            </div>
-            <div class="form-group">
-              <label for="post-description">Summary</label>
-              <textarea name="description" class="form-control" id="post-description" placeholder="description"></textarea>
-            </div>
-            <div class="text-right">
-              <button type="submit" class="btn btn-primary">
-                Create Post
-              </button>
-            </div>
-          </form>
+      <h1 className="title">Create Post</h1>
+      <div className="row">
+        <div className="col-sm-4 col-sm-offset-4">
+          <div class="input-form">
+            <form onSubmit={event => handleCreatePost(event)}>
+              <legend>New Post</legend>
+              <div className="form-group">
+                <label for="post-title">Title</label>
+                <input required maxlength="50" type="text" name="title" className="form-control" id="post-title" placeholder="Title" />
+              </div>
+              <div className="form-group">
+                <label for="post-description">Summary</label>
+                <textarea required name="description" className="form-control" id="post-description" placeholder="description"></textarea>
+              </div>
+              <div className="text-right">
+                <button type="submit" className="btn btn-primary">
+                  Create Post
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </>

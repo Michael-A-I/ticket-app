@@ -1,0 +1,15 @@
+#inputGroup-sizing-default {
+  min-width: 100px;
+  text-align: left;
+}
+
+input {
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.input-form {
+  padding: 10px;
+  padding-top: 30px;
+  margin: 0px;
+}
