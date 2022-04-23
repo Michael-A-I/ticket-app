@@ -12,7 +12,7 @@ export function Home() {
     async function Authorization() {
       try {
         const token = localStorage.getItem("token")
-        const res = await fetch("http://localhost:5000/isUserAuth", {
+        const res = await fetch("/isUserAuth", {
           headers: {
             "x-access-token": token
           }

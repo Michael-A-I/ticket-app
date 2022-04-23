@@ -9,3 +9,17 @@
 
   /* font-size: 1rem; */
 }
+
+.profile__container {
+  display: flex;
+  flex-flow: column;
+  align-items: left;
+  max-width: 1120px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.profile__wrapper {
+  position: relative;
+  margin: 10px;
+}

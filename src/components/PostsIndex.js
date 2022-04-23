@@ -1,21 +1,44 @@
 import { React, useEffect, useState } from "react"
+import { propTypes } from "react-bootstrap/esm/Image"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import "./css/PostIndex.css"
+// import Authorization from "../helper/Authorization"
 
-export function PostsIndex() {
-  const history = useNavigate()
+export function PostsIndex(props) {
   const [posts, setPosts] = useState([])
+  const history = useNavigate()
 
   useEffect(() => {
+    Authorization()
     getPosts()
   }, [history])
+
+  async function Authorization() {
+    try {
+      const token = localStorage.getItem("token")
+      const res = await fetch("/isUserAuth", {
+        headers: {
+          "x-access-token": token
+        }
+      })
+      const data = await res.json()
+      console.log(data.isLoggedIn)
+      console.log("Is person logged in? = " + JSON.stringify(data))
+
+      // user data passed through application
+      /* If user is already authenticated and they try to acess page */
+      return data.isLoggedIn ? null : history("/login")
+    } catch (error) {
+      console.log("islogged in?:" + error)
+    }
+  }
 
   async function getPosts() {
     try {
       const token = localStorage.getItem("token")
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch("http://localhost:5000/posts/index", {
+      const res = await fetch("/posts/index", {
         headers: {
           "x-access-token": token
         }
@@ -36,7 +59,7 @@ export function PostsIndex() {
     try {
       const token = localStorage.getItem("token")
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch(`http://localhost:5000/posts/${id}`, {
+      const res = await fetch(`/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -51,9 +74,11 @@ export function PostsIndex() {
   }
   return (
     <>
-      <h1 className="post__title">Posts</h1>
       <div className="post__container">
         <div className="post__wrapper">
+          <h1 className="post__title">{props.title}</h1>
+
+          <h2 className="post__title">Posts</h2>
           {posts.map(post => (
             <div>
               <div className="card" key={post._id}>

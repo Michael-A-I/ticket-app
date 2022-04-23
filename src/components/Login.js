@@ -1,39 +1,16 @@
 import { useNavigate, Navigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import ValidationError from "./ValidationError"
 import Dashboard from "./Dashboard.js"
 import { Navbar } from "./Navbar"
+import { UserContext } from "../context/UserContext"
 
 export function Login() {
   const [login, setLogin] = useState()
   const [message, setMessage] = useState("")
   const history = useNavigate()
 
-  async function handleLogin(e) {
-    e.preventDefault()
-    console.log(process.env.URL)
-    const form = e.target
-    const user = { username: form[0].value, password: form[1].value }
-    try {
-      const res = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify(user)
-      })
-
-      const data = await res.json()
-
-      localStorage.setItem("token", data.token)
-
-      // console.log("/login token: " + data.token)
-      // console.log("/login message: " + data.message)
-      setMessage(data.message)
-    } catch (error) {
-      setMessage(error)
-    }
-  }
+  const { user, setUser } = useContext(UserContext)
 
   useEffect(() => {
     async function Authorization() {
@@ -48,6 +25,8 @@ export function Login() {
         console.log(data.isLoggedIn)
         console.log("Is person logged in? = " + JSON.stringify(data))
 
+        // user data passed through application
+        /* If user is already authenticated and they try to acess page */
         return data.isLoggedIn ? history("/dashboard") : null
       } catch (error) {
         console.log("islogged in?:" + error)
@@ -56,6 +35,34 @@ export function Login() {
 
     Authorization()
   }, [history])
+
+  async function handleLogin(e) {
+    e.preventDefault()
+    console.log(process.env.URL)
+
+    const form = e.target
+    const user = { username: form[0].value, password: form[1].value }
+
+    /* send login information to database and authenticat user */
+    try {
+      const res = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(user)
+      })
+
+      const data = await res.json()
+
+      localStorage.setItem("token", data.token)
+
+      /* if user autheticats set Success authentication message */
+      setMessage(data.message)
+    } catch (error) {
+      setMessage(error)
+    }
+  }
 
   return (
     <>

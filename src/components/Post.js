@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useRef } from "react"
+import { React, useEffect, useState, useRef, useContext } from "react"
 import { useNavigate, useLocation } from "react-router"
 import { useParams } from "react-router-dom"
 import { Navbar } from "./Navbar"
@@ -6,6 +6,8 @@ import "./css/Post.css"
 import "./css/Comments.css"
 import { handleDate } from "../helper/helper"
 import { copySync } from "fs-extra"
+import { Alert, Fade } from "react-bootstrap"
+import { UserContext } from "../context/UserContext"
 
 /* React Component */
 export function Post(props) {
@@ -13,13 +15,24 @@ export function Post(props) {
   const [post, setPost] = useState({})
   const [comments, setComments] = useState([])
   const [edit, setEdit] = useState(null)
-  const [user, setUser] = useState()
+  const [userID, setUserID] = useState()
   const inputVale = useRef(null)
   const [edited, setEdited] = useState(false)
   const [editPost, setEditPost] = useState(true)
   const [likes, setLikes] = useState(0)
   const [hasTheUserLiked, setHasTheUserLiked] = useState(true)
+  const [postOwner, setPostOwner] = useState()
+
+  const { user, setUser } = useContext(UserContext)
+  localStorage.setItem("user", userID)
+  setUser(localStorage.getItem("user"))
+  console.log(user)
+
   // const [firstLoad, setFirstLoad] = useState(true)
+  const [followingClicked, setFollowingClicked] = useState(true)
+  const [following, setFollowing] = useState(false)
+  const [unfollowing, setUnfollowing] = useState(false)
+  const [show, setShow] = useState(false)
 
   const history = useNavigate()
   let { id } = useParams()
@@ -27,11 +40,12 @@ export function Post(props) {
   useEffect(async () => {
     /* see if use has liked already */
     console.log("useEffect")
+    await getCurrentUser()
     hasUserLiked()
-    getCurrentUser()
     getComments()
     getPost()
-  }, [])
+    checkIfUserFollows()
+  }, [history])
 
   async function hasUserLiked() {
     console.log("hasUserLiked")
@@ -89,6 +103,7 @@ export function Post(props) {
 
       const post = await resPost.json()
 
+      setPostOwner(post.user)
       setPost(post)
     } catch (error) {
       return error
@@ -135,9 +150,9 @@ export function Post(props) {
   }
 
   // delete comment hand
-  async function handleDelete(event, commentId) {
+  async function handleCommentDelete(event, commentId) {
     const token = localStorage.getItem("token")
-    const target = event
+
     /* Delete Post if user created comment */
 
     await fetch(`http://localhost:5000/posts/${commentId}/comments`, {
@@ -211,16 +226,16 @@ export function Post(props) {
     const token = localStorage.getItem("token")
 
     try {
-      const user = await fetch(`http://localhost:5000/isUserAuth`, {
+      const userid = await fetch(`http://localhost:5000/isUserAuth`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": token
         }
       })
 
-      const userObj = await user.json()
+      const userObj = await userid.json()
       const userID = userObj.user.id
-      setUser(userID)
+      setUserID(userID)
     } catch (error) {
       console.log(error)
     }
@@ -247,7 +262,7 @@ export function Post(props) {
 
   function handlePostEdit(postID, postUser) {
     /* TODO: update database */
-    if (user == post.user) {
+    if (userID == post.user) {
       setEditPost(false)
     } else {
       console.log("not correct user")
@@ -262,7 +277,7 @@ export function Post(props) {
   }
 
   function handleCommentEdit(commmentID, commentUser) {
-    if (user == commentUser) {
+    if (userID == post.user) {
       setEdit(commmentID)
     } else {
       console.log("user did not create comment")
@@ -307,11 +322,110 @@ export function Post(props) {
     setLikes(likes - 1)
   }
 
+  async function followPost() {
+    setFollowing(true)
+    setUnfollowing(false)
+    setShow(true)
+    setFollowingClicked(!followingClicked)
+    setTimeout(function () {
+      setShow(false)
+    }, 1000)
+
+    const token = localStorage.getItem("token")
+    const hasUserFollowed = { hasUserFollowed: user.id }
+    console.log(hasUserFollowed)
+
+    await fetch(`http://localhost:5000/posts/${id}/follow`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token
+      },
+      body: JSON.stringify(hasUserFollowed)
+    })
+  }
+  async function unFollowPost() {
+    setFollowing(false)
+    setUnfollowing(true)
+    setShow(true)
+    setFollowingClicked(!followingClicked)
+
+    setTimeout(function () {
+      setShow(false)
+    }, 1000)
+
+    const token = localStorage.getItem("token")
+    const hasUserFollowed = { hasUserFollowed: user.id }
+    console.log(hasUserFollowed)
+    console.log(user)
+    await fetch(`http://localhost:5000/posts/${id}/unfollow`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token
+      },
+      body: JSON.stringify(hasUserFollowed)
+    })
+  }
+
+  async function checkIfUserFollows() {
+    console.log("checkIfUserFollows")
+    const token = localStorage.getItem("token")
+
+    try {
+      // get comments
+      const userid = await fetch(`http://localhost:5000/isUserAuth`, {
+        headers: {
+          "x-access-token": token
+        }
+      })
+
+      const hasUserFollowed = await fetch(`/posts/${id}/followcheck`, {
+        headers: {
+          "x-access-token": token
+        }
+      })
+
+      const returnUserFollows = await hasUserFollowed.json()
+      const usersObj = await userid.json()
+      const userId = usersObj.user.id
+      console.log(returnUserFollows)
+      console.log(userId)
+
+      returnUserFollows.map(follow => {
+        if (follow == userId) {
+          console.log("true")
+          setFollowingClicked(false)
+        } else {
+          console.log("false")
+          setFollowingClicked(true)
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <Navbar />
       <div className="post__container">
         <div className="post__wrapper">
+          {following ? (
+            <Alert variant="success" show={show} transition={Fade}>
+              <Alert.Heading>Followed Post</Alert.Heading>
+            </Alert>
+          ) : (
+            ""
+          )}
+
+          {unfollowing ? (
+            <Alert variant="danger" show={show} transition={Fade}>
+              <Alert.Heading>Unfollowed Post</Alert.Heading>
+            </Alert>
+          ) : (
+            ""
+          )}
           {console.log(post._id)}
           {editPost ? (
             <div>
@@ -333,10 +447,19 @@ export function Post(props) {
                     <i class="fa-solid fa-heart-circle-minus"></i>
                   </button>
                 )}
+                {userID == post.user ? (
+                  ""
+                ) : followingClicked ? (
+                  <button type="button" className="btn btn-sm btn-primary" onClick={followPost}>
+                    Follow Post
+                  </button>
+                ) : (
+                  <button type="button" className="btn btn-sm btn-danger" onClick={unFollowPost}>
+                    Following Post
+                  </button>
+                )}
 
                 <p>number of likes: {post.numberOfLikes + likes}</p>
-                <p>number of views</p>
-                <p>number of answers</p>
               </div>
 
               <button type="button" onClick={() => handlePostEdit(user, post.id)} className="btn btn-sm btn-success">
@@ -382,7 +505,7 @@ export function Post(props) {
                   <button onClick={() => handleCommentEdit(comment._id, comment.user)} type="button" class="btn btn-success btn-sm">
                     edit
                   </button>
-                  <button onClick={event => handleDelete(event, comment._id)} class="btn btn-danger btn-sm">
+                  <button onClick={event => handleCommentDelete(event, comment._id)} class="btn btn-danger btn-sm">
                     delete
                   </button>
                   <div className="">
@@ -430,4 +553,8 @@ export function Post(props) {
   )
 }
 
-// if edit state is true, then change text to input.
+// TODO: Add persistance to post follow state.
+
+/* TODO: notifications for posts for users if they follow a post */
+
+/* TODO: Dashboard should go back to previous button click */

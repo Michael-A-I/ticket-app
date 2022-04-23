@@ -1,5 +1,8 @@
 import { useNavigate, Link } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+/* user context */
+import { UserContext } from "../context/UserContext"
+
 import "./css/Navbar.css"
 
 import { Dropdown } from "react-bootstrap"
@@ -9,13 +12,18 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem"
 export function Navbar() {
   const history = useNavigate()
   const [click, setClick] = useState(false)
+  const [search, setSearch] = useState("")
+  const [dropdown, setDropdown] = useState([])
+
   const handleClick = () => {
     setClick(!click)
   }
   const closeClick = () => {
     setClick(false)
   }
-  const [user, setUser] = useState(null)
+
+  /* user context  changed through navbar */
+  const { user, setUser } = useContext(UserContext)
 
   console.log(user)
   async function logout() {
@@ -35,6 +43,28 @@ export function Navbar() {
   }, [])
 
   //expose user object for use in the nav.
+
+  async function searcher(event) {
+    console.log("searcher")
+    const inputValue = event.target.value
+    setSearch(inputValue)
+
+    const token = localStorage.getItem("token")
+
+    /* call to backend to perfrom search */
+    const searchedPosts = await fetch(`/search/${inputValue}`, {
+      headers: {
+        "x-access-token": token
+      }
+    })
+
+    const res = await searchedPosts.json()
+
+    console.log(res)
+    setDropdown(res)
+
+    // go thorugh posts and find post related to words
+  }
 
   return (
     <div>
@@ -59,7 +89,6 @@ export function Navbar() {
                   Profile
                 </Link>
               </li>
-
               <li onClick={handleClick} className="nav-item hide">
                 <Link className="nav-links" to="/posts/new">
                   Create Post
@@ -70,7 +99,6 @@ export function Navbar() {
                   Dashboard
                 </Link>
               </li>
-
               <li>
                 <Dropdown>
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -85,10 +113,35 @@ export function Navbar() {
                   </Dropdown.Menu>
                 </Dropdown>
               </li>
+              {/* Search for posts */}
+              <li className="search search-hide">
+                <input value={search} onChange={event => searcher(event)} className="search search-hide" type="text" name="search" />
+                <button className="search-hide" for="Search">
+                  Search
+                </button>
+                {/* TODO: showing as display none */}
+                <div className="searchDropDown">
+                  {dropdown.length !== 0 ? (
+                    <div id="dropdown" className="dropdown-menu" style={{ display: "content" }}>
+                      {dropdown.map(item => (
+                        <div>
+                          <Link class="dropdown-item" to={`/posts/${item._id}`}>
+                            {item.title}
+                          </Link>
 
-              {/* Drop down */}
+                          <br></br>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </li>
 
-              {/* create case form */}
+              <li>
+                <i class="fa-solid fa-bell"></i>
+              </li>
             </ul>
           ) : (
             <div>
