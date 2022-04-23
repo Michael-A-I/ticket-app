@@ -54,7 +54,7 @@ export function Post(props) {
       const token = localStorage.getItem("token")
 
       // get comments
-      const hasUserLiked = await fetch(`/posts/${id}/hasUserLiked`, {
+      const hasUserLiked = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/hasUserLiked`, {
         headers: {
           "x-access-token": token
         }
@@ -77,7 +77,7 @@ export function Post(props) {
       const token = localStorage.getItem("token")
 
       // get comments
-      const resComment = await fetch(`http://localhost:5000/posts/${id}/comments`, {
+      const resComment = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/comments`, {
         headers: {
           "x-access-token": token
         }
@@ -95,7 +95,7 @@ export function Post(props) {
       const token = localStorage.getItem("token")
 
       // get comments
-      const resPost = await fetch(`http://localhost:5000/posts/${id}`, {
+      const resPost = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}`, {
         headers: {
           "x-access-token": token
         }
@@ -121,7 +121,7 @@ export function Post(props) {
     const token = localStorage.getItem("token")
     // console.log(createComment)
     try {
-      const res = await fetch(`http://localhost:5000/posts/${id}/comments`, {
+      const res = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ export function Post(props) {
 
     try {
       // get comments
-      const resComment = await fetch(`http://localhost:5000/posts/${id}/comments`, {
+      const resComment = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/comments`, {
         headers: {
           "x-access-token": token
         }
@@ -155,7 +155,7 @@ export function Post(props) {
 
     /* Delete Post if user created comment */
 
-    await fetch(`http://localhost:5000/posts/${commentId}/comments`, {
+    await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${commentId}/comments`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -164,7 +164,7 @@ export function Post(props) {
     })
 
     // get comments
-    const resComment = await fetch(`http://localhost:5000/posts/${id}/comments`, {
+    const resComment = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/comments`, {
       headers: {
         "x-access-token": token
       }
@@ -184,7 +184,7 @@ export function Post(props) {
     console.log(updateComment)
     console.log(commentId)
     try {
-      await fetch(`http://localhost:5000/posts/${commentId}/comments`, {
+      await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${commentId}/comments`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -203,7 +203,7 @@ export function Post(props) {
     getComments()
     // try {
     //   // get comments
-    //   const resComments = await fetch(`http://localhost:5000/posts/${id}/comments`, {
+    //   const resComments = await fetch(`/posts/${id}/comments`, {
     //     headers: {
     //       "x-access-token": token
     //     }
@@ -226,7 +226,7 @@ export function Post(props) {
     const token = localStorage.getItem("token")
 
     try {
-      const userid = await fetch(`http://localhost:5000/isUserAuth`, {
+      const userid = await fetch(`https://ticket-app-serverside.herokuapp.com/isUserAuth`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": token
@@ -245,7 +245,7 @@ export function Post(props) {
     try {
       const token = localStorage.getItem("token")
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch(`http://localhost:5000/posts/${id}`, {
+      const res = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -297,7 +297,7 @@ export function Post(props) {
     const hasUserLiked = { hasUserLiked: user.id }
     console.log(hasUserLiked)
 
-    fetch(`http://localhost:5000/posts/${id}/like`, {
+    fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/like`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -312,7 +312,7 @@ export function Post(props) {
 
   async function handleLikesDecrease() {
     const token = localStorage.getItem("token")
-    fetch(`http://localhost:5000/posts/${id}/unlike`, {
+    fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/unlike`, {
       method: "PUT",
       headers: {
         "x-access-token": token
@@ -335,7 +335,7 @@ export function Post(props) {
     const hasUserFollowed = { hasUserFollowed: user.id }
     console.log(hasUserFollowed)
 
-    await fetch(`http://localhost:5000/posts/${id}/follow`, {
+    await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/follow`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -358,7 +358,7 @@ export function Post(props) {
     const hasUserFollowed = { hasUserFollowed: user.id }
     console.log(hasUserFollowed)
     console.log(user)
-    await fetch(`http://localhost:5000/posts/${id}/unfollow`, {
+    await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/unfollow`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -374,13 +374,13 @@ export function Post(props) {
 
     try {
       // get comments
-      const userid = await fetch(`http://localhost:5000/isUserAuth`, {
+      const userid = await fetch(`https://ticket-app-serverside.herokuapp.com/isUserAuth`, {
         headers: {
           "x-access-token": token
         }
       })
 
-      const hasUserFollowed = await fetch(`/posts/${id}/followcheck`, {
+      const hasUserFollowed = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}/followcheck`, {
         headers: {
           "x-access-token": token
         }

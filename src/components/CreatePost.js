@@ -16,7 +16,7 @@ export function CreatePost() {
       try {
         const token = localStorage.getItem("token")
         console.log("createposts.js token: " + token)
-        const res = await fetch("/isUserAuth", {
+        const res = await fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
           headers: {
             "x-access-token": token
           }
@@ -46,7 +46,7 @@ export function CreatePost() {
 
     try {
       const token = localStorage.getItem("token")
-      const res = await fetch("/posts/new", {
+      const res = await fetch("https://ticket-app-serverside.herokuapp.com/posts/new", {
         method: "POST",
         headers: {
           "x-access-token": token,

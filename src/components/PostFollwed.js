@@ -23,7 +23,7 @@ export function PostsFollowed(props) {
 
         /* Route to get array of objects of posts user has followed */
 
-        const res = await fetch(`/posts/${user.id}/following`, {
+        const res = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${user.id}/following`, {
           headers: {
             "x-access-token": token
           }

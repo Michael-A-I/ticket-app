@@ -17,7 +17,7 @@ export function PostsIndex(props) {
   async function Authorization() {
     try {
       const token = localStorage.getItem("token")
-      const res = await fetch("/isUserAuth", {
+      const res = await fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
         headers: {
           "x-access-token": token
         }
@@ -38,7 +38,7 @@ export function PostsIndex(props) {
     try {
       const token = localStorage.getItem("token")
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch("/posts/index", {
+      const res = await fetch("https://ticket-app-serverside.herokuapp.com/posts/index", {
         headers: {
           "x-access-token": token
         }
@@ -59,7 +59,7 @@ export function PostsIndex(props) {
     try {
       const token = localStorage.getItem("token")
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch(`/posts/${id}`, {
+      const res = await fetch(`https://ticket-app-serverside.herokuapp.com/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

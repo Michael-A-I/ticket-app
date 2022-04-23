@@ -33,7 +33,7 @@ export function Navbar() {
   }
 
   useEffect(() => {
-    fetch("/isUserAuth", {
+    fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
       headers: {
         "x-access-token": localStorage.getItem("token")
       }

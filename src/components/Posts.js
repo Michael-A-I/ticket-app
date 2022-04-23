@@ -18,7 +18,7 @@ export function Posts(props) {
         const token = localStorage.getItem("token")
 
         // get comments
-        const res = await fetch(`/u/posts/${user.id}`, {
+        const res = await fetch(`https://ticket-app-serverside.herokuapp.com/u/posts/${user.id}`, {
           headers: {
             "x-access-token": token
           }

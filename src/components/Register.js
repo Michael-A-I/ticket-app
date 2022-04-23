@@ -16,7 +16,7 @@ export function Register() {
     // console.log(form[0].value, form[1].value, form[2].value)
     const user = { username: form[0].value, email: form[1].value, password: form[2].value }
 
-    fetch("/register", {
+    fetch("https://ticket-app-serverside.herokuapp.com/register", {
       method: "POST",
       headers: {
         "Content-type": "application/json"

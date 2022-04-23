@@ -29,7 +29,7 @@ export function Profile() {
 
       console.log("dashboard client token=" + token)
 
-      const res = await fetch("/isUserAuth", {
+      const res = await fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
         headers: {
           "x-access-token": token
         }
@@ -47,7 +47,7 @@ export function Profile() {
       const token = localStorage.getItem("token")
 
       // get comments
-      const user = await fetch(`/u/${id}`, {
+      const user = await fetch(`https://ticket-app-serverside.herokuapp.com/u/${id}`, {
         headers: {
           "x-access-token": token
         }

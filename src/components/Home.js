@@ -12,7 +12,7 @@ export function Home() {
     async function Authorization() {
       try {
         const token = localStorage.getItem("token")
-        const res = await fetch("/isUserAuth", {
+        const res = await fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
           headers: {
             "x-access-token": token
           }

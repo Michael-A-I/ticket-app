@@ -16,7 +16,7 @@ export function Login() {
     async function Authorization() {
       try {
         const token = localStorage.getItem("token")
-        const res = await fetch("http://localhost:5000/isUserAuth", {
+        const res = await fetch("/isUserAuth", {
           headers: {
             "x-access-token": token
           }
@@ -45,7 +45,7 @@ export function Login() {
 
     /* send login information to database and authenticat user */
     try {
-      const res = await fetch("http://localhost:5000/login", {
+      const res = await fetch("/login", {
         method: "POST",
         headers: {
           "Content-type": "application/json"

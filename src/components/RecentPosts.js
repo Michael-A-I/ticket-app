@@ -20,7 +20,7 @@ export function RecentPosts(props) {
 
         // get comments
         // get comments
-        const posts = await fetch("/posts/index", {
+        const posts = await fetch("https://ticket-app-serverside.herokuapp.com/posts/index", {
           headers: {
             "x-access-token": token
           }

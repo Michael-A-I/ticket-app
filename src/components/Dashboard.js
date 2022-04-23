@@ -25,7 +25,7 @@ function Dashboard() {
 
       console.log("dashboard client token=" + token)
 
-      const res = await fetch("http://localhost:5000/isUserAuth", {
+      const res = await fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
         headers: {
           "x-access-token": token
         }
