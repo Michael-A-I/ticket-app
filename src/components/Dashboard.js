@@ -34,7 +34,7 @@ function Dashboard() {
       console.log(data.isLoggedIn)
 
       setId(data.user.id)
-      return data.isLoggedIn ? null : history("/login")
+      return data.isLoggedIn ? null : history("https://ticket-app-serverside.herokuapp.com/login")
     } catch (error) {
       console.log(error)
     }
