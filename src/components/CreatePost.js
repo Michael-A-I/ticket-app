@@ -1,64 +1,51 @@
-import { useNavigate, Navigate } from "react-router-dom"
-import { useEffect, useState } from "react"
-import ValidationError from "./ValidationError"
-import Dashboard from "./Dashboard.js"
-import { Navbar } from "./Navbar"
+import { useNavigate, Navigate, useLocation } from "react-router-dom"
+import { useEffect, useState, useContext } from "react"
+// import { useLocation } from "react-router"
+/* Components */
+import Navbar from "./Navbar"
+import Page from "./Page"
+/* Packages */
 import swal from "sweetalert"
+import { Formik } from "formik"
+import * as yup from "yup"
+import { Button, Dropdown, Form } from "react-bootstrap"
 import "./css/CreatePost.css"
 
-export function CreatePost() {
+/* Context */
+import StateContext from "../context/StateContext"
+import Thumb from "./Thumb"
+
+export function CreatePost(props) {
   const history = useNavigate()
+  const location = useLocation()
 
-  /*! if user logs out -> go to /login */
-
-  useEffect(() => {
-    async function Authorization() {
-      try {
-        const token = localStorage.getItem("token")
-        console.log("createposts.js token: " + token)
-        const res = await fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
-          headers: {
-            "x-access-token": token
-          }
-        })
-
-        const data = await res.json()
-
-        return data.isLoggedIn ? null : history("/login")
-      } catch (error) {
-        console.log("CreatePosts.js" + error)
-      }
-    }
-
-    Authorization()
-  }, [history])
+  console.log(props)
+  /* global state */
+  const appState = useContext(StateContext)
 
   function swalLoad() {
     swal({ text: "New Post", icon: "success", buttons: false, timer: 1500 })
   }
 
-  async function handleCreatePost(event) {
-    event.preventDefault()
+  async function handleCreatePost(values) {
+    const createPost = values
 
-    const form = event.target
-    const createPost = { title: form[0].value, description: form[1].value }
-    console.log("createPost: " + JSON.stringify(createPost))
+    /* file uploads with data from front end. */
+    console.log(values.file.name)
 
     try {
-      const token = localStorage.getItem("token")
-      const res = await fetch("https://ticket-app-serverside.herokuapp.com/posts/new", {
+      const res = await fetch("/posts/new", {
         method: "POST",
         headers: {
-          "x-access-token": token,
+          "x-access-token": appState.user.token,
           "Content-type": "application/json"
         },
         body: JSON.stringify(createPost)
       })
 
       const postResponse = await res.json()
-      console.log(postResponse)
 
-      history(`/posts/${postResponse._id}`, { state: { message: postResponse.message } })
+      console.log(postResponse)
 
       return swalLoad()
     } catch (error) {
@@ -66,34 +53,108 @@ export function CreatePost() {
     }
   }
 
-  // redirect to post created.
+  //  Validation
 
+  const schema = yup.object().shape({
+    category: yup.string(),
+    title: yup.string().required("Please set a title!"),
+    description: yup.string().required("Please set a description!"),
+    file: yup.mixed()
+  })
+
+  const dropDownArray = ["General", "Engineer", "Product", "Support"]
+
+  console.log(location)
+
+  let createPostOption = localStorage.getItem("handleOptions")
+
+  if (createPostOption == "Dashboard") {
+    createPostOption = "General"
+  }
+
+  const dropDown = dropDownArray.filter(item => item != createPostOption)
+
+  console.log(dropDown)
   return (
     <>
       <Navbar />
-      <h1 className="title">Create Post</h1>
-      <div className="row">
-        <div className="col-sm-4 col-sm-offset-4">
-          <div class="input-form">
-            <form onSubmit={event => handleCreatePost(event)}>
-              <legend>New Post</legend>
-              <div className="form-group">
-                <label for="post-title">Title</label>
-                <input required maxlength="50" type="text" name="title" className="form-control" id="post-title" placeholder="Title" />
-              </div>
-              <div className="form-group">
-                <label for="post-description">Summary</label>
-                <textarea required name="description" className="form-control" id="post-description" placeholder="description"></textarea>
-              </div>
-              <div className="text-right">
-                <button type="submit" className="btn btn-primary">
-                  Create Post
-                </button>
-              </div>
-            </form>
+      <Page title="create post">
+        <div id="bootstrap-overrides">
+          <div className="create-post--center">
+            <Formik
+              validationSchema={schema}
+              onSubmit={handleCreatePost}
+              validateOnBlur={false}
+              validateOnChange={false}
+              initialValues={{
+                category: createPostOption,
+                title: "",
+                description: "",
+                file: null
+              }}
+            >
+              {({ handleSubmit, handleChange, values, touched, errors, setFieldValue }) => (
+                <Form onSubmit={handleSubmit} encType="multipart/form-data">
+                  {console.log(values)}
+                  <div className="dropdown-formgroup">
+                    <h1>Ask question in </h1>
+                    {/* Drop down select */}
+                    <Form.Group>
+                      <Form.Select className="select-form" aria-label="Default select example" value={values.category} onChange={handleChange} name="category">
+                        <option> {createPostOption}</option>
+                        {dropDown.map(item => (
+                          <option key={item} label={`${item}`} value={`${item}`} onChange={handleChange}>
+                            {item}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                  </div>
+
+                  <Form.Group className="mb-3 ">
+                    {console.log(dropDownArray)}
+                    <Form.Label>Title</Form.Label>
+                    {/* Title */}
+                    <Form.Control control="input" size="lg" type="text" name="title" placeholder="Post Title" value={values.title} onChange={handleChange} isValid={touched.lastName && !errors.lastName} isInvalid={!!errors.title} />
+
+                    <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
+                  </Form.Group>
+                  {/* Description */}
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control as="textarea" name="description" rows={6} placeholder="description" value={values.description} onChange={handleChange} isValid={touched.lastName && !errors.lastName} isInvalid={!!errors.description} />
+                    <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
+                  </Form.Group>
+
+                  {/* File upload */}
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>File Upload</Form.Label>
+                    <input
+                      id="file"
+                      name="file"
+                      type="file"
+                      onChange={event => {
+                        const fileReader = new FileReader()
+                        fileReader.onload = () => {
+                          if (fileReader.readyState === 2) {
+                            setFieldValue("file", fileReader.result)
+                          }
+                        }
+                        fileReader.readAsDataURL(event.target.files[0])
+                      }}
+                      className="form-control"
+                    />
+                    {/* Thumbnail for files */}
+                    {/* <Thumb file={values.file} /> */}
+                  </Form.Group>
+
+                  <Button type="submit">Sumbit</Button>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
-      </div>
+      </Page>
     </>
   )
 }

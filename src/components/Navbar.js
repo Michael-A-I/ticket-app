@@ -1,15 +1,20 @@
 import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect, useContext } from "react"
 /* user context */
-import { UserContext } from "../context/UserContext"
+import DispatchContext from "../context/DispatchContext"
+import StateContext from "../context/StateContext"
 
 import "./css/Navbar.css"
 
-import { Dropdown } from "react-bootstrap"
+import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap"
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle"
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu"
 import DropdownItem from "react-bootstrap/esm/DropdownItem"
-export function Navbar() {
+function Navbar() {
+  /* user context  changed through navbar */
+  const appDispatch = useContext(DispatchContext)
+  const appState = useContext(StateContext)
+
   const history = useNavigate()
   const [click, setClick] = useState(false)
   const [search, setSearch] = useState("")
@@ -22,24 +27,30 @@ export function Navbar() {
     setClick(false)
   }
 
-  /* user context  changed through navbar */
-  const { user, setUser } = useContext(UserContext)
-
-  console.log(user)
+  console.log(appState)
   async function logout() {
     localStorage.removeItem("token")
+    localStorage.removeItem("username")
+    localStorage.removeItem("avatar")
+    localStorage.removeItem("id")
+
+    appDispatch({ type: "logout" })
 
     await history("/login")
   }
 
-  useEffect(() => {
-    fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
-      headers: {
-        "x-access-token": localStorage.getItem("token")
-      }
-    })
-      .then(res => res.json())
-      .then(data => (data.isLoggedIn ? setUser(data.user) : null))
+  useEffect(async () => {
+    // try {
+    // const res = await fetch("/isUserAuth", {
+    //     headers: {
+    //       "x-access-token": localStorage.getItem("token")
+    //     }
+    //   })
+    //   const user = await res.json()
+    // } catch (error) {
+    // }
+    //   .then(res => res.json())
+    //   .then(data => (data.isLoggedIn ? appDispatch(data.user) : null))
   }, [])
 
   //expose user object for use in the nav.
@@ -65,94 +76,146 @@ export function Navbar() {
 
     // go thorugh posts and find post related to words
   }
+  const handleDropDown = e => {
+    // e.preventDefault()
+    console.log(e.target.innerText)
 
+    localStorage.setItem("dropDown", e.target.innerText)
+  }
   return (
-    <div>
+    <div id="bootstrap-overrides">
       <nav className="navbar">
-        <div className="navbar-container hide">
-          <Link onClick={closeClick} to="/" className="navbar-logo hide">
-            {/* <i className="fa-solid fa-ban-bug hide"></i> */}
-            <i class="fa-solid fa-bug-slash hide"></i>
-          </Link>
-
-          <div className="menu-icon hide" onClick={handleClick}>
+        <div className="navbar-container ">
+          {/* Navbar Logo */}
+          <div className="navbar-logo-container ">
+            <Link style={{ textDecoration: "none" }} to="/dashboard">
+              <i class="fa-solid fa-bug-slash " style={{ color: "white" }}></i>
+              <h3 className="navbar-logo-title">Chatter</h3>
+            </Link>
+          </div>
+          <div className="menu-icon" onClick={handleClick}>
             {/* <i id="bars" className={click ? "fas fa-times fa-spin" : "fas fa-bars "}></i> */}
             <div className={click ? "ham-top ham-rotate-down" : "ham-top"}></div>
             <div className={click ? "ham-middle ham-fade" : "ham-middle"}></div>
             <div className={click ? "ham-bottom ham-rotate-up" : "ham-bottom"}></div>
           </div>
+          {/* Navbar Links */}
+          {/* search for posts : links about site */}
+          {/* TODO: style search and dropdowns */}
 
-          {user ? (
+          {appState.loggedIn ? (
+            <>
+              <div className="nav-search">
+                <InputGroup size="sm" className="mb-1 nav-search-box">
+                  <FormControl placeholder="Search" aria-label="Search" />
+                </InputGroup>
+
+                <div className="nav-search-buttons">
+                  <Dropdown onClick={e => handleDropDown(e)} className="nav-search-buttons-item">
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      {localStorage.getItem("dropDown") || "General"}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="/general">General</Dropdown.Item>
+                      <Dropdown.Item href="/engineer">Engineering</Dropdown.Item>
+                      <Dropdown.Item href="/product">Product Q&A</Dropdown.Item>
+                      <Dropdown.Item href="/support">Support Q&A</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Link to="/comingsoon" className="nav-search-buttons-item nav-search-buttons-item--small">
+                    <i class="fa-solid fa-trophy"></i>
+                  </Link>
+                  <Link to="/comingsoon" className="nav-search-buttons-item nav-search-buttons-item--small">
+                    <i class="fa-solid fa-person"></i>
+                  </Link>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div>
+              <ul className="navbar-menu-center">
+                <li className="nav-item-center">
+                  <Link className="nav-links" to="/comingsoon">
+                    About
+                  </Link>
+                </li>
+                <li className="nav-item-center">
+                  <Link className="nav-links" to="/comingsoon">
+                    Support
+                  </Link>
+                </li>
+                <li className="nav-item-center">
+                  <Link className="nav-links" to="/comingsoon">
+                    Careers
+                  </Link>
+                </li>
+                <li className="nav-item-center">
+                  <Link className="nav-links" to="/comingsoon">
+                    Blog
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
+          {/* Authentication Links */}
+          {appState.loggedIn ? (
             <ul className={click ? "nav-menu active" : "nav-menu"}>
-              <li className="nav-item hide">
-                <Link className="nav-links" onClick={handleClick} to={"/u/" + user.id}>
+              <li className="nav-profile">
+                <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/profile">
                   Profile
                 </Link>
               </li>
-              <li onClick={handleClick} className="nav-item hide">
-                <Link className="nav-links" to="/posts/new">
-                  Create Post
-                </Link>
-              </li>
-              <li onClick={handleClick} className="nav-item hide">
-                <Link className="nav-links" to="/dashboard">
-                  Dashboard
+              <li>
+                <Link className="nav-search-buttons-item nav-search-buttons-item--primary hide-big" to="/post/new">
+                  Create Posts
                 </Link>
               </li>
               <li>
-                <Dropdown>
+                <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
+                  View Posts
+                </Link>
+              </li>
+              <li>
+                <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
+                  Search
+                </Link>
+              </li>
+              <li>
+                <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
+                  Create Posts
+                </Link>
+              </li>
+              <li>
+                <Button onClick={logout} className="btn-warning nav-search-buttons-item hide-big">
+                  Logout
+                </Button>
+              </li>
+              <li>
+                <Dropdown id="hide-small">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    {user.username}
+                    {appState.user.username}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-3">Settings</Dropdown.Item>
-                    <Dropdown.Item href={`/u/${user.id}/notifications`}>Notifications</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Subscriptions</Dropdown.Item>
+                    <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+                    <Dropdown.Item href={`#/u/${appState.user.id}/notifications`}>Subscription</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Contact Me</Dropdown.Item>
                     <Dropdown.Item onClick={logout}>logout</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </li>
-              {/* Search for posts */}
-              <li className="search search-hide">
-                <input value={search} onChange={event => searcher(event)} className="search search-hide" type="text" name="search" />
-                <button className="search-hide" for="Search">
-                  Search
-                </button>
-                {/* TODO: showing as display none */}
-                <div className="searchDropDown">
-                  {dropdown.length !== 0 ? (
-                    <div id="dropdown" className="dropdown-menu" style={{ display: "content" }}>
-                      {dropdown.map(item => (
-                        <div>
-                          <Link class="dropdown-item" to={`/posts/${item._id}`}>
-                            {item.title}
-                          </Link>
-
-                          <br></br>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </li>
-
-              <li>
-                <i class="fa-solid fa-bell"></i>
-              </li>
             </ul>
           ) : (
-            <div>
-              <ul className={click ? "nav-menu active" : "nav-menu"}>
-                <li onClick={handleClick} className="nav-item hide">
-                  <Link className="nav-links" to="/login">
+            <div className="authentication-right">
+              <ul className="nav-menu-authentication">
+                <li onClick={handleClick} className="nav-item-authentication">
+                  <Link className="nav-links-authentication" to="/login">
                     Login
                   </Link>
                 </li>
-                <li onClick={handleClick} className="nav-item hide">
-                  <Link className="nav-links" to="/register">
+                <li onClick={handleClick} className="nav-item-authentication">
+                  <Link className="nav-links-authentication" to="/register">
                     Register
                   </Link>
                 </li>
@@ -164,3 +227,6 @@ export function Navbar() {
     </div>
   )
 }
+
+export default Navbar
+// TODO: fix profile as it get smaller

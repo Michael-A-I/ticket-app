@@ -3,12 +3,10 @@ import Navbar from "./Navbar"
 import Page from "./Page"
 import "./css/Home.css"
 import Feed from "./ui/Feed"
-import { useNavigate } from "react-router"
-
 /* Context */
 import StateContext from "../context/StateContext"
-
-function Dashboard() {
+import { useNavigate } from "react-router"
+function Product() {
   const appState = useContext(StateContext)
   const token = appState.user.token
 
@@ -32,7 +30,7 @@ function Dashboard() {
   async function getPosts() {
     try {
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch("/posts/index", {
+      const res = await fetch("/posts/product", {
         headers: {
           "x-access-token": token
         }
@@ -69,11 +67,11 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-      <Page title="Dashboard">
-        <Feed title="Dashboard" posts={posts} handleDelete={handleDelete} />
+      <Page title="Product">
+        <Feed title="Product" posts={posts} handleDelete={handleDelete} />
       </Page>
     </>
   )
 }
 
-export default Dashboard
+export default Product

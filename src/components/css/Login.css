@@ -1,15 +1,28 @@
-#inputGroup-sizing-default {
-  min-width: 100px;
-  text-align: left;
+.center-page {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 
-input {
-  min-width: 200px;
-  max-width: 400px;
+.card-center-title {
+  color: #fff;
+  text-align: center;
 }
 
-.input-form {
-  padding: 10px;
-  padding-top: 30px;
-  margin: 0px;
+.card-sub-title {
+  color: #adaeb2;
+  text-align: center;
+}
+
+.form-group-styles {
+  color: #adaeb2;
+}
+
+.link-style {
+  text-decoration: none;
+}
+
+.toast-display-center {
+  display: flex;
+  justify-content: center;
 }

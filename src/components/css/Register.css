@@ -1,15 +1,15 @@
-#inputGroup-sizing-default {
-  min-width: 100px;
-  text-align: left;
+.form-group-styles {
+  color: #adaeb2;
+}
+.link-style {
+  text-decoration: none;
 }
 
-input {
-  min-width: 200px;
-  max-width: 400px;
+.form-footer {
+  margin-top: 5px;
 }
 
-.input-form {
-  padding: 10px;
-  padding-top: 30px;
-  margin: 0px;
+.toast-display-center {
+  display: flex;
+  justify-content: center;
 }

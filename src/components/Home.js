@@ -1,41 +1,54 @@
-import { React, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { Navbar } from "./Navbar"
+import React, { useContext } from "react"
+import { Button, Card, Jumbotron, Row } from "react-bootstrap"
 
-export function Home() {
-  const history = useNavigate()
-  // if user is logged in render home.
-  // if user is logged out render login.
+/* Components */
+import Navbar from "./Navbar"
+import Page from "./Page"
+import "./css/Home.css"
+import Feed from "./ui/Feed"
+import { Link } from "react-router-dom"
 
-  // Is user logged in
-  useEffect(() => {
-    async function Authorization() {
-      try {
-        const token = localStorage.getItem("token")
-        const res = await fetch("https://ticket-app-serverside.herokuapp.com/isUserAuth", {
-          headers: {
-            "x-access-token": token
-          }
-        })
-        const data = await res.json()
-        console.log(data.isLoggedIn)
-        console.log("Is person logged in? = " + JSON.stringify(data))
+/* Styles */
+import "./css/Home.css"
 
-        return data.isLoggedIn ? null : history("/login")
-      } catch (error) {
-        console.log("islogged in?:" + error)
-      }
-    }
+/* Context */
+import StateContext from "../context/StateContext"
 
-    Authorization()
-  }, [history])
+function Home() {
+  const appState = useContext(StateContext)
 
   return (
     <>
+      <div className="home-background"></div>
       <Navbar />
-      <h1>Home</h1>
+      <Page title="Home">
+        <div id="override-bootstrap" className="home-container">
+          <div className="jumbotron">
+            <Row>
+              <h1>IMAGINE A PLACE...</h1>
+            </Row>
+            <Row>
+              <p>Where you can collaborate with you fellow engineers regarding a product and get answers fast!</p>
+            </Row>
+            <Row>
+              {appState.loggedIn ? (
+                <Link className="jumbotron-button" to="/general">
+                  Go to Dashboard
+                </Link>
+              ) : (
+                <Link className="jumbotron-button" to="/login">
+                  Login
+                </Link>
+              )}
+              <Link className="jumbotron-button" to="/comingsoon">
+                Download for `OS`
+              </Link>
+            </Row>
+          </div>
+        </div>
+      </Page>
     </>
   )
 }
 
-// Create a Case
+export default Home

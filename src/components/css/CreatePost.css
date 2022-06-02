@@ -11,3 +11,25 @@ legend {
 .btn {
   margin: 10px;
 }
+
+#bootstrap-overrides .create-post--center {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+#bootstrap-overrides .select-form {
+  display: inline;
+  width: auto;
+  margin-left: 10px;
+  font-size: 14px;
+  /* border: 10px solid black; */
+}
+
+#bootstrap-overrides .dropdown-formgroup {
+  display: flex;
+  align-items: center;
+  width: auto;
+}

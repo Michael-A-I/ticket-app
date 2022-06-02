@@ -1,8 +1,8 @@
-.navbar {
-  background: black;
+#bootstrap-overrides .navbar {
+  background: #404eed;
   height: 80px;
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
   font-size: 1.2rem;
   position: sticky;
@@ -20,41 +20,78 @@
 .navbar-container {
   display: flex;
   justify-content: center;
+  flex-direction: row;
   align-items: center;
+  width: 80%;
   height: 80px;
 }
 
-.navbar-logo {
+.navbar-logo-container {
   color: #fff;
-  justify-self: start;
-  /* margin-top: 10px; */
-  margin-bottom: 15px;
   margin-left: 10%;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 2rem;
+  flex-direction: row;
   display: flex;
-  align-items: center;
+  margin-right: auto;
+  column-gap: 10px;
 }
-
+#bootstrap-overrides .navbar-logo-title {
+  display: inline;
+  color: #fff;
+  margin-left: 5px;
+}
 .fa-typo3 {
   margin-left: 0.5rem;
   font-size: 1.8rem;
 }
+/* Authintication Nav Menu */
 
-.nav-menu {
+.authentication-right {
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.nav-menu-authentication {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(2, auto);
   grid-gap: 10px;
   list-style: none;
   text-align: center;
-  width: 100vw;
-
+  /* width: 85vw; */
   align-items: center;
-  justify-content: left;
+  justify-content: right;
+  /* margin-right: 50px; */
 }
 
-.nav-item {
+.nav-links-authentication {
+  background-color: #fff;
+  border-radius: 18px;
+  color: 404EED;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 50%;
+  /* margin-right: 6px; */
+}
+
+.nav-item-authentication {
+  /* center text in grid horizontally and vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center Styles */
+.navbar-menu-center {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.5rem, 1rem, 2rem);
+}
+.nav-item-center {
   /* center text in grid horizontally and vertically */
   display: flex;
   align-items: center;
@@ -68,12 +105,14 @@
 }
 
 .nav-links {
-  color: #fff;
+  /* background-color: #fff; */
+  border-radius: 18px;
+  color: white;
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0.5rem 1rem;
-  height: 100%;
+  height: 50%;
 }
 
 .nav-links:active {
@@ -84,6 +123,7 @@
   padding: 0.5rem 1rem;
   height: 100%;
 }
+
 .nav-links:hover {
   border-bottom: 4px solid #302b2b;
   transition: all 0.2s ease-out;
@@ -151,6 +191,68 @@ dropdown-item {
   transform: translate(0px, -11px) rotate(-45deg);
 }
 
+.nav-profile {
+  /* list-style-type: none; */
+}
+.nav-search {
+  display: flex;
+  margin-right: auto;
+  /* width: auto;
+  height: auto; */
+  justify-content: center;
+  align-items: center;
+}
+.nav-search-box {
+  display: flex;
+
+  height: 50px;
+}
+.nav-search-buttons {
+  display: flex;
+  margin-left: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-search-buttons-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  /* background-color: #fff; */
+}
+
+.nav-search-buttons-item--small {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+
+  width: 40px;
+  height: 40px;
+  color: white;
+  transition: all 0.1s ease;
+}
+.nav-search-buttons-item--small:hover {
+  border: 3px solid white;
+  /* border-right: 3px solid white; */
+
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.nav-menu {
+  display: flex;
+  margin-right: 15%;
+  list-style-type: none;
+  margin: auto;
+}
+
+#bootstrap-overrides .hide-big {
+  display: none;
+}
+/* TODO: Add styling for medium sized screens */
+@media screen and (max-width: 1300px) {
+}
 @media screen and (max-width: 975px) {
   .NavbarItems {
     position: relative;
@@ -160,8 +262,14 @@ dropdown-item {
     visibility: hidden;
     display: none;
   }
+  #bootstrap-overrides .hide-big {
+    display: block;
+  }
+  #hide-small {
+    display: none;
+  }
   .nav-menu {
-    padding-top: 200px;
+    padding: 80px 0px 0px 0px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -171,13 +279,33 @@ dropdown-item {
     left: -100%;
     opacity: 1;
     transition: all 0.5s ease;
-    /* padding: 0; */
     margin-right: 0;
+    align-items: center;
+  }
+
+  /* hide serach bar and attached buttons */
+  .nav-search {
+    /* remove elements and spacing do not use visiblity:none */
+    display: none;
+  }
+
+  .nav-search-buttons-item {
+    width: 150px;
+    height: 50px;
+  }
+
+  #bootstrap-overrides .nav-search-buttons-item--primary {
+    background-color: #404eed;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
   }
 
   .nav-menu.active {
-    padding-top: 200px;
-
+    padding: 80px 0px 0px 0px;
     background: #242222;
     left: 0;
     opacity: 1;

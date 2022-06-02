@@ -1,0 +1,74 @@
+#bootstrap-overrides .feed-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+#bootstrap-overrides .feed-button-item {
+  width: 120px;
+  height: 50px;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 0.75rem;
+  background-color: #fff;
+  color: black;
+  box-shadow: 0px 0px 0px 0px;
+}
+
+#bootstrap-overrides .feed-button-item:hover {
+  width: 120px;
+  height: 50px;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 0.75rem;
+  background-color: #404eed;
+  color: white;
+  border-color: white;
+  /* border: 1px solid ; */
+}
+
+#bootstrap-overrides .feed-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#bootstrap-overrides .feed-title {
+  width: 200px;
+}
+
+#bootstrap-overrides .feed-create-button-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 5px;
+  width: 225px;
+  height: 75px;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  background-color: #404eed;
+  color: #fff;
+  box-shadow: 0px 0px 0px 0px;
+  transition: all 0.5s;
+}
+#bootstrap-overrides .feed-create-button-item:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 5px;
+  width: 225px;
+  height: 75px;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  background-color: #fff;
+  color: #404eed;
+  border: 1px solid #404eed;
+
+  box-shadow: 0px 0px 0px 0px;
+}
+
+/* TODO: font size should be dynamic with clamp */
