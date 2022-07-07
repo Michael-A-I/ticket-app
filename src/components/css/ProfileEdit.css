@@ -1,0 +1,8 @@
+.profile-edit-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-edit-button {
+  width: 150px;
+}

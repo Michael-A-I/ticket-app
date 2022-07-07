@@ -9,9 +9,32 @@ import { Button, Card, Container, Form, Row, Toast } from "react-bootstrap"
 // import FlashMessage from "./react-flash-message"
 /* context */
 import StateContext from "../context/StateContext"
+import UserFeed from "./UserFeed"
 function Profile() {
   const navigate = useNavigate()
   const appState = useContext(StateContext)
+
+  const [user, setUser] = useState([])
+
+  const token = appState.user.token
+
+  useEffect(() => {
+    getUser()
+  }, [])
+
+  const getUser = async () => {
+    const response = await fetch("/profile", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token
+      }
+    })
+
+    const user = await response.json()
+
+    setUser(user)
+  }
 
   return (
     <>
@@ -21,21 +44,29 @@ function Profile() {
         <h1>Profile</h1>
         <Container>
           <Row>
-            {/* TODO: Style */}
-            {/* Avatar */}
-            <h1>{appState.user.avatar}</h1>
-            {/* Username */}
-            <h1>Username: {appState.user.username}</h1>
-            {/* User Email */}
-            <h1>Email: {appState.user.email}</h1>
-            {/* Join Data */}
-            <h1>Joined on {appState.user.createdAt}</h1>
-            {/* Status */}
+            {/* Profile Card */}
+            <Card>
+              <Row>{localStorage.getItem("avatar") != "null" ? <img src={`${appState.user.avatar}`} className="thumbnail" height={50} width={50} style={{ paddingTop: "10px" }} /> : <img src={"/default-profile-pic-e1513291410505.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
 
-            <Link to="/profile/edit">Edit Profile</Link>
+              <Card.Body>
+                <Card.Title>Username: {appState.user.username}</Card.Title>
+                <Card.Text>Email: {appState.user.email}</Card.Text>
+                <Card.Text>Joined on {appState.user.createdAt}</Card.Text>
+
+                <Card.Text>Job Title: {user.title}</Card.Text>
+                <Card.Text>Bio: {user.bio}</Card.Text>
+
+                {console.log(user.title)}
+                {console.log(user.bio)}
+
+                <Link to="/profile/edit">Edit Profile</Link>
+              </Card.Body>
+            </Card>
           </Row>
 
-          <Row>TODO: Feed of user activity TODO: Follows, Followers</Row>
+          <Row>
+            <UserFeed />
+          </Row>
         </Container>
       </Page>
       {/* initial state show nothing */}

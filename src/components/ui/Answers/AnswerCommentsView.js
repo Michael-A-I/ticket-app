@@ -15,7 +15,16 @@ function AnswerCommentsView(props) {
   const [commentId, setCommentID] = useState(null)
   const [edit, setEdit] = useState([])
 
-  const editMouseOver = (event, key) => {
+  const editMouseOver = (event, key, user) => {
+    console.log("editMouseOver")
+    console.log(user)
+    console.log(appState.user.id)
+
+    /* only allow user the created comment to edit */
+    if (user != appState.user.id) {
+      return
+    }
+
     console.log("mouse over")
 
     const selectedIndex = event.target.getAttribute("keyvalue")
@@ -60,7 +69,7 @@ function AnswerCommentsView(props) {
           "x-access-token": token
         }
       })
-
+      console.log("refresh view")
       //! refresh answers after delete
       props.getAnswerComments()
     } catch (error) {
@@ -107,32 +116,39 @@ function AnswerCommentsView(props) {
 
   return (
     <>
-      <pre>{JSON.stringify(props.comments)}</pre>
       {console.log("Post Answer from Answer Comoments View:" + props.comments.text)}
 
       {props.comments.map((comment, index) => (
         <Row>
-          {console.log("edit after click JSX " + edit)}
+          {console.log(comment.user)}
           {commentId == comment._id || edit.includes(comment._id) ? (
             edit.includes(comment._id) ? (
               <>
                 <p> {comment.name}</p>
                 <Form onSubmit={e => updateComment(e, comment._id) & afterUpdate(comment._id)}>
                   <Form.Control type="text" placeholder={`${comment.text}`} />
+                  {comment.user && comment.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} />}
 
-                  <Button type="submit">Save</Button>
+                  <Button variant="primary" type="submit">
+                    Save
+                  </Button>
 
-                  <Button onClick={() => cancelEdit(comment._id)}>Cancel</Button>
-                  <Button onClick={() => deleteComment(comment._id)}>Delete</Button>
+                  <Button variant="warning" onClick={() => cancelEdit(comment._id)}>
+                    Cancel
+                  </Button>
+                  <Button variant="danger" onClick={() => deleteComment(comment._id)}>
+                    Delete
+                  </Button>
                 </Form>
                 <p> {handleDate(comment.updatedAt)}</p>
               </>
             ) : (
               <>
                 <p> {comment.name}</p>
+                {comment.user && comment.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} />}
 
-                <p key={comment._id} keyvalue={comment._id} onMouseLeave={editMouseLeave} onClick={() => editOnClick(comment._id)}>
-                  {comment.text} changed
+                <p className="comments-style" key={comment._id} keyvalue={comment._id} onMouseLeave={editMouseLeave} onClick={() => editOnClick(comment._id)}>
+                  {comment.text}
                 </p>
 
                 <p> {handleDate(comment.updatedAt)}</p>
@@ -141,7 +157,9 @@ function AnswerCommentsView(props) {
           ) : (
             <>
               <p> {comment.name}</p>
-              <p className="comments-style" key={comment._id} keyvalue={comment._id} onMouseOver={e => editMouseOver(e, comment._id)}>
+              {comment.user && comment.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} />}
+
+              <p key={comment._id} keyvalue={comment._id} onMouseOver={e => editMouseOver(e, comment._id, comment.user._id)}>
                 {comment.text}
               </p>
               <p> {handleDate(comment.updatedAt)}</p>

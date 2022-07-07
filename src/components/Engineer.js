@@ -69,7 +69,7 @@ function Engineer() {
     <>
       <Navbar />
       <Page title="Engineering">
-        <Feed title="Engineer" posts={posts} handleDelete={handleDelete} />
+        <Feed title="Engineer" setPosts={setPosts} posts={posts} handleDelete={handleDelete} />
       </Page>
     </>
   )

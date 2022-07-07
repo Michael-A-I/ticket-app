@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 /* display a thumb picture of uploaded pic */
 function Thumb(props) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [thumb, setThumb] = useState("")
 
   const fileSetup = () => {
@@ -10,14 +10,16 @@ function Thumb(props) {
       return
     }
     console.log("fileSetup:" + props.file)
-    setLoading(true)
+    //! setLoading(true) - ERROR too many react re renders
     let reader = new FileReader()
-    reader.onload = () => {
+
+    reader.onloadend = () => {
       setLoading(false)
       setThumb(reader.result)
     }
     reader.readAsDataURL(props.file)
   }
+
   fileSetup()
 
   /* views */
@@ -29,7 +31,7 @@ function Thumb(props) {
     return <p>loading...</p>
   }
 
-  return <img src={thumb} alt={props.file.name} className="img-thumbnail mt-2" height={200} width={200} />
+  return <img src={thumb} className="img-thumbnail mt-2" height={200} width={200} />
 }
 
 export default Thumb

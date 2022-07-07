@@ -57,7 +57,9 @@ function Login() {
         },
         body: JSON.stringify(user)
       })
+
       const data = await res.json()
+
       if (data.message == "Success") {
         /* 
           set local storage
@@ -66,7 +68,7 @@ function Login() {
         const date = new Date(handleTimestamp(data.created)).toDateString()
         localStorage.setItem("token", data.token)
         localStorage.setItem("username", data.user)
-        localStorage.setItem("avatar", null)
+        localStorage.setItem("avatar", data.avatar)
         localStorage.setItem("id", data.id)
         /* # */
         localStorage.setItem("email", data.email)

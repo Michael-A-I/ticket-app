@@ -1,10 +1,28 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Button, Card, Container, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router"
 import "./css/Feed.css"
+import StateContext from "../../context/StateContext"
+
 function Feed(props) {
   /* fetch posts */
+  const history = useNavigate()
 
+  useEffect(() => {
+    setPostsCopy(props.posts)
+    allPostsCounter()
+    unansweredPostsCounter()
+    myQuestions()
+  }, [props.posts])
+
+  const appState = useContext(StateContext)
+  const [allCounter, setCounter] = useState(0)
+  const [unasnswerdCounter, setUnansweredCounter] = useState(0)
+  const [myQuestionsCounter, setMyQuestions] = useState(0)
+
+  const [postsCopy, setPostsCopy] = useState([])
+  console.log(postsCopy)
   /* set options menu default on creat post */
   const handleOptions = title => {
     // e.preventDefault()
@@ -12,6 +30,46 @@ function Feed(props) {
 
     localStorage.setItem("handleOptions", title)
   }
+
+  const allPostsCounter = () => {
+    //  number of all posts
+
+    setCounter(props.posts.length)
+  }
+
+  const unansweredPostsCounter = () => {
+    //  number of all posts
+    const res = props.posts.filter(post => post.answers.length <= 0)
+
+    setUnansweredCounter(res.length)
+  }
+
+  const myQuestions = () => {
+    //  number of all posts
+    const res = props.posts.filter(post => post.name == appState.user.username)
+
+    setMyQuestions(res.length)
+  }
+
+  const postFilter = filter => {
+    if (filter == "All") {
+      console.log("All")
+      setPostsCopy(props.posts)
+    }
+
+    if (filter == "Unanswered") {
+      console.log("Unanswered")
+      const res = props.posts.filter(post => post.answers.length <= 0)
+      setPostsCopy(res)
+    }
+
+    if (filter == "MyQuestions") {
+      console.log("MyQuestions")
+      const res = props.posts.filter(post => post.name == appState.user.username)
+      setPostsCopy(res)
+    }
+  }
+
   return (
     <>
       <Container id="bootstrap-overrides">
@@ -23,12 +81,18 @@ function Feed(props) {
         </Row>
         <Row>This is a general forum for Chatter employees. Feel free to raise here any questions related to admins, processes, non-product specific topics etc.</Row>
         <Row className="feed-buttons">
-          <Button className="feed-button-item">All(25)</Button>
-          <Button className="feed-button-item">Unaswered(4)</Button>
-          <Button className="feed-button-item">My Questions(2)</Button>
+          <Button className="feed-button-item" onClick={() => postFilter("All")}>
+            All({allCounter})
+          </Button>
+          <Button className="feed-button-item" onClick={() => postFilter("Unanswered")}>
+            Unaswered({unasnswerdCounter})
+          </Button>
+          <Button className="feed-button-item" onClick={() => postFilter("MyQuestions")}>
+            My Questions({myQuestionsCounter})
+          </Button>
         </Row>
 
-        {props.posts.map(post => (
+        {postsCopy.map(post => (
           <Row>
             <Card>
               <Card.Body>
@@ -36,7 +100,7 @@ function Feed(props) {
                   <h1>{post.title}</h1>
                 </Card.Title>
                 <Card.Text>{post.description}</Card.Text>
-                {post._id}
+
                 <Link to={`/posts/${post._id}`}>
                   <button className="btn btn-primary btn-sm">Go to post</button>
                 </Link>

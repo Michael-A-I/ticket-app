@@ -21,8 +21,13 @@ function PostComments(props) {
 
   /* Logic for comments UI */
 
-  const editMouseOver = (event, key) => {
+  const editMouseOver = (event, key, user) => {
     console.log("mouse over")
+
+    /* only allow user the created comment to edit */
+    if (user != appState.user.id) {
+      return
+    }
 
     const selectedIndex = event.target.getAttribute("keyvalue")
 
@@ -112,7 +117,7 @@ function PostComments(props) {
 
   return (
     <>
-      {/* <pre>{JSON.stringify(props.comments)}</pre> */}
+      {/* <pre>{JSON.stringify(props.comments[0].user.image)}</pre> */}
       {props.comments.map((comment, index) => (
         <Row>
           {console.log("edit after click JSX " + edit)}
@@ -120,14 +125,22 @@ function PostComments(props) {
             edit.includes(comment._id) ? (
               <>
                 <p> {comment.name}</p>
+                {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} />}
+
                 {/*! run function after fetch */}
                 <Form onSubmit={e => updateComment(e, comment._id) & afterUpdate(comment._id)}>
-                  <Form.Control type="text" placeholder={`${comment.text}`} />
+                  <Form.Control required type="text" placeholder={`${comment.text}`} />
 
-                  <Button type="submit">Save</Button>
+                  <Button variant="primary" type="submit">
+                    Save
+                  </Button>
 
-                  <Button onClick={() => cancelEdit(comment._id)}>Cancel</Button>
-                  <Button onClick={() => deleteComment(comment._id)}>Delete</Button>
+                  <Button variant="warning" onClick={() => cancelEdit(comment._id)}>
+                    Cancel
+                  </Button>
+                  <Button variant="danger" onClick={() => deleteComment(comment._id)}>
+                    Delete
+                  </Button>
                 </Form>
                 <p> {handleDate(comment.updatedAt)}</p>
               </>
@@ -135,9 +148,12 @@ function PostComments(props) {
               <>
                 <p> {comment.name}</p>
 
-                <p key={comment._id} keyvalue={comment._id} onMouseLeave={editMouseLeave} onClick={() => editOnClick(comment._id)}>
-                  {comment.text} changed
+                {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} />}
+
+                <p className="comments-style" key={comment._id} keyvalue={comment._id} onMouseLeave={editMouseLeave} onClick={() => editOnClick(comment._id)}>
+                  {comment.text}
                 </p>
+                <i class="fa-solid fa-pen"></i>
 
                 <p> {handleDate(comment.updatedAt)}</p>
               </>
@@ -145,9 +161,12 @@ function PostComments(props) {
           ) : (
             <>
               <p> {comment.name}</p>
-              <p className="comments-style" key={comment._id} keyvalue={comment._id} onMouseOver={e => editMouseOver(e, comment._id)}>
+              {/* image */}
+              {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} />}
+              <p key={comment._id} keyvalue={comment._id} onMouseOver={e => editMouseOver(e, comment._id, comment.user._id)}>
                 {comment.text}
               </p>
+
               <p> {handleDate(comment.updatedAt)}</p>
             </>
           )}

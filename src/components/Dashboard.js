@@ -70,7 +70,7 @@ function Dashboard() {
     <>
       <Navbar />
       <Page title="Dashboard">
-        <Feed title="Dashboard" posts={posts} handleDelete={handleDelete} />
+        <Feed title="Dashboard" posts={posts} setPosts={setPosts} handleDelete={handleDelete} />
       </Page>
     </>
   )

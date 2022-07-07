@@ -16,9 +16,13 @@ function CreatePostCommnet(props) {
     event.preventDefault()
     console.log("handle submit")
     handlePostComment()
-    // const user = localStorage.getItem()
+    const user = localStorage.getItem("id")
+    const username = localStorage.getItem("username")
+
     const comment = event.target
+
     const createComment = { text: comment[0].value, post: id }
+
     console.log(createComment)
 
     try {
@@ -30,7 +34,8 @@ function CreatePostCommnet(props) {
         },
         body: JSON.stringify(createComment)
       })
-
+      console.log(props.comments)
+      // props.setComments(prev => [...prev, createComment])
       props.getComments()
     } catch (error) {
       return error

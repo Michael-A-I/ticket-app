@@ -8,6 +8,10 @@ import PostComments from "./PostView/PostComments"
 /* Context */
 import StateContext from "../../context/StateContext"
 import { useParams } from "react-router"
+
+/* Abstraction for API calls */
+import useApi from "../../hooks/useApi"
+
 function PostView(props) {
   /* state context */
   const appState = useContext(StateContext)
@@ -21,19 +25,15 @@ function PostView(props) {
   const { id } = useParams()
 
   useEffect(() => {
-    console.log("postview useEffect")
+    console.log("Check Follow")
     // hasUserLiked()
     // checkFollow()
   }, [])
 
   const editPost = () => {
-    console.log("editPost")
-
     setEdit(!edit)
   }
   const deletePost = async id => {
-    console.log("deletePost")
-
     try {
       console.log("PostsIndex.js token: " + token)
       await fetch(`/posts/${id}`, {
@@ -49,11 +49,11 @@ function PostView(props) {
   }
 
   const handleSubmit = async (event, id) => {
-    console.log("postView.js handleSubmit")
-
     event.preventDefault()
     const comment = event.target
     const updatePost = { title: comment[0].value, description: comment[1].value }
+
+    console.log("Update Post " + updatePost.text)
 
     try {
       console.log("PostsIndex.js token: " + token)
@@ -134,6 +134,7 @@ function PostView(props) {
     })
 
     const state = await res.json()
+    console.log("like" + state.message)
   }
 
   const handleUnLike = async () => {
@@ -150,6 +151,8 @@ function PostView(props) {
     })
 
     const state = await res.json()
+
+    console.log("unlike" + state.message)
   }
 
   const hasUserLiked = async () => {
@@ -174,17 +177,17 @@ function PostView(props) {
       {edit ? (
         <Card>
           <Card.Body>
-            {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>}
+            {following ? <Button onClick={() => handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>}
             <Card.Title>{props.post.title}</Card.Title>
             <Card.Text>{props.post.description}</Card.Text>
             {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
-            <Row>{props.post.file != undefined ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
+            <Row>{props.post.file ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
 
             {/* User */}
             <Row>
-              {props.post && props.post.user != undefined ? <p>{props.post.user.username}</p> : ""}
-
-              {props.post.user == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px" }} /> : <img src={props.post.user.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px" }} />}
+              {props.post.user != undefined ? <p>{props.post.user.username}</p> : ""}
+              {/* {console.log(props.post.user.image)} */}
+              {props.post.user != undefined ? <img src={props.post.user.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px" }} /> : ""}
             </Row>
             {/* Conditional to fix issue with props.post.user._id returning undefined */}
             {props.post.user && props.post.user._id == appState.user.id ? (
@@ -202,7 +205,8 @@ function PostView(props) {
             ) : (
               ""
             )}
-
+            {console.log(following)}
+            {/* {console.log(click)} */}
             {liked ? <i class="fa-solid fa-heart" onClick={handleUnLike} style={{ color: "red", background: "grey" }}></i> : <i class="fa-solid fa-heart" onClick={handleLike} style={{ color: "white", background: "grey" }}></i>}
           </Card.Body>
         </Card>
@@ -215,7 +219,7 @@ function PostView(props) {
               <Form.Control control="input" size="lg" type="text" placeholder={`${props.post.title}`} name="title" />
 
               <Form.Control type="text" placeholder={`${props.post.description}`} />
-              {props.post && props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
+              {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
               {/* {console.log(props.post.file)} */}
               {props.post.file ? <img src={props.post.file} className="img-thumbnail mt-2" height={200} width={200} /> : ""}
 

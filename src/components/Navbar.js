@@ -10,6 +10,7 @@ import { Button, Dropdown, FormControl, InputGroup } from "react-bootstrap"
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle"
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu"
 import DropdownItem from "react-bootstrap/esm/DropdownItem"
+import ListGroup from "react-bootstrap/ListGroup"
 function Navbar() {
   /* user context  changed through navbar */
   const appDispatch = useContext(DispatchContext)
@@ -60,11 +61,15 @@ function Navbar() {
     const inputValue = event.target.value
     setSearch(inputValue)
 
+    if (inputValue.length <= 0) {
+      return
+    }
     const token = localStorage.getItem("token")
 
     /* call to backend to perfrom search */
-    const searchedPosts = await fetch(`/search/${inputValue}`, {
+    const searchedPosts = await fetch(`/posts/search/${inputValue}`, {
       headers: {
+        method: "GET",
         "x-access-token": token
       }
     })
@@ -76,6 +81,7 @@ function Navbar() {
 
     // go thorugh posts and find post related to words
   }
+
   const handleDropDown = e => {
     // e.preventDefault()
     console.log(e.target.innerText)
@@ -106,9 +112,15 @@ function Navbar() {
           {appState.loggedIn ? (
             <>
               <div className="nav-search">
-                <InputGroup size="sm" className="mb-1 nav-search-box">
+                <InputGroup onChange={e => searcher(e)} size="sm" className="mb-1 nav-search-box">
                   <FormControl placeholder="Search" aria-label="Search" />
                 </InputGroup>
+                {/* Search View */}
+                <ListGroup>
+                  {dropdown.map(item => (
+                    <ListGroup.Item>{item.title}</ListGroup.Item>
+                  ))}
+                </ListGroup>
 
                 <div className="nav-search-buttons">
                   <Dropdown onClick={e => handleDropDown(e)} className="nav-search-buttons-item">
@@ -123,10 +135,10 @@ function Navbar() {
                       <Dropdown.Item href="/support">Support Q&A</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  <Link to="/comingsoon" className="nav-search-buttons-item nav-search-buttons-item--small">
-                    <i class="fa-solid fa-trophy"></i>
-                  </Link>
-                  <Link to="/comingsoon" className="nav-search-buttons-item nav-search-buttons-item--small">
+                  {/*  <Link to="/leaderboard" className="nav-search-buttons-item nav-search-buttons-item--small">
+                      <i class="fa-solid fa-trophy"></i>
+                    </Link> */}
+                  <Link to="/users" className="nav-search-buttons-item nav-search-buttons-item--small">
                     <i class="fa-solid fa-person"></i>
                   </Link>
                 </div>

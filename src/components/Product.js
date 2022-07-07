@@ -68,7 +68,7 @@ function Product() {
     <>
       <Navbar />
       <Page title="Product">
-        <Feed title="Product" posts={posts} handleDelete={handleDelete} />
+        <Feed title="Product" posts={posts} setPosts={setPosts} handleDelete={handleDelete} />
       </Page>
     </>
   )

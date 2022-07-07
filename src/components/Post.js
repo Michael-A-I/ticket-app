@@ -17,34 +17,43 @@ import CreateAnswer from "./ui/Answers/CreateAnswer"
 import PostComments from "./ui/PostView/PostComments"
 import CreatePostComments from "./ui/PostView/CreatePostComments"
 
+/* loading screen */
+import ReactLoading from "react-loading"
+
 function Post() {
   /* Answers scroll to */
   const myRef = useRef(null)
   const executeScroll = () => myRef.current.scrollIntoView()
 
   const appState = useContext(StateContext)
-  const [post, setPost] = useState({})
+  const [post, setPost] = useState([])
   const [comments, setComments] = useState([])
   const [postAnswer, setPostAnswer] = useState([])
   const [postsID, setPostsID] = useState()
+  const [postAnswerComments, setPostAnswerComments] = useState([])
+  const [refresh, setRefresh] = useState(false)
+
+  /* check state of page load */
+  const [isLoading, setIsLoading] = useState(true)
+
   const history = useNavigate()
   let { id } = useParams()
-  const [refresh, setRefresh] = useState(false)
-  const [postAnswerComments, setPostAnswerComments] = useState([])
   const token = appState.user.token
   useEffect(() => {
-    console.log("refresh")
-    getPost()
+    console.log("useEffect")
 
+    getPost()
     getAnswerComments()
-  }, [refresh])
+    return () => window.removeEventListener("load", handleLoading)
+  }, [])
 
   async function getPost() {
-    console.log("GET POST")
+    console.log("getPostT")
     try {
       // get comments
       const resPost = await fetch(`/posts/${id}`, {
         headers: {
+          method: "GET",
           "x-access-token": token
         }
       })
@@ -58,6 +67,8 @@ function Post() {
   }
 
   async function getComments() {
+    console.log("getComments")
+
     try {
       // get comments
       const resComment = await fetch(`/posts/${id}/comments`, {
@@ -67,40 +78,17 @@ function Post() {
       })
 
       const comments = await resComment.json()
-      console.log(comments)
+
       setComments(comments)
     } catch (error) {
       return error
     }
   }
 
-  const getAnswers = async postId => {
-    // handlePostComment()
-    // const user = localStorage.getItem()
-    // console.log("Post ID:" + postId)
-
-    console.log("Post ID = " + id)
-    try {
-      const res = await fetch(`/posts/${id}/answers`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token
-        }
-      })
-
-      const post = await res.json()
-
-      console.log(post.answers)
-
-      setPostAnswer(post.answers)
-      console.log("get answer")
-    } catch (error) {
-      return error
-    }
-  }
-
+  /* review is this redundant? */
   const getAnswerComments = async () => {
-    // get all comments from answers.
+    console.log("getAnswerComments")
+
     try {
       const res = await fetch(`/posts/answers/${id}`, {
         headers: {
@@ -110,33 +98,50 @@ function Post() {
       })
 
       const response = await res.json()
-      console.log("getAnswerComments")
-      console.log(response)
       setPostAnswer(response)
     } catch (error) {
       console.log(error)
     }
   }
 
+  /* set loading to fale on page load */
+  const handleLoading = () => {
+    console.log("handleLoading")
+
+    setIsLoading(false)
+  }
+
+  if (post == undefined) {
+    return (
+      <>
+        <Navbar />
+        <Container>
+          <div style={{ paddingTop: "25%" }}>
+            <ReactLoading className="loader" type="spinningBubbles" color="#0000FF" height={100} width={50} />
+          </div>
+        </Container>
+      </>
+    )
+  }
+
   return (
     <>
       <Navbar />
+      {/* {console.log(post)} */}
       <Page title={post.title}>
-        {/* post view */}
-        {console.log("postID" + postsID)}
-        <PostView post={post} executeScroll={executeScroll} />
+        <PostView post={post} executeScroll={executeScroll} getPost={getPost} />
 
         {/* Post Comments View */}
         <PostComments comments={comments} getComments={getComments} />
 
         {/* Post Comments Create */}
-        <CreatePostComments getComments={getComments} />
+        <CreatePostComments post={post} comments={comments} setComments={setComments} getComments={getComments} />
 
         {/* Answers View*/}
         <Answer postId={postsID} postAnswer={postAnswer} getAnswerComments={getAnswerComments} />
 
         {/* Create Answers */}
-        <CreateAnswer myRef={myRef} getAnswerComments={getAnswerComments} getAnswers={getAnswers} />
+        <CreateAnswer myRef={myRef} getAnswerComments={getAnswerComments} />
       </Page>
     </>
   )

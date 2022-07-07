@@ -1,0 +1,33 @@
+#bootstrap-overrides .profile-edit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 5px;
+  width: 225px;
+  height: 75px;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  background-color: #404eed;
+  color: #fff;
+  box-shadow: 0px 0px 0px 0px;
+  transition: all 0.5s;
+}
+#bootstrap-overrides .profile-edit-button:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 5px;
+  width: 225px;
+  height: 75px;
+  margin: 10px;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  background-color: #fff;
+  color: #404eed;
+  border: 1px solid #404eed;
+
+  box-shadow: 0px 0px 0px 0px;
+}

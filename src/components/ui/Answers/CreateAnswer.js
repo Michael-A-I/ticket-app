@@ -31,7 +31,6 @@ function CreateAnswer(props) {
 
       /* refresh answers view */
       props.getAnswerComments()
-      props.getAnswers()
     } catch (error) {
       return error
     }
@@ -43,7 +42,7 @@ function CreateAnswer(props) {
         {" "}
         <Form onSubmit={handleAnswersSubmit}>
           <FloatingLabel controlId="floatingInput" label="Answer" className="mb-3">
-            <Form.Control as="textarea" placeholder="Leave a answer here" style={{ height: "100px" }} />
+            <Form.Control required as="textarea" placeholder="Leave a answer here" style={{ height: "100px" }} />
           </FloatingLabel>
 
           <div class="text-right">

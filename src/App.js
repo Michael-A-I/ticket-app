@@ -24,6 +24,9 @@ import DispatchContext from "./context/DispatchContext"
 import { CreatePost } from "./components/CreatePost"
 import Dashboard from "./components/Dashboard"
 import Post from "./components/Post"
+import ProfileEditAvatar from "./components/ProfileEditAvatar"
+import LeaderBoard from "./components/LeaderBoard"
+import UserIndex from "./components/UserIndex"
 
 function App() {
   const initialState = {
@@ -71,10 +74,14 @@ function App() {
 
               <Route element={<CreatePost />} exact path="/post/new" />
               <Route element={<ProfileEdit />} exact path="/profile/edit" />
+              <Route element={<ProfileEditAvatar />} exact path="/avatar/edit" />
 
               <Route element={<ComingSoon />} exact path="/comingsoon" />
 
               <Route element={<Post />} exact path="/posts/:id" />
+
+              <Route element={<LeaderBoard />} exact path="/leaderboard" />
+              <Route element={<UserIndex />} exact path="/users" />
             </Routes>
           </BrowserRouter>
         </DispatchContext.Provider>

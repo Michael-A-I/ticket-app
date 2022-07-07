@@ -19,6 +19,8 @@ export function CreatePost(props) {
   const history = useNavigate()
   const location = useLocation()
 
+  const [file, setFile] = useState()
+
   console.log(props)
   /* global state */
   const appState = useContext(StateContext)
@@ -29,9 +31,9 @@ export function CreatePost(props) {
 
   async function handleCreatePost(values) {
     const createPost = values
-
+    console.log(JSON.stringify(values))
     /* file uploads with data from front end. */
-    console.log(values.file.name)
+    // console.log(values.file.name)
 
     try {
       const res = await fetch("/posts/new", {
@@ -141,11 +143,13 @@ export function CreatePost(props) {
                           }
                         }
                         fileReader.readAsDataURL(event.target.files[0])
+                        setFile(event.target.files[0])
                       }}
                       className="form-control"
                     />
+
                     {/* Thumbnail for files */}
-                    {/* <Thumb file={values.file} /> */}
+                    <Thumb file={file} />
                   </Form.Group>
 
                   <Button type="submit">Sumbit</Button>

@@ -70,7 +70,7 @@ function General() {
     <>
       <Navbar />
       <Page title="General">
-        <Feed title="General" posts={posts} handleDelete={handleDelete} />
+        <Feed title="General" setPosts={setPosts} posts={posts} handleDelete={handleDelete} />
       </Page>
     </>
   )
