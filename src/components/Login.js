@@ -50,6 +50,7 @@ function Login() {
       send login information to database and authenticat user 
     */
     try {
+      //   const res = await fetch(`${process.env.BACKENDURL}/login`, {
       const res = await fetch("/login", {
         method: "POST",
         headers: {
