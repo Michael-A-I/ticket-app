@@ -104,8 +104,8 @@ function App() {
 
                 <Route element={<Post />} exact path="/posts/:id" />
 
-                <Route element={<LeaderBoard />} exact path="/leaderboard" />
                 <Route element={<UserIndex />} exact path="/users" />
+                <Route element={<LeaderBoard />} exact path="/leaderboard" />
               </Routes>
             </Suspense>
           </BrowserRouter>
