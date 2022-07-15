@@ -92,7 +92,7 @@ function Navbar() {
                                 query
                               }
                             ]
-                          })g
+                          })
                         },
                         templates: {
                           item({ item, components }) {
