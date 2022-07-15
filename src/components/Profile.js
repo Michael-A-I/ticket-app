@@ -10,6 +10,7 @@ import { Button, Card, Container, Form, Row, Toast } from "react-bootstrap"
 /* context */
 import StateContext from "../context/StateContext"
 import UserFeed from "./UserFeed"
+import Avatar from "./Avatar"
 function Profile() {
   const navigate = useNavigate()
   const appState = useContext(StateContext)
@@ -46,7 +47,7 @@ function Profile() {
           <Row>
             {/* Profile Card */}
             <Card>
-              <Row>{localStorage.getItem("avatar") != "null" ? <img src={`${appState.user.avatar}`} className="thumbnail" height={50} width={50} style={{ paddingTop: "10px" }} /> : <img src={"/default-profile-pic-e1513291410505.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
+              <Row>{localStorage.getItem("avatar") != "null" ? <Avatar width={"250px"} height={"200px"} /> : <img src={"/default-profile.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
 
               <Card.Body>
                 <Card.Title>Username: {appState.user.username}</Card.Title>

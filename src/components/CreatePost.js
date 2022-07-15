@@ -15,7 +15,7 @@ import "./css/CreatePost.css"
 import StateContext from "../context/StateContext"
 import Thumb from "./Thumb"
 
-export function CreatePost(props) {
+function CreatePost(props) {
   const history = useNavigate()
   const location = useLocation()
 
@@ -162,3 +162,5 @@ export function CreatePost(props) {
     </>
   )
 }
+
+export default CreatePost

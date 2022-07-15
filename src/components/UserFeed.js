@@ -11,7 +11,11 @@ function UserFeed() {
   const [userFeed, setUserFeed] = useState([])
   const [feed, setFeed] = useState([])
 
-  useEffect(async () => {
+  useEffect(() => {
+    setFeeder()
+  }, [])
+
+  const setFeeder = async () => {
     const res = await fetch("/userfeed", {
       method: "GET",
       headers: {
@@ -21,8 +25,9 @@ function UserFeed() {
     })
 
     const feed = await res.json()
+    console.log(feed)
     setUserFeed(feed)
-  }, [])
+  }
 
   //Implement time
 
@@ -43,7 +48,8 @@ function UserFeed() {
     <>
       <Row>
         <h1>Recent Activity</h1>
-
+        <pre>{JSON.stringify(userFeed)}</pre>
+        {console.log(userFeed)}
         {userFeed.map(feed =>
           feed.typeOf == "Post" ? (
             <p>

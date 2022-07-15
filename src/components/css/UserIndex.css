@@ -1,0 +1,10 @@
+.ais-SearchBox {
+  display: flex;
+  justify-content: center;
+}
+
+.ais-SearchBox-input {
+  width: 500px;
+  border-radius: 5px;
+  background: whitesmoke;
+}

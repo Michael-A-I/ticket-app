@@ -1,3 +1,5 @@
+/* !LARGE SCREENS */
+
 #bootstrap-overrides .navbar {
   background: #404eed;
   height: 80px;
@@ -19,26 +21,13 @@
 
 .navbar-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: row;
   align-items: center;
-  width: 80%;
+  /* width: 90%; */
   height: 80px;
 }
 
-.navbar-logo-container {
-  color: #fff;
-  margin-left: 10%;
-  flex-direction: row;
-  display: flex;
-  margin-right: auto;
-  column-gap: 10px;
-}
-#bootstrap-overrides .navbar-logo-title {
-  display: inline;
-  color: #fff;
-  margin-left: 5px;
-}
 .fa-typo3 {
   margin-left: 0.5rem;
   font-size: 1.8rem;
@@ -196,10 +185,10 @@ dropdown-item {
 }
 .nav-search {
   display: flex;
-  margin-right: auto;
+  /* margin-right: auto; */
   /* width: auto;
   height: auto; */
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .nav-search-box {
@@ -240,7 +229,7 @@ dropdown-item {
   color: white;
 }
 
-.nav-menu {
+#bootstrap-overrides .nav-menu {
   display: flex;
   margin-right: 15%;
   list-style-type: none;
@@ -248,11 +237,23 @@ dropdown-item {
 }
 
 #bootstrap-overrides .hide-big {
+  font-size: 14px;
   display: none;
 }
+
+/* SEARCH BOX */
+.search-row {
+  height: 100%;
+  padding: 247px;
+}
+/* SEARCH BOX */
+
+/* !MEDIUM SCREENS */
 /* TODO: Add styling for medium sized screens */
 @media screen and (max-width: 1300px) {
 }
+
+/* !SMALL SCREENS */
 @media screen and (max-width: 975px) {
   .NavbarItems {
     position: relative;

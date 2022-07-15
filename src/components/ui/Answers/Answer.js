@@ -12,7 +12,7 @@ function Answer(props) {
   const history = useNavigate()
 
   useEffect(() => {}, [history])
-  const [edit, setEdit] = useState(true)
+  const [edit, setEdit] = useState([])
 
   const answerDelete = async answerID => {
     console.log("answerDelete")
@@ -33,14 +33,20 @@ function Answer(props) {
     }
   }
 
-  const answerEdit = () => {
+  const answerEdit = (answerID, event) => {
     console.log("answerEdit")
 
-    /* 
-    if answer id event is equal to answer id
-    then change answer to a submittable form.
-    */
-    setEdit(!edit)
+    setEdit(prev => [...prev, answerID])
+  }
+
+  const cancelAnswerEdit = answerID => {
+    console.log("answerEdit")
+
+    const arr = edit
+
+    const cancelAnswerArr = arr.filter(item => !answerID.includes(item))
+
+    setEdit(cancelAnswerArr)
   }
 
   const handleSubmit = async (event, answerID) => {
@@ -66,7 +72,7 @@ function Answer(props) {
       // props.getAnswers()
       props.getAnswerComments()
 
-      setEdit(!edit)
+      setEdit("")
     } catch (error) {
       return error
     }
@@ -85,9 +91,10 @@ function Answer(props) {
 
       {props.postAnswer.map((answer, index) => (
         <>
-          {edit ? (
+          {!edit.includes(answer._id) ? (
             <>
               <Card key={answer._id}>
+                {console.log(edit.state)}
                 <Card.Body>
                   <Card.Title>Answer</Card.Title>
                   <Card.Text>{answer.name}</Card.Text>
@@ -96,7 +103,7 @@ function Answer(props) {
                   {answer.user && answer.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "25px" }} /> : <img src={`${answer.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "25px" }} />}
                   {answer.user && answer.user._id == appState.user.id ? (
                     <>
-                      <Button variant="warning" onClick={answerEdit}>
+                      <Button variant="warning" onClick={() => answerEdit(answer._id)}>
                         Edit
                       </Button>
                       <Button variant="danger" onClick={() => answerDelete(answer._id)}>
@@ -121,7 +128,7 @@ function Answer(props) {
                     <Button type="submit" variant="primary">
                       Save
                     </Button>
-                    <Button variant="warning" onClick={answerEdit}>
+                    <Button variant="warning" onClick={() => cancelAnswerEdit(answer._id)}>
                       Cancel
                     </Button>
                     <Button variant="danger" onClick={() => answerDelete(answer._id)}>

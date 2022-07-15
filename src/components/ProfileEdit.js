@@ -17,9 +17,17 @@ function ProfileEdit() {
   const [show, setShow] = useState(false)
   const [password, setPassword] = useState("")
   const [passwordConfirm, setPasswordConfirm] = useState("")
+  const [user, setUser] = useState({})
+  const [userState, setUserState] = useState({ title: user.title, bio: user.bio })
 
   const [position, setPosition] = useState("top-center")
   const token = appState.user.token
+
+  /* Load User Info */
+
+  useEffect(() => {
+    userInfo()
+  }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -48,6 +56,36 @@ function ProfileEdit() {
 
       setMessage(serverRes.message)
     } catch (error) {}
+  }
+
+  const userInfo = async () => {
+    try {
+      const res = await fetch("/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token
+        }
+      })
+
+      const user = await res.json()
+
+      setUserState({ title: user.title, bio: user.bio })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleChangeTITLE = e => {
+    const value = e.target.value
+
+    setUserState(prev => ({ ...prev, title: value }))
+  }
+
+  const handleChangeBIO = e => {
+    const value = e.target.value
+
+    setUserState(prev => ({ ...prev, bio: value }))
   }
 
   async function handlePassword(e) {
@@ -111,16 +149,16 @@ function ProfileEdit() {
                   </FloatingLabel>
                 </Form.Group>
               }
-
+              {console.log(user)}
               <Form.Group className="mb-3">
                 <FloatingLabel controlId="floatingPassword" label="Job Title">
-                  <Form.Control type="input" placeholder="Job Title" />
+                  <Form.Control type="input" value={userState.title} onChange={e => handleChangeTITLE(e)} placeholder="Job Title" />
                 </FloatingLabel>
               </Form.Group>
 
               <Form.Group className="mb-3">
                 <FloatingLabel controlId="floatingPassword" label="Biography">
-                  <Form.Control as="textarea" placeholder="Biography" />
+                  <Form.Control as="textarea" value={userState.bio} onChange={e => handleChangeBIO(e)} placeholder="Biography" />
                 </FloatingLabel>
               </Form.Group>
 

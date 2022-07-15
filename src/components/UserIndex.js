@@ -5,14 +5,17 @@ import Navbar from "./Navbar"
 import StateContext from "../context/StateContext"
 import { Link } from "react-router-dom"
 import Page from "./Page"
-
+import UserIndexHits from "../components/UserIndex/UserIndexHits"
 import ReactPaginate from "react-paginate"
+
+/* CSS */
+import "./css/UserIndex.css"
+/* CSS */
 
 /* React InstaSearch */
 import algoliasearch from "algoliasearch/lite"
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch-hooks-web"
 const searchClient = algoliasearch("SJKC9QEQKE", "cce92e4d566fb529a97a2eb8b9993578")
-
 /* React InstaSearch */
 
 function UserIndex() {
@@ -38,6 +41,7 @@ function UserIndex() {
 
     console.log(users)
   }
+
   return (
     <>
       <Navbar></Navbar>
@@ -45,9 +49,10 @@ function UserIndex() {
 
       <Page>
         <Container>
-          <InstantSearch indexName="user" searchClient={searchClient}>
+          <h1>People</h1>
+          <InstantSearch indexName="users" searchClient={searchClient}>
             <SearchBox />
-            <Hits />
+            <UserIndexHits />
           </InstantSearch>
         </Container>
       </Page>

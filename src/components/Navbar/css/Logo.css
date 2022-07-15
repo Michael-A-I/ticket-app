@@ -1,0 +1,16 @@
+.navbar-logo-container {
+  /* color: #fff; */
+  display: flex;
+  flex-direction: row;
+  /* margin-right: auto; */
+  /* column-gap: 10px; */
+  justify-content: center;
+  align-items: center;
+  margin-right: 100px;
+}
+
+#bootstrap-overrides .navbar-logo-title {
+  display: inline;
+  color: #fff;
+  margin-left: 5px;
+}
