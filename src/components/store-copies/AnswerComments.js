@@ -27,7 +27,7 @@ function AnswerComments(props) {
     console.log(id)
 
     try {
-      await fetch(`/posts/${id}/answer/${commentId}`, {
+      await fetch(`/api/posts/${id}/answer/${commentId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

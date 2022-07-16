@@ -65,7 +65,7 @@ function PostComments(props) {
   const deleteComment = async id => {
     console.log("delete comment: " + id)
     try {
-      const res = await fetch(`/posts/${id}/comments`, {
+      const res = await fetch(`/api/posts/${id}/comments`, {
         method: "Delete",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,7 @@ function PostComments(props) {
     /* return array without comment._id  set comment out of edit mode*/
 
     // await fetchUpdateComment(createComment)
-    await fetch(`/posts/${id}/comments`, {
+    await fetch(`/api/posts/${id}/comments`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

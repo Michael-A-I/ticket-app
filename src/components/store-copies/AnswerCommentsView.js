@@ -109,7 +109,7 @@ function AnswerCommentsView(props) {
     const token = appState.user.token
 
     try {
-      const res = await fetch(`/posts/answers/${id}`, {
+      const res = await fetch(`/api/posts/answers/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": token

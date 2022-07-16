@@ -36,7 +36,7 @@ function PostView(props) {
 
     try {
       console.log("PostsIndex.js token: " + token)
-      await fetch(`/posts/${id}`, {
+      await fetch(`/api/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ function PostView(props) {
 
     try {
       console.log("PostsIndex.js token: " + token)
-      await fetch(`/posts/${id}/edit`, {
+      await fetch(`/api/posts/${id}/edit`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ function PostView(props) {
   }
   // check to see if user id is in db
   const checkFollow = async () => {
-    const res = await fetch(`/posts/${id}/followcheck`, {
+    const res = await fetch(`/api/posts/${id}/followcheck`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ function PostView(props) {
   const handleFollow = async () => {
     console.log("follow")
     setFollowing(true)
-    const res = await fetch(`/posts/${id}/follow`, {
+    const res = await fetch(`/api/posts/${id}/follow`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +108,7 @@ function PostView(props) {
   const handleUnFollow = async () => {
     console.log("unfollow")
     setFollowing(false)
-    const res = await fetch(`/posts/${id}/unfollow`, {
+    const res = await fetch(`/api/posts/${id}/unfollow`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +124,7 @@ function PostView(props) {
     setLiked(!liked)
 
     console.log("like")
-    const res = await fetch(`/posts/${id}/like`, {
+    const res = await fetch(`/api/posts/${id}/like`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -140,7 +140,7 @@ function PostView(props) {
     console.log("unlike")
     setLiked(!liked)
 
-    const res = await fetch(`/posts/${id}/unlike`, {
+    const res = await fetch(`/api/posts/${id}/unlike`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -156,7 +156,7 @@ function PostView(props) {
     /* Persistance */
     console.log("hasUserLiked")
 
-    const res = await fetch(`/posts/${id}/hasUserLiked`, {
+    const res = await fetch(`/api/posts/${id}/hasUserLiked`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

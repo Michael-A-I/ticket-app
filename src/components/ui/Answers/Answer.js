@@ -18,7 +18,7 @@ function Answer(props) {
     console.log("answerDelete")
 
     try {
-      const res = await fetch(`/posts/${answerID}/answers/delete`, {
+      const res = await fetch(`/api/posts/${answerID}/answers/delete`, {
         method: "Delete",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ function Answer(props) {
     const comment = event.target
     const updateAnswer = { text: comment[0].value }
     try {
-      const res = await fetch(`/posts/${answerID}/answers/edit`, {
+      const res = await fetch(`/api/posts/${answerID}/answers/edit`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

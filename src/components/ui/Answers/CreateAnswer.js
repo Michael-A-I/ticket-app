@@ -20,7 +20,7 @@ function CreateAnswer(props) {
     console.log(createComment)
 
     try {
-      await fetch(`/posts/${id}/answers`, {
+      await fetch(`/api/posts/${id}/answers`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

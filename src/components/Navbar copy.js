@@ -67,7 +67,7 @@ function Navbar() {
     const token = localStorage.getItem("token")
 
     /* call to backend to perfrom search */
-    const searchedPosts = await fetch(`/posts/search/${inputValue}`, {
+    const searchedPosts = await fetch(`/api/posts/search/${inputValue}`, {
       headers: {
         method: "GET",
         "x-access-token": token

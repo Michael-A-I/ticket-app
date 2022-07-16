@@ -26,7 +26,7 @@ function CreatePostCommnet(props) {
     console.log(createComment)
 
     try {
-      const res = await fetch(`/posts/${id}/comments`, {
+      const res = await fetch(`/api/posts/${id}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
