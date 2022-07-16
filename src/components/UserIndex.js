@@ -29,7 +29,7 @@ function UserIndex() {
   const getUsers = async () => {
     console.log("getUsers")
 
-    const res = await fetch(`/users`, {
+    const res = await fetch(`/api/users`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

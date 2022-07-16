@@ -5,7 +5,7 @@ async function Authorization() {
   const history = useNavigate()
   try {
     const token = localStorage.getItem("token")
-    const res = await fetch("/isUserAuth", {
+    const res = await fetch("/api/isUserAuth", {
       headers: {
         "x-access-token": token
       }

@@ -24,7 +24,7 @@ function Register() {
     console.log("Register User Post Data username: " + user.username)
 
     try {
-      const res = await fetch("/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-type": "application/json"

@@ -38,7 +38,7 @@ function ProfileEdit() {
     console.log("Register User Post Data username: " + user.username)
 
     try {
-      const res = await fetch("/profile/edit", {
+      const res = await fetch("/api/profile/edit", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ function ProfileEdit() {
 
   const userInfo = async () => {
     try {
-      const res = await fetch("/user", {
+      const res = await fetch("/api/user", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +96,7 @@ function ProfileEdit() {
       const user = e.target
       const userPassword = { password: user[0].value }
 
-      const res = await fetch("/profile/edit/password", {
+      const res = await fetch("/api/profile/edit/password", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

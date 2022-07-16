@@ -30,7 +30,7 @@ function Product() {
   async function getPosts() {
     try {
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch("/posts/product", {
+      const res = await fetch("/api/posts/product", {
         headers: {
           "x-access-token": token
         }
@@ -50,7 +50,7 @@ function Product() {
   async function handleDelete(id) {
     try {
       console.log("PostsIndex.js token: " + token)
-      await fetch(`/posts/${id}`, {
+      await fetch(`/api/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

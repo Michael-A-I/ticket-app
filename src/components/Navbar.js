@@ -49,7 +49,7 @@ function Navbar() {
   }, [])
 
   const algoliaPostIndex = async () => {
-    const searchedPosts = await fetch("/posts/search", {
+    const searchedPosts = await fetch("/api/posts/search", {
       headers: {
         method: "GET",
         "x-access-token": token

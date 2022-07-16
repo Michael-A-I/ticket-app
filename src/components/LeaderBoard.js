@@ -24,7 +24,7 @@ function LeaderBoard() {
 
     const token = appState.user.token
 
-    const res = await fetch("/users/leaderboard", {
+    const res = await fetch("/api/users/leaderboard", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

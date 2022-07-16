@@ -24,7 +24,7 @@ function Profile() {
   }, [])
 
   const getUser = async () => {
-    const response = await fetch("/profile", {
+    const response = await fetch("/api/profile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

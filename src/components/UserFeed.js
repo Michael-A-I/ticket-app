@@ -16,7 +16,7 @@ function UserFeed() {
   }, [])
 
   const setFeeder = async () => {
-    const res = await fetch("/userfeed", {
+    const res = await fetch("/api/userfeed", {
       method: "GET",
       headers: {
         "x-access-token": token,

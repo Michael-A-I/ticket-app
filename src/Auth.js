@@ -5,7 +5,7 @@ function Auth() {
   //get user input and send to server.
   const auth = async () => {
     try {
-      const res = await axios.get("/authenticate", { auth: { username: "admin", password: "123" } })
+      const res = await axios.get("/api/authenticate", { auth: { username: "admin", password: "123" } })
       console.log(res.data)
     } catch (e) {
       console.log(e)

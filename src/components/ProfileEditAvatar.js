@@ -28,7 +28,7 @@ function ProfileEditAvatar() {
   // peristance
   const handlePersistance = async () => {
     try {
-      const res = await fetch("/user", {
+      const res = await fetch("/api/user", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ function ProfileEditAvatar() {
 
     /* upload to DB */
     try {
-      const res = await fetch("/profile/edit", {
+      const res = await fetch("/api/profile/edit", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

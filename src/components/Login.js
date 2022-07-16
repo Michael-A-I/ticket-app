@@ -51,7 +51,7 @@ function Login() {
     */
     try {
       //   const res = await fetch(`${process.env.BACKENDURL}/login`, {
-      const res = await fetch("/login", {
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-type": "application/json"

@@ -36,7 +36,7 @@ function CreatePost(props) {
     // console.log(values.file.name)
 
     try {
-      const res = await fetch("/posts/new", {
+      const res = await fetch("/api/posts/new", {
         method: "POST",
         headers: {
           "x-access-token": appState.user.token,

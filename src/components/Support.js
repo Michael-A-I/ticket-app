@@ -31,7 +31,7 @@ function Support() {
   async function getPosts() {
     try {
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch("/posts/support", {
+      const res = await fetch("/api/posts/support", {
         headers: {
           "x-access-token": token
         }
@@ -51,7 +51,7 @@ function Support() {
   async function handleDelete(id) {
     try {
       console.log("PostsIndex.js token: " + token)
-      await fetch(`/posts/${id}`, {
+      await fetch(`/api/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

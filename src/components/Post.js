@@ -51,7 +51,7 @@ function Post() {
     console.log("getPostT")
     try {
       // get comments
-      const resPost = await fetch(`/posts/${id}`, {
+      const resPost = await fetch(`/api/posts/${id}`, {
         headers: {
           method: "GET",
           "x-access-token": token
@@ -71,7 +71,7 @@ function Post() {
 
     try {
       // get comments
-      const resComment = await fetch(`/posts/${id}/comments`, {
+      const resComment = await fetch(`/api/posts/${id}/comments`, {
         headers: {
           "x-access-token": token
         }
@@ -90,7 +90,7 @@ function Post() {
     console.log("getAnswerComments")
 
     try {
-      const res = await fetch(`/posts/answers/${id}`, {
+      const res = await fetch(`/api/posts/answers/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-access-token": token

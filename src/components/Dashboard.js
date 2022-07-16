@@ -32,7 +32,7 @@ function Dashboard() {
   async function getPosts() {
     try {
       console.log("PostsIndex.js token: " + token)
-      const res = await fetch("/posts/index", {
+      const res = await fetch("/api/posts/index", {
         headers: {
           "x-access-token": token
         }
@@ -52,7 +52,7 @@ function Dashboard() {
   async function handleDelete(id) {
     try {
       console.log("PostsIndex.js token: " + token)
-      await fetch(`/posts/${id}`, {
+      await fetch(`/api/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
