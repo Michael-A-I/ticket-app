@@ -6,20 +6,20 @@ import { useImmerReducer } from "use-immer"
 /* Components */
 import Home from "./components/Home"
 import Login from "./components/Login"
-// import Register from "./components/Register"
+import Register from "./components/Register"
 import Engineer from "./components/Engineer"
 import Support from "./components/Support"
 import Product from "./components/Product"
 import General from "./components/General"
-// import ComingSoon from "./components/ComingSoon"
-// import Profile from "./components/Profile"
-// import ProfileEdit from "./components/ProfileEdit"
-// import CreatePost from "./components/CreatePost"
+import ComingSoon from "./components/ComingSoon"
+import Profile from "./components/Profile"
+import ProfileEdit from "./components/ProfileEdit"
+import CreatePost from "./components/CreatePost"
 import Dashboard from "./components/Dashboard"
-// import Post from "./components/Post"
-// import ProfileEditAvatar from "./components/ProfileEditAvatar"
+import Post from "./components/Post"
+import ProfileEditAvatar from "./components/ProfileEditAvatar"
 import LeaderBoard from "./components/LeaderBoard"
-// import UserIndex from "./components/UserIndex"
+import UserIndex from "./components/UserIndex"
 import ContactMe from "./components/ContactMe"
 import ReactLoading from "react-loading"
 /* Styles */
@@ -30,14 +30,14 @@ import StateContext from "./context/StateContext"
 import DispatchContext from "./context/DispatchContext"
 
 /* LazyLoad Components */
-const CreatePost = React.lazy(() => import("./components/CreatePost"))
-const Post = React.lazy(() => import("./components/Post"))
-const Profile = React.lazy(() => import("./components/Profile"))
-const ProfileEdit = React.lazy(() => import("./components/ProfileEdit"))
-const Register = React.lazy(() => import("./components/Register"))
-const ProfileEditAvatar = React.lazy(() => import("./components/ProfileEditAvatar"))
-const UserIndex = React.lazy(() => import("./components/UserIndex"))
-const ComingSoon = React.lazy(() => import("./components/ComingSoon"))
+// const CreatePost = React.lazy(() => import("./components/CreatePost"))
+// const Post = React.lazy(() => import("./components/Post"))
+// const Profile = React.lazy(() => import("./components/Profile"))
+// const ProfileEdit = React.lazy(() => import("./components/ProfileEdit"))
+// const Register = React.lazy(() => import("./components/Register"))
+// const ProfileEditAvatar = React.lazy(() => import("./components/ProfileEditAvatar"))
+// const UserIndex = React.lazy(() => import("./components/UserIndex"))
+// const ComingSoon = React.lazy(() => import("./components/ComingSoon"))
 
 function App() {
   const initialState = {
