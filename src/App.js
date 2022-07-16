@@ -100,7 +100,7 @@ function App() {
                 <Route element={<ProfileEditAvatar />} exact path="/avatar/edit" />
 
                 <Route element={<ComingSoon />} exact path="/comingsoon" />
-                <Route element={<ContactMe />} exact path="/contactme" />
+                {/* <Route element={<ContactMe />} exact path="/contactme" /> */}
 
                 <Route element={<Post />} exact path="/posts/:id" />
 
