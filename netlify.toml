@@ -2,7 +2,8 @@
   from="/api/*"
   to="https://ticket-application-server.herokuapp.com/api/:splat"
   status=200
-
+  
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
