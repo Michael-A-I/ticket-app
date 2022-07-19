@@ -74,7 +74,7 @@ function Register() {
               <Form className="form-group-styles" onSubmit={e => handleRegister(e)}>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>Username</Form.Label>
-                  <Form.Control type="username" placeholder="Enter email" />
+                  <Form.Control type="username" placeholder="Enter username" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>Email address</Form.Label>

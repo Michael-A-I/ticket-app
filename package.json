@@ -168,10 +168,20 @@
       "react-app"
     ]
   },
-  "homepage": ".",
+  "homepage": "http://.",
   "devDependencies": {
     "@types/react-dom": "^18.0.6",
     "css-loader": "^6.7.1",
     "style-loader": "^3.3.1"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "n"
+  },
+  "author": "",
+  "license": "ISC"
 }
+
+

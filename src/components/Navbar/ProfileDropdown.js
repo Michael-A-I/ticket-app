@@ -19,6 +19,7 @@ function ProfileDropdown() {
     localStorage.removeItem("id")
 
     appDispatch({ type: "logout" })
+    appDispatch({ type: "setToken" })
 
     await history("/login")
   }

@@ -18,7 +18,7 @@ TODO: be able to upload pictures to the post
 TODO: be able to delete pictures from a post if user postted
 Comments
 
----
+---"proxy": "https://ticket-application-server.herokuapp.com/",
 
 TODO: be able to comment on posts - all users
 TODO: be able to delete comments if user created

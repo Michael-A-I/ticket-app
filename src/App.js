@@ -61,8 +61,14 @@ function App() {
       case "logout":
         draft.loggedIn = false
         return
+      case "setToken":
+        draft.user.token = localStorage.getItem("token")
+        return
       case "setAvatar":
         draft.user.avatar = action.value
+        return
+      case "setUser":
+        draft.user.username = action.value
         return
     }
   }

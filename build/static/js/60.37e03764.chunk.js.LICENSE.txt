@@ -1,3 +1,0 @@
-//! refresh answer comments view on save
-
-//! refresh answers after delete

@@ -9,6 +9,13 @@ function Feed(props) {
   /* fetch posts */
   const history = useNavigate()
 
+  const appState = useContext(StateContext)
+  const [allCounter, setCounter] = useState(0)
+  const [unasnswerdCounter, setUnansweredCounter] = useState(0)
+  const [myQuestionsCounter, setMyQuestions] = useState(0)
+  const [postsCopy, setPostsCopy] = useState([])
+
+  /*! rendered last */
   useEffect(() => {
     setPostsCopy(props.posts)
     allPostsCounter()
@@ -16,12 +23,6 @@ function Feed(props) {
     myQuestions()
   }, [props.posts])
 
-  const appState = useContext(StateContext)
-  const [allCounter, setCounter] = useState(0)
-  const [unasnswerdCounter, setUnansweredCounter] = useState(0)
-  const [myQuestionsCounter, setMyQuestions] = useState(0)
-
-  const [postsCopy, setPostsCopy] = useState([])
   console.log(postsCopy)
   /* set options menu default on creat post */
   const handleOptions = title => {
@@ -33,22 +34,29 @@ function Feed(props) {
 
   const allPostsCounter = () => {
     //  number of all posts
-
-    setCounter(props.posts.length)
+    if (props.posts != []) {
+      setCounter(props.posts.length)
+    }
   }
 
   const unansweredPostsCounter = () => {
     //  number of all posts
-    const res = props.posts.filter(post => post.answers.length <= 0)
-
-    setUnansweredCounter(res.length)
+    console.log(props.posts)
+    if (props.posts != []) {
+      console.log(props.posts)
+      const res = props.posts.filter(post => post.answers.length <= 0)
+      setUnansweredCounter(res.length)
+    }
   }
 
   const myQuestions = () => {
     //  number of all posts
-    const res = props.posts.filter(post => post.name == appState.user.username)
 
-    setMyQuestions(res.length)
+    if (props.posts != []) {
+      const res = props.posts.filter(post => post.name == appState.user.username)
+
+      setMyQuestions(res.length)
+    }
   }
 
   const postFilter = filter => {

@@ -71,13 +71,15 @@ function Login() {
         localStorage.setItem("username", data.user)
         localStorage.setItem("avatar", data.avatar)
         localStorage.setItem("id", data.id)
-        /* # */
         localStorage.setItem("email", data.email)
         localStorage.setItem("createdAt", date)
 
-        /* # */
-
         appDispatch({ type: "login" })
+        appDispatch({ type: "setToken" })
+        appDispatch({ type: "setUser", value: data.user })
+
+        // setShow(!show)
+        setMessage(data.message)
         /* 
           set state local storage 
         */
@@ -86,8 +88,6 @@ function Login() {
       /*
          if user autheticats set Success authentication message
        */
-      setShow(!show)
-      setMessage(data.message)
       console.log(message)
     } catch (error) {
       setMessage(error)
@@ -110,7 +110,7 @@ function Login() {
       <Page>
         {console.log(message)}
         {message == "Success" ? (
-          navigate("/general")
+          navigate("/dashboard")
         ) : (
           <div className="toast-display-center">
             <Toast show={show} onClose={toggleShow} bg="danger" position={position} style={{ position: "absolute", zIndex: "999" }} delay={3000} autohide>
@@ -142,7 +142,7 @@ function Login() {
                   <Form className="form-group-styles" onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formGroupEmail">
                       <Form.Label>Username</Form.Label>
-                      <Form.Control type="text" placeholder="Enter Username" name="username" value={values.username} onChange={handleChange} isValid={touched.username && !errors.username} isInvalid={!!errors.username} />
+                      <Form.Control type="text" placeholder="Enter username" name="username" value={values.username} onChange={handleChange} isValid={touched.username && !errors.username} isInvalid={!!errors.username} />
                       {/* {console.log(errors)}
                       {console.log(touched)}
                       {console.log(values)} */}

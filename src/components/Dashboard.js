@@ -10,20 +10,20 @@ import StateContext from "../context/StateContext"
 
 function Dashboard() {
   const appState = useContext(StateContext)
-  const token = appState.user.token
-
+  const [token, setToken] = useState(appState.user.token)
   const [posts, setPosts] = useState([])
+
   const history = useNavigate()
 
   useEffect(() => {
-    Authorization()
+    // Authorization()
     getPosts()
   }, [history])
 
   async function Authorization() {
     try {
       console.log("appState.isLoggedIn :" + appState.loggedIn)
-      return appState.loggedIn ? null : history("/login")
+      return appState.loggedIn ? setToken(appState.uster.token) : history("/login")
     } catch (error) {
       console.log("islogged in?:" + error)
     }
@@ -31,7 +31,7 @@ function Dashboard() {
 
   async function getPosts() {
     try {
-      console.log("PostsIndex.js token: " + token)
+      console.log("TOKEN" + token)
       const res = await fetch("/api/posts/index", {
         headers: {
           "x-access-token": token
