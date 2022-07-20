@@ -42,7 +42,6 @@ function LeaderBoard() {
   /* get  */
   return (
     <>
-      <Navbar></Navbar>
       <Page>
         <Container>
           <h1>Leaderboard</h1>

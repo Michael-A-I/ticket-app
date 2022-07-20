@@ -11,7 +11,10 @@ function Answer(props) {
   const token = appState.user.token
   const history = useNavigate()
 
-  useEffect(() => {}, [history])
+  useEffect(() => {
+    setAnswerText(props.postAnswer)
+  }, [props.postAnswer])
+
   const [edit, setEdit] = useState([])
 
   const answerDelete = async answerID => {
@@ -78,6 +81,13 @@ function Answer(props) {
     }
   }
 
+  const [answerText, setAnswerText] = useState(props.postAnswer)
+
+  const handleEditAnswerState = (e, index) => {
+    const text = e.target.value
+    setAnswerText(prev => [...prev, (prev[index].text = text)])
+  }
+
   if (props.postAnswer == undefined) {
     console.log(props.postAnswer)
     // props.getAnswerComments()
@@ -91,6 +101,7 @@ function Answer(props) {
 
       {props.postAnswer.map((answer, index) => (
         <>
+          {/* <pre>{JSON.stringify(props.postAnswer)}</pre> */}
           {!edit.includes(answer._id) ? (
             <>
               <Card key={answer._id}>
@@ -99,7 +110,7 @@ function Answer(props) {
                   <Card.Title>Answer</Card.Title>
                   <Card.Text>{answer.name}</Card.Text>
                   <Card.Text>{answer.text}</Card.Text>
-                  {/* s3 bucket */}
+                  {/* s3 bucket? */}
                   {answer.user && answer.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "25px" }} /> : <img src={`${answer.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "25px" }} />}
                   {answer.user && answer.user._id == appState.user.id ? (
                     <>
@@ -119,11 +130,12 @@ function Answer(props) {
           ) : (
             <>
               <Card key={answer._id}>
+                {/* Edit Mode, Answsers  */}
                 <Card.Body>
                   <Card.Title>Answer Edit</Card.Title>
                   <Card.Text>{answer.name}</Card.Text>
                   <Form onSubmit={e => handleSubmit(e, answer._id)}>
-                    <Form.Control type="text" placeholder={`${answer.text}`} />
+                    <Form.Control type="text" placeholder={`${answer.text}`} value={answerText[index].text} onChange={e => handleEditAnswerState(e, index)} />
 
                     <Button type="submit" variant="primary">
                       Save

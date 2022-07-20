@@ -251,7 +251,7 @@ dropdown-item {
   padding: 247px;
 }
 /* SEARCH BOX Algolia*/
-#autocomplete-3-input {
+#bootstrap-overrides .aa-Input {
   border-bottom: none;
 }
 /* SEARCH BOX Algolia*/

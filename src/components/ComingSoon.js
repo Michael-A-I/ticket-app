@@ -17,7 +17,7 @@ function ComingSoon() {
   return (
     <>
       <div className="home-background"></div>
-      <Navbar />
+
       <Page title="ComingSoon">
         <div id="override-bootstrap" className="home-container">
           <div className="jumbotron">

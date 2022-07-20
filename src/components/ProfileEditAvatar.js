@@ -93,7 +93,6 @@ function ProfileEditAvatar() {
 
   return (
     <>
-      <Navbar />
       <Page>
         <Container>
           {/* ROW */}

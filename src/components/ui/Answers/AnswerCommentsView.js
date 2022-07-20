@@ -114,6 +114,13 @@ function AnswerCommentsView(props) {
     console.log("edit after update " + edit)
   }
 
+  const [editText, setEditText] = useState(props.comments)
+
+  const handleEditCommentsState = (e, index) => {
+    const text = e.target.value
+    setEditText(prev => [...prev, (prev[index].text = text)])
+  }
+
   return (
     <>
       {console.log("Post Answer from Answer Comoments View:" + props.comments.text)}
@@ -124,9 +131,11 @@ function AnswerCommentsView(props) {
           {commentId == comment._id || edit.includes(comment._id) ? (
             edit.includes(comment._id) ? (
               <>
+                {/* Edit Mode, Comments */}
                 <p> {comment.name}</p>
                 <Form onSubmit={e => updateComment(e, comment._id) & afterUpdate(comment._id)}>
-                  <Form.Control type="text" placeholder={`${comment.text}`} />
+                  {/* Comment Text */}
+                  <Form.Control type="text" placeholder={`${comment.text}`} value={editText[index].text} onChange={e => handleEditCommentsState(e, index)} />
                   {comment.user && comment.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} />}
 
                   <Button variant="primary" type="submit">
@@ -144,6 +153,7 @@ function AnswerCommentsView(props) {
               </>
             ) : (
               <>
+                {/* Hover Mode */}
                 <p> {comment.name}</p>
                 {comment.user && comment.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} />}
 
@@ -156,6 +166,7 @@ function AnswerCommentsView(props) {
             )
           ) : (
             <>
+              {/* View Mode */}
               <p> {comment.name}</p>
               {comment.user && comment.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} />}
 

@@ -106,7 +106,6 @@ function Login() {
 
   return (
     <>
-      <Navbar />
       <Page>
         {console.log(message)}
         {message == "Success" ? (

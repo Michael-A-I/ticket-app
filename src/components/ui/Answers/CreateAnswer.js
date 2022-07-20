@@ -6,9 +6,8 @@ import StateContext from "../../../context/StateContext"
 function CreateAnswer(props) {
   let { id } = useParams()
   const appState = useContext(StateContext)
-
   const token = appState.user.token
-
+  const [answer, setAnswer] = useState("")
   /* Post Answer to Database */
 
   const handleAnswersSubmit = async event => {
@@ -31,9 +30,15 @@ function CreateAnswer(props) {
 
       /* refresh answers view */
       props.getAnswerComments()
+      setAnswer("")
     } catch (error) {
       return error
     }
+  }
+
+  const handleChange = e => {
+    const text = e.target.value
+    setAnswer(text)
   }
 
   return (
@@ -42,7 +47,7 @@ function CreateAnswer(props) {
         {" "}
         <Form onSubmit={handleAnswersSubmit}>
           <FloatingLabel controlId="floatingInput" label="Answer" className="mb-3">
-            <Form.Control required as="textarea" placeholder="Leave a answer here" style={{ height: "100px" }} />
+            <Form.Control required as="textarea" placeholder="Leave a answer here" value={answer} onChange={e => handleChange(e)} style={{ height: "100px" }} />
           </FloatingLabel>
 
           <div class="text-right">

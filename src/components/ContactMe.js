@@ -6,7 +6,6 @@ import Card from "react-bootstrap/Card"
 function ContactMe() {
   return (
     <Page>
-      <Navbar />
       <Card>
         <Card.Body>
           <Card.Title>Contact Me</Card.Title>

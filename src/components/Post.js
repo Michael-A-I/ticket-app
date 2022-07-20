@@ -27,6 +27,7 @@ function Post() {
 
   const appState = useContext(StateContext)
   const [post, setPost] = useState([])
+
   const [comments, setComments] = useState([])
   const [postAnswer, setPostAnswer] = useState([])
   const [postsID, setPostsID] = useState()
@@ -114,7 +115,6 @@ function Post() {
   if (post == undefined) {
     return (
       <>
-        <Navbar />
         <Container>
           <div style={{ paddingTop: "25%" }}>
             <ReactLoading className="loader" type="spinningBubbles" color="#0000FF" height={100} width={50} />
@@ -126,10 +126,9 @@ function Post() {
 
   return (
     <>
-      <Navbar />
       {/* {console.log(post)} */}
       <Page title={post.title}>
-        <PostView post={post} executeScroll={executeScroll} getPost={getPost} />
+        <PostView post={post} getPost={getPost} executeScroll={executeScroll} />
 
         {/* Post Comments View */}
         <PostComments comments={comments} getComments={getComments} />

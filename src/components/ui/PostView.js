@@ -22,9 +22,10 @@ function PostView(props) {
 
   useEffect(() => {
     console.log("postview useEffect")
+    setPostState({ title: props.post.title, description: props.post.description })
     // hasUserLiked()
     // checkFollow()
-  }, [])
+  }, [props.post.title, props.post.description])
 
   const editPost = () => {
     console.log("editPost")
@@ -168,11 +169,30 @@ function PostView(props) {
 
     setLiked(state.hasLiked)
   }
+  const [postState, setPostState] = useState({ title: props.post.title, description: props.post.description })
+
+  const handleEditPostState = e => {
+    if (e.target.id == "title") {
+      const title = e.target.value
+      setPostState(prev => ({ ...prev, title: title }))
+    }
+    if (e.target.id == "description") {
+      const description = e.target.value
+      setPostState(prev => ({ ...prev, description: description }))
+    }
+  }
+
+  const handleEditCancel = () => {
+    // setPostState(prev => ({ ...prev }))
+    setEdit(!edit)
+  }
 
   return (
     <Row>
       {edit ? (
         <Card>
+          {console.log(props.post.title)}
+
           <Card.Body>
             {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>}
             <Card.Title>{props.post.title}</Card.Title>
@@ -208,21 +228,24 @@ function PostView(props) {
         </Card>
       ) : (
         <Card>
+          {/* EDIT MODE, POST  */}
+          {console.log(postState.title)}
+
           <Card.Body>
             <Form onSubmit={e => handleSubmit(e, props.post._id)}>
               <Form.Label>Title</Form.Label>
               {/* Title */}
-              <Form.Control control="input" size="lg" type="text" placeholder={`${props.post.title}`} name="title" />
-
-              <Form.Control type="text" placeholder={`${props.post.description}`} />
+              <Form.Control id="title" control="input" size="lg" type="text" placeholder={`${props.post.title}`} value={postState.title} name="title" onChange={e => handleEditPostState(e)} />
+              <Form.Label>Description</Form.Label>
+              {/* Description */}
+              {props.post.description == undefined ? null : <Form.Control id="description" type="text" placeholder={`${props.post.description}`} value={postState.description} onChange={e => handleEditPostState(e)} />}
               {props.post && props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
-              {/* {console.log(props.post.file)} */}
+              {/* File upload */}
               {props.post.file ? <img src={props.post.file} className="img-thumbnail mt-2" height={200} width={200} /> : ""}
-
               <Button type="submit" variant="primary">
                 Save
               </Button>
-              <Button variant="warning" onClick={() => setEdit(!edit)}>
+              <Button variant="warning" onClick={handleEditCancel}>
                 Cancel
               </Button>
               <Button variant="danger" onClick={() => deletePost(props.post._id)}>

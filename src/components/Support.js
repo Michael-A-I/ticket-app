@@ -67,7 +67,6 @@ function Support() {
 
   return (
     <>
-      <Navbar />
       <Page title="Support">
         <Feed title="Support" posts={posts} setPosts={setPosts} handleDelete={handleDelete} />
       </Page>

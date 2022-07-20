@@ -47,8 +47,8 @@ function CreatePost(props) {
 
       const postResponse = await res.json()
 
-      console.log(postResponse)
-
+      console.log(postResponse._id)
+      history(`/posts/${postResponse._id}`)
       return swalLoad()
     } catch (error) {
       console.log(error)
@@ -79,7 +79,6 @@ function CreatePost(props) {
   console.log(dropDown)
   return (
     <>
-      <Navbar />
       <Page title="create post">
         <div id="bootstrap-overrides">
           <div className="create-post--center">
@@ -121,6 +120,7 @@ function CreatePost(props) {
 
                     <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
                   </Form.Group>
+
                   {/* Description */}
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Description</Form.Label>

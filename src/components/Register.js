@@ -49,8 +49,6 @@ function Register() {
 
   return (
     <>
-      <Navbar />
-
       <Page title="Register">
         {message === "Success" ? (
           navigate("/login")

@@ -24,10 +24,12 @@ import ContactMe from "./components/ContactMe"
 import ReactLoading from "react-loading"
 /* Styles */
 import "./App.css"
+import "./components/Navbar/css/Navbar.css"
 
 /* Context */
 import StateContext from "./context/StateContext"
 import DispatchContext from "./context/DispatchContext"
+import Navbar from "./components/Navbar/Navbar"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -89,6 +91,7 @@ function App() {
                 </div>
               }
             >
+              <Navbar />
               <Routes>
                 <Route element={<Home />} exact path="/" />
                 <Route element={<Dashboard />} exact path="/dashboard" />

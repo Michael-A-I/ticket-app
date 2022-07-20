@@ -104,17 +104,23 @@ function Feed(props) {
           <Row>
             <Card>
               <Card.Body>
+                {/* Post Title */}
                 <Card.Title>
                   <h1>{post.title}</h1>
                 </Card.Title>
+
+                {/* Post Description */}
                 <Card.Text>{post.description}</Card.Text>
 
+                {/* Post Buttons */}
                 <Link to={`/posts/${post._id}`}>
                   <button className="btn btn-primary btn-sm">Go to post</button>
                 </Link>
-                <Button className="btn btn-danger btn-sm" onClick={() => props.handleDelete(post._id)}>
-                  Delete
-                </Button>
+                {appState.user.id == post.user ? (
+                  <Button className="btn btn-danger btn-sm" onClick={() => props.handleDelete(post._id)}>
+                    Delete
+                  </Button>
+                ) : null}
               </Card.Body>
             </Card>
           </Row>

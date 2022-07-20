@@ -20,7 +20,6 @@ function Home() {
   return (
     <>
       <div className="home-background"></div>
-      <Navbar />
       <Page title="Home">
         <div id="override-bootstrap" className="home-container">
           <div className="jumbotron">

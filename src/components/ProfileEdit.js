@@ -128,7 +128,6 @@ function ProfileEdit() {
 
   return (
     <>
-      <Navbar />
       <Container id="bootstrap-overrides">
         <Page title="Register">
           <ProfileEditNav></ProfileEditNav>

@@ -67,7 +67,6 @@ function Engineer() {
 
   return (
     <>
-      <Navbar />
       <Page title="Engineering">
         <Feed title="Engineer" setPosts={setPosts} posts={posts} handleDelete={handleDelete} />
       </Page>

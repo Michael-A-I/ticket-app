@@ -44,7 +44,6 @@ function UserIndex() {
 
   return (
     <>
-      <Navbar></Navbar>
       {/* <pre>{users}</pre> */}
 
       <Page>

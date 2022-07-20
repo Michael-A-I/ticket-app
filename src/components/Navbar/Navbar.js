@@ -80,6 +80,7 @@ function Navbar() {
                   {/* <SearchBox className="search-box" /> */}
                   {/* <Hits hitComponent={Hit} /> */}
                   <Autocomplete
+                    Style={{ borderBotton: "none" }}
                     searchClient={searchClient}
                     openOnFocus={true}
                     // detachedMediaQuery="none"

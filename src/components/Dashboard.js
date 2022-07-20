@@ -68,7 +68,6 @@ function Dashboard() {
 
   return (
     <>
-      <Navbar />
       <Page title="Dashboard">
         <Feed title="Dashboard" posts={posts} setPosts={setPosts} handleDelete={handleDelete} />
       </Page>
