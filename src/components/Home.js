@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import { Button, Card, Jumbotron, Row } from "react-bootstrap"
 
 /* Components */
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import Page from "./Page"
 import "./css/Home.css"
 import Feed from "./ui/Feed"

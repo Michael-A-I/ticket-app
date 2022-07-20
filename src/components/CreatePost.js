@@ -2,7 +2,7 @@ import { useNavigate, Navigate, useLocation } from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
 // import { useLocation } from "react-router"
 /* Components */
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import Page from "./Page"
 /* Packages */
 import swal from "sweetalert"

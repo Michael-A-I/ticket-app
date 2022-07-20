@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { Button, Card, Container } from "react-bootstrap"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import Page from "./Page"
 import StateContext from "../context/StateContext"
 import { useParams } from "react-router"

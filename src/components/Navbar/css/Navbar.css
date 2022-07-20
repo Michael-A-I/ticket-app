@@ -142,6 +142,7 @@ dropdown-item {
   /* color: white; */
 }
 
+/* Hamburger */
 .ham-top {
   width: 35px;
   height: 5px;
@@ -168,6 +169,8 @@ dropdown-item {
   margin: 6px 0;
   transition: all 1s;
 }
+/* Hamburger */
+
 /* for fade to work it must be below ham-middle for transition */
 .ham-fade {
   width: 0px;
@@ -206,8 +209,9 @@ dropdown-item {
 .nav-search-buttons-item {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   margin: 5px;
+  margin-top: 5px;
   /* background-color: #fff; */
 }
 
@@ -246,7 +250,11 @@ dropdown-item {
   height: 100%;
   padding: 247px;
 }
-/* SEARCH BOX */
+/* SEARCH BOX Algolia*/
+#autocomplete-3-input {
+  border-bottom: none;
+}
+/* SEARCH BOX Algolia*/
 
 /* !MEDIUM SCREENS */
 /* TODO: Add styling for medium sized screens */

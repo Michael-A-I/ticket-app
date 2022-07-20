@@ -25,11 +25,11 @@ function DropDown() {
             <Dropdown.Item href="/support">Support Q&A</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        {/*  <Link to="/leaderboard" className="nav-search-buttons-item nav-search-buttons-item--small">
-                      <i class="fa-solid fa-trophy"></i>
-                    </Link> */}
+        {/* <Link to="/leaderboard" className="nav-search-buttons-item nav-search-buttons-item--small">
+          <i class="fa-solid fa-trophy"></i>
+        </Link> */}
         <Link to="/users" className="nav-search-buttons-item nav-search-buttons-item--small">
-          <i class="fa-solid fa-person"></i>
+          <i class="fa-solid fa-person" style={{ marginTop: "5px" }}></i>
         </Link>
       </div>
     </>

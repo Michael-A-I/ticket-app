@@ -1,5 +1,5 @@
 import React, { Link } from "react"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import Page from "./Page"
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"

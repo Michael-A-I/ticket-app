@@ -1,21 +1,22 @@
 import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect, useContext } from "react"
 /* user context */
-import DispatchContext from "../context/DispatchContext"
-import StateContext from "../context/StateContext"
+import DispatchContext from "../../context/DispatchContext"
+import StateContext from "../../context/StateContext"
 
 import "./css/Navbar.css"
 
 import { Hits, InstantSearch, SearchBox } from "react-instantsearch-hooks-web"
 import algoliasearch from "algoliasearch"
-import Logo from "./Navbar/Logo"
-import DropDown from "./Navbar/DropDown"
-import CenterMenu from "./Navbar/CenterMenu"
-import ProfileDropdown from "./Navbar/ProfileDropdown"
+import Logo from "./Logo"
+import DropDown from "./DropDown"
+import CenterMenu from "./CenterMenu"
+import ProfileDropdown from "./ProfileDropdown"
 // import HitsView from "./Navbar/HitsView"
 import { autocomplete, getAlgoliaResults } from "@algolia/autocomplete-js"
-import Autocomplete from "./Navbar/AutoComplete"
-import PostsHits from "./Navbar/PostsHits"
+import Autocomplete from "./AutoComplete"
+import PostsHits from "./PostsHits"
+import "@algolia/autocomplete-theme-classic"
 
 /* Algolia Search */
 const searchClient = algoliasearch("SJKC9QEQKE", "cce92e4d566fb529a97a2eb8b9993578")
@@ -79,7 +80,10 @@ function Navbar() {
                   {/* <SearchBox className="search-box" /> */}
                   {/* <Hits hitComponent={Hit} /> */}
                   <Autocomplete
+                    searchClient={searchClient}
                     openOnFocus={true}
+                    // detachedMediaQuery="none"
+                    placeholder="Search posts"
                     getSources={({ query }) => [
                       {
                         sourceId: "posts",
@@ -97,6 +101,9 @@ function Navbar() {
                         templates: {
                           item({ item, components }) {
                             return <PostsHits hit={item} components={components} />
+                          },
+                          noResults() {
+                            return "No posts for this query."
                           }
                         }
                       }

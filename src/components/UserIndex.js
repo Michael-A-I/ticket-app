@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Button, Card, Container, FormControl, InputGroup } from "react-bootstrap"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 
 import StateContext from "../context/StateContext"
 import { Link } from "react-router-dom"

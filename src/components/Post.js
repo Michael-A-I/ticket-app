@@ -1,7 +1,7 @@
 import { React, useEffect, useState, useRef, useContext } from "react"
 import { useNavigate, useLocation } from "react-router"
 import { useParams } from "react-router-dom"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import "./css/Post.css"
 import "./css/Comments.css"
 import { handleDate } from "../helper/helper"

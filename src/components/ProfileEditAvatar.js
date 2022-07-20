@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import { Alert, Button, Card, Col, Container, Fade, FloatingLabel, Form, Row } from "react-bootstrap"
 import Page from "./Page"
 import Thumb from "./Thumb"

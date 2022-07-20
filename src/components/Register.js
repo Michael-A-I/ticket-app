@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useState } from "react"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./css/Register.css"
 import Page from "./Page"

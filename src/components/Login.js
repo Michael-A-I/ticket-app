@@ -1,6 +1,6 @@
 import { useNavigate, Navigate, Link } from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar/Navbar"
 import { Button, Card, Form, Toast } from "react-bootstrap"
 
 /* Validation */
