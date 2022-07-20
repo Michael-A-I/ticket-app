@@ -52,7 +52,7 @@ function Dashboard() {
   async function handleDelete(id) {
     try {
       console.log("PostsIndex.js token: " + token)
-      await fetch(`/api/posts/${id}`, {
+      const posts = await fetch(`/api/posts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ function Dashboard() {
   return (
     <>
       <Page title="Dashboard">
-        <Feed title="Dashboard" posts={posts} setPosts={setPosts} handleDelete={handleDelete} />
+        <Feed title="Dashboard" posts={posts} setPosts={setPosts} getPosts={getPosts} handleDelete={handleDelete} />
       </Page>
     </>
   )

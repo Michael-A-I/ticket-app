@@ -135,7 +135,7 @@ function Answer(props) {
                   <Card.Title>Answer Edit</Card.Title>
                   <Card.Text>{answer.name}</Card.Text>
                   <Form onSubmit={e => handleSubmit(e, answer._id)}>
-                    <Form.Control type="text" placeholder={`${answer.text}`} value={answerText[index].text} onChange={e => handleEditAnswerState(e, index)} />
+                    <Form.Control as="textarea" style={{ height: "auto" }} placeholder={`${answer.text}`} value={answerText[index].text} onChange={e => handleEditAnswerState(e, index)} />
 
                     <Button type="submit" variant="primary">
                       Save

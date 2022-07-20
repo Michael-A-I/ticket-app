@@ -238,7 +238,8 @@ function PostView(props) {
               <Form.Control id="title" control="input" size="lg" type="text" placeholder={`${props.post.title}`} value={postState.title} name="title" onChange={e => handleEditPostState(e)} />
               <Form.Label>Description</Form.Label>
               {/* Description */}
-              {props.post.description == undefined ? null : <Form.Control id="description" type="text" placeholder={`${props.post.description}`} value={postState.description} onChange={e => handleEditPostState(e)} />}
+              {props.post.description == undefined ? null : <Form.Control id="description" as="textarea" style={{ height: "200px" }} placeholder={`${props.post.description}`} value={postState.description} onChange={e => handleEditPostState(e)} />}
+
               {props.post && props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
               {/* File upload */}
               {props.post.file ? <img src={props.post.file} className="img-thumbnail mt-2" height={200} width={200} /> : ""}
