@@ -93,13 +93,14 @@ function AnswerCommentsView(props) {
         },
         body: JSON.stringify(createComment)
       })
-      console.log("after fetch")
+      props.getAnswers()
     } catch (error) {
       console.log(error)
     }
   }
 
   const afterUpdate = id => {
+    /* Controls edit state, allows for multiple comments to be in edit state and save will remove specific comment from edit state.  */
     console.log("after update id: ")
     console.log(id)
     setEdit(
@@ -109,7 +110,7 @@ function AnswerCommentsView(props) {
         })
       // console.log("edit after update " + edit)
     )
-    //! refresh answers after delete
+    //! refresh answers after save
     props.getAnswerComments()
     console.log("edit after update " + edit)
   }
@@ -135,7 +136,8 @@ function AnswerCommentsView(props) {
                 <p> {comment.name}</p>
                 <Form onSubmit={e => updateComment(e, comment._id) & afterUpdate(comment._id)}>
                   {/* Comment Text */}
-                  <Form.Control type="text" placeholder={`${comment.text}`} value={editText[index].text} onChange={e => handleEditCommentsState(e, index)} />
+
+                  {editText[index].text != undefined || editText[index].text != null ? <Form.Control type="text" placeholder={`${comment.text}`} value={editText[index].text} onChange={e => handleEditCommentsState(e, index)} /> : null}
                   {comment.user && comment.user.image == undefined ? <img src="/default-profile.jpg" alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt={`aa`} className="thumbnail" style={{ height: "25px", width: "50px" }} />}
 
                   <Button variant="primary" type="submit">

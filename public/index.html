@@ -11,10 +11,18 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <title>Ticket Application</title>
     <script src="https://kit.fontawesome.com/b1b4433b7b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/9frkhd3su9fyafyyl6etvoze006n0i6vorz36h4ms6i0vfok/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
   </head>
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="root"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      tinymce.init({
+        selector: "textarea",
+        plugins: "advlist autolink lists link image charmap preview anchor pagebreak",
+        toolbar_mode: "floating"
+      })
+    </script>
   </body>
 </html>

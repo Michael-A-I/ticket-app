@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { Button, Card, Col, FloatingLabel, Form, Row } from "react-bootstrap"
 import { handleDate } from "../../helper/helper"
 import CreateAnswer from "./Answers/CreateAnswer"
@@ -8,6 +8,7 @@ import PostComments from "./PostView/PostComments"
 /* Context */
 import StateContext from "../../context/StateContext"
 import { useParams } from "react-router"
+
 function PostView(props) {
   /* state context */
   const appState = useContext(StateContext)
@@ -20,11 +21,18 @@ function PostView(props) {
 
   const { id } = useParams()
 
+  const editorRef = useRef(null)
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent())
+    }
+  }
+
   useEffect(() => {
     console.log("postview useEffect")
     setPostState({ title: props.post.title, description: props.post.description })
     // hasUserLiked()
-    // checkFollow()
+    checkFollow()
   }, [props.post.title, props.post.description])
 
   const editPost = () => {
@@ -196,7 +204,7 @@ function PostView(props) {
           <Card.Body>
             {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>}
             <Card.Title>{props.post.title}</Card.Title>
-            <Card.Text>{props.post.description}</Card.Text>
+            <Card.Text style={{ whiteSpace: "pre-line" }}>{props.post.description}</Card.Text>
             {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
             <Row>{props.post.file != undefined ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
 
