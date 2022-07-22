@@ -1,0 +1,65 @@
+.home-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15%;
+}
+
+.container-fluid .jumbotron,
+.container .jumbotron {
+  border-radius: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .container-fluid .jumbotron,
+  .container .jumbotron {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .jumbotron {
+    padding-bottom: 48px;
+    padding-top: 48px;
+  }
+}
+
+.jumbotron {
+  background-color: #eee;
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+/* jumbotron buttons */
+
+#override-bootstrap .jumbotron-button {
+  width: 200px;
+  height: 50px;
+  margin: auto;
+  background-color: #404eed;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* Background */
+
+.home-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background-image: url(../../../public/background.png); */
+  background: #7289da;
+  z-index: -1;
+  background-size: cover;
+}

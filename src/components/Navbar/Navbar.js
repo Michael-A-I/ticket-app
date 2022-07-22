@@ -36,17 +36,18 @@ function Navbar() {
 
   async function logout() {
     localStorage.removeItem("token")
-    localStorage.removeItem("username")
+    localStorage.removeItem("email")
     localStorage.removeItem("avatar")
     localStorage.removeItem("id")
+    localStorage.clear()
 
     appDispatch({ type: "logout" })
 
     await history("/login")
   }
-
   useEffect(() => {
-    algoliaPostIndex()
+    logout()
+    // algoliaPostIndex()
   }, [])
 
   const algoliaPostIndex = async () => {
