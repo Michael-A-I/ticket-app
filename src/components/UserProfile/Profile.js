@@ -13,11 +13,11 @@ import UserFeed from "./UserFeed"
 import Avatar from "./Avatar"
 function Profile() {
   const navigate = useNavigate()
+
   const appState = useContext(StateContext)
+  const token = appState.user.token
 
   const [user, setUser] = useState([])
-
-  const token = appState.user.token
 
   useEffect(() => {
     getUser()

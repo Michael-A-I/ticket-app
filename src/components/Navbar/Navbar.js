@@ -46,17 +46,17 @@ function Navbar() {
     await history("/login")
   }
   useEffect(() => {
-    logout()
+    // logout()
     // algoliaPostIndex()
   }, [])
 
   const algoliaPostIndex = async () => {
-    const searchedPosts = await fetch("/api/posts/search", {
-      headers: {
-        method: "GET",
-        "x-access-token": token
-      }
-    })
+    // const searchedPosts = await fetch("/api/posts/search", {
+    //   headers: {
+    //     method: "GET",
+    //     "x-access-token": token
+    //   }
+    // })
   }
 
   return (

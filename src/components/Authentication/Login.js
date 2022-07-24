@@ -4,8 +4,8 @@ import Navbar from "../Navbar/Navbar"
 import { Button, Card, Form, Toast } from "react-bootstrap"
 
 /* Validation */
-import { Formik } from "formik"
-import * as yup from "yup"
+// import { Formik } from "formik"
+// import * as yup from "yup"
 
 import DispatchContext from "../../context/DispatchContext"
 // import StateContext from "../context/StateContext"
@@ -16,90 +16,125 @@ import "./css/Login.css"
 
 /* helper */
 import { handleTimestamp } from "../../helper/helper"
+import Userfront from "@userfront/core"
+
+import Toasty from "../ui/Toasty"
+import msgConext from "../ui/helpers/toastyMessages"
+
+// Initialize Userfront Core JS
+Userfront.init("pn4qd8qb")
 
 function Login() {
-  // const [login, setLogin] = useState()
   const [message, setMessage] = useState("")
-  const [show, setShow] = useState(false)
-  const [position, setPosition] = useState("top-center")
+  const [login, setLogin] = useState({ email: "", password: "" })
+  const [msg, setMsg] = useState({
+    show: false,
+    poisiton: "center",
+    msg: "",
+    context: "",
+    title: ""
+  })
 
-  const [validationErrors, setValidationErrors] = useState()
   const navigate = useNavigate()
 
   const appDispatch = useContext(DispatchContext)
 
-  async function handleLogin(values) {
-    console.log(values)
-    console.log("handleLogin")
+  const handleChange = event => {
+    console.log("handleChange")
+    event.preventDefault()
+    const target = event.target
 
-    const user = values
+    setLogin(prev => ({ ...prev, [target.name]: target.value }))
+  }
 
-    console.log(user)
+  async function handleSubmit(event) {
+    console.log("handleSubmit")
+    event.preventDefault()
+
+    console.log(login)
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify(user)
+      const data = await Userfront.login({
+        method: "password",
+        email: login.email,
+        password: login.password
       })
 
-      const data = await res.json()
+      console.log(JSON.stringify(data.message))
 
-      console.log(data)
+      const token = `Bearer ${Userfront.tokens.accessToken}`
 
-      if (data.message == "Success") {
-        const date = new Date(handleTimestamp(data.created)).toDateString()
-        localStorage.setItem("token", data.token)
-        localStorage.setItem("username", data.user)
-        localStorage.setItem("avatar", data.avatar)
-        localStorage.setItem("id", data.id)
-        localStorage.setItem("email", data.email)
-        localStorage.setItem("createdAt", date)
+      /* User Details */
+      const user = Userfront.user
+      const email = user.email
+      const avatar = user.image
+      const createdAt = user.createdAt
+      const updatedAt = user.updatedAt
+      const username = user.username
+      const name = user.name
+      // const roles = user.authorization.pn4qd8qb.roles
+      const firstName = user.data.firstName
+      const lastName = user.data.lastName
 
-        appDispatch({ type: "login" })
-        appDispatch({ type: "setToken" })
-        appDispatch({ type: "setUser", value: data.user })
+      console.log(user)
 
-        setMessage(data.message)
+      console.log(email)
+      console.log(data.message)
+      if (data.message == "OK") {
+        //   console.log("build local storage")
+        const update = new Date(handleTimestamp(updatedAt)).toDateString()
+        const created = new Date(handleTimestamp(createdAt)).toDateString()
+
+        //   console.log(email)
+        localStorage.setItem("token", token)
+        //   localStorage.setItem("roles", roles)
+
+        localStorage.setItem("avatar", avatar)
+        //   localStorage.setItem("id", data.id)
+        localStorage.setItem("email", email)
+        localStorage.setItem("createdAt", created)
+        localStorage.setItem("updatedAt", update)
+
+        localStorage.setItem("username", username)
+        localStorage.setItem("name", name)
+        localStorage.setItem("firstName", firstName)
+        localStorage.setItem("lastName", lastName)
+
+        //   appDispatch({ type: "login" })
+        //   appDispatch({ type: "setToken", value: token })
+        //   appDispatch({ type: "setUser", value: data.user })
+
+        //   setMessage(data.message)
       }
       console.log(data.message)
       /*
          if user autheticats set Success authentication message
        */
       console.log(message)
-    } catch (error) {
-      setMessage(error)
+    } catch (err) {
+      console.log("err")
+      console.log(err.message)
+      setMsg({
+        show: true,
+        poisiton: "center",
+        msg: err.message,
+        title: "Error",
+        context: msgConext.danger
+      })
     }
   }
-
-  const toggleShow = () => {
-    setShow(!show)
-  }
-
-  /* Validation Schema yup */
-  const schema = yup.object().shape({
-    email: yup.string().required("enter email!"),
-    password: yup.string().required("enter password!")
-  })
 
   return (
     <>
       <Page>
-        {console.log(message)}
+        {console.log(login)}
+        {console.log(msg)}
+
         {message == "Success" ? (
           navigate("/dashboard")
         ) : (
           <div className="toast-display-center">
-            <Toast show={show} onClose={toggleShow} bg="danger" position={position} style={{ position: "absolute", zIndex: "999" }} delay={3000} autohide>
-              <Toast.Header>
-                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                <strong className="me-auto">Error</strong>
-                {/* <small>11 mins ago</small> */}
-              </Toast.Header>
-              <Toast.Body>{message}</Toast.Body>
-            </Toast>
+            <Toasty msg={msg} setMsg={setMsg} />
           </div>
         )}
         <div className="center-page">
@@ -107,48 +142,40 @@ function Login() {
             <Card.Body>
               <Card.Title className="card-center-title">Welcom Back!</Card.Title>
               <Card.Subtitle className="card-sub-title">Nice to see you again!</Card.Subtitle>
-              <Formik
-                validationSchema={schema}
-                validateOnBlur={false}
-                validateOnChange={true}
-                onSubmit={values => handleLogin(values)}
-                initialValues={{
-                  email: "",
-                  password: ""
-                }}
-              >
-                {({ handleSubmit, handleChange, values, touched, errors }) => (
-                  <Form className="form-group-styles" onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="formGroupEmail">
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control type="text" placeholder="Enter email" name="email" value={values.email} onChange={handleChange} isValid={touched.email && !errors.email} isInvalid={!!errors.email} />
 
-                      <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-                    </Form.Group>
+              {/* Credentials */}
+              <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
+                <Form.Group className="mb-3" controlId="formGroupPassword">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control name="password" type="password" value={login.password} placeholder="Enter password" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
+                </Form.Group>
+                <Button type="submit">Submit</Button>
+                {/* Navigation */}
+                <p className="form-footer">
+                  Forgot your{" "}
+                  <Link className="link-style" to="/forgotpassword">
+                    Password?
+                  </Link>
+                </p>
 
-                    <Form.Group className="mb-3" controlId="formGroupPassword">
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" placeholder="Password" name="password" value={values.password} onChange={handleChange} isValid={touched.password && !errors.password} isInvalid={!!errors.password} />
-                      <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
-                    </Form.Group>
-                    <Button type="submit">Sumbit</Button>
+                <p className="form-footer">
+                  Need an account?{" "}
+                  <Link className="link-style" to="/register">
+                    Register
+                  </Link>
+                </p>
 
-                    <p className="form-footer">
-                      Need an account?{" "}
-                      <Link className="link-style" to="/register">
-                        Register
-                      </Link>
-                    </p>
-
-                    <p className="form-footer">
-                      Want to just try website out?{" "}
-                      <Link className="link-style" to="/register">
-                        Login as test admin
-                      </Link>
-                    </p>
-                  </Form>
-                )}
-              </Formik>
+                <p className="form-footer">
+                  Sign in as{" "}
+                  <Link className="link-style" to="/#">
+                    Demo User
+                  </Link>
+                </p>
+              </Form>
             </Card.Body>
           </Card>
         </div>

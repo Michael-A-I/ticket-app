@@ -13,15 +13,13 @@ function ProfileDropdown() {
   const history = useNavigate()
 
   async function logout() {
-    localStorage.removeItem("token")
-    localStorage.removeItem("username")
-    localStorage.removeItem("avatar")
-    localStorage.removeItem("id")
-
-    appDispatch({ type: "logout" })
-    appDispatch({ type: "setToken" })
-
-    await history("/login")
+    // localStorage.removeItem("token")
+    // localStorage.removeItem("username")
+    // localStorage.removeItem("avatar")
+    // localStorage.removeItem("id")
+    // appDispatch({ type: "logout" })
+    // appDispatch({ type: "setToken" })
+    // await history("/login")
   }
 
   return (

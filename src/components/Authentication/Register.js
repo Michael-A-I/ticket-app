@@ -8,8 +8,13 @@ import Page from "../ui/Page"
 import { Button, Card, Form, Toast } from "react-bootstrap"
 // import FlashMessage from "./react-flash-message"
 
-/* emailjs */
-import emailjs from "@emailjs/browser"
+/* Toasty Alerts */
+import Toasty from "../ui/Toasty"
+import msgConext from "../ui/helpers/toastyMessages"
+
+/* Userfront */
+import Userfront from "@userfront/core"
+Userfront.init("pn4qd8qb")
 
 function Register() {
   const navigate = useNavigate()
@@ -17,39 +22,77 @@ function Register() {
   const [message, setMessage] = useState()
   const [show, setShow] = useState(false)
   const [position, setPosition] = useState("top-center")
+  const [register, setRegister] = useState({ email: "", firstName: "", lastName: "", password: "", confirmPassword: "" })
 
-  async function handleRegister(e) {
+  const [msg, setMsg] = useState({
+    show: false,
+    poisiton: "center",
+    msg: "",
+    context: "",
+    title: ""
+  })
+
+  const handleChange = event => {
+    event.preventDefault()
+
+    const target = event.target
+    console.log(target.name)
+    console.log(target.value)
+
+    setRegister(prev => ({ ...prev, [target.name]: target.value }))
+  }
+
+  async function handleSubmit(e) {
+    /* Send data to  */
     e.preventDefault()
     console.log("Register")
     const form = e.target
 
-    const user = { firstName: form[0].value, lastName: form[1].value, email: form[2].value, password: form[3].value }
-    console.log("Register User Post Data username: " + JSON.stringify(user))
-
     try {
-      /* create user */
+      const formData = {
+        method: "password",
+        email: register.email,
+        password: register.password,
+        name: register.firstName,
+        data: {
+          firstName: register.firstName,
+          lastName: register.lastName,
+          email: register.email
+        }
+      }
+
+      // !userfront registration
+      await Userfront.signup(formData)
+
+      // !mongoose registration
       const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-type": "application/json"
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(formData.data)
       })
-      confirm(user)
+
+      //! /* ! add check to make sure Userfront and BE BOTH succeed */
       const serverRes = await res.json()
       console.log("confirm(user)")
-
       /* send confirmation email */
-
       console.log(serverRes.message)
       /* if on submit server response is an Error then show error message */
       if (serverRes.message !== "Success") {
         setShow(true)
       }
+      setMessage(serverRes.message)
+    } catch (err) {
+      console.log(err)
 
-      // setMessage(serverRes.message)
-    } catch (error) {
-      console.log(error)
+      setMsg({
+        show: true,
+        poisiton: "center",
+        msg: err.message,
+        title: "Error",
+        context: msgConext.danger
+      })
     }
   }
 
@@ -72,25 +115,15 @@ function Register() {
     }
   }
 
-  const toggleShow = () => {
-    setShow(!show)
-  }
-
   return (
     <>
+      {console.log(register)}
       <Page title="Register">
         {message === "Success" ? (
           navigate("/login")
         ) : (
           <div className="toast-display-center">
-            <Toast show={show} onClose={toggleShow} bg="danger" position={position} style={{ position: "absolute", zIndex: "999" }} delay={3000} autohide>
-              <Toast.Header>
-                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                <strong className="me-auto">Error</strong>
-                {/* <small>11 mins ago</small> */}
-              </Toast.Header>
-              <Toast.Body>{message}</Toast.Body>
-            </Toast>
+            <Toasty msg={msg} setMsg={setMsg} />
           </div>
         )}
         <div className="center-page">
@@ -98,22 +131,26 @@ function Register() {
             <Card.Body>
               <Card.Title className="card-center-title">Create an Account</Card.Title>
 
-              <Form className="form-group-styles" onSubmit={e => handleRegister(e)}>
+              <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control type="text" placeholder="Enter First Name" required minLength={2} maxLength={25} />
+                  <Form.Control name="firstName" type="text" placeholder="Enter First Name" required minLength={2} maxLength={25} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control type="text" placeholder="Enter Last Name" required minLength={2} maxLength={25} />
+                  <Form.Control name="lastName" type="text" placeholder="Enter Last Name" required minLength={2} maxLength={25} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" required />
+                  <Form.Control name="email" type="email" placeholder="Enter email" required onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" required minLength={5} maxLength={25} />
+                  <Form.Control name="password" type="password" placeholder="Password" required minLength={5} maxLength={100} onChange={handleChange} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupPassword">
+                  <Form.Label>Confirm Password</Form.Label>
+                  <Form.Control name="confirmPassword" type="password" placeholder="Password" required minLength={5} maxLength={100} onChange={handleChange} />
                 </Form.Group>
                 <Button type="submit">Sumbit</Button>
 

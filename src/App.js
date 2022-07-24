@@ -30,6 +30,7 @@ import "./components/Navbar/css/Navbar.css"
 import StateContext from "./context/StateContext"
 import DispatchContext from "./context/DispatchContext"
 import Navbar from "./components/Navbar/Navbar"
+import ResetPassword from "./components/Authentication/ResetPassword"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -64,7 +65,7 @@ function App() {
         draft.loggedIn = false
         return
       case "setToken":
-        draft.user.token = localStorage.getItem("token")
+        draft.user.token = action.value
         return
       case "setAvatar":
         draft.user.avatar = action.value
@@ -94,27 +95,33 @@ function App() {
               <Navbar />
               <Routes>
                 <Route element={<Home />} exact path="/" />
+
+                {/* LoggedIn Routes */}
                 <Route element={<Dashboard />} exact path="/dashboard" />
                 <Route element={<General />} exact path="/general" />
                 <Route element={<Engineer />} exact path="/engineer" />
                 <Route element={<Product />} exact path="/product" />
                 <Route element={<Support />} exact path="/support" />
 
+                {/* Authentication Routes */}
                 <Route element={<Login />} exact path="/login" />
                 <Route element={<Register />} exact path="/register" />
-                <Route element={<Profile />} exact path="/profile" />
+                <Route element={<ResetPassword />} exact path="/reset" />
 
+                {/* User */}
+                <Route element={<Profile />} exact path="/profile" />
+                <Route element={<UserIndex />} exact path="/users" />
+                <Route element={<LeaderBoard />} exact path="/leaderboard" />
+
+                {/* Create Post Routes */}
                 <Route element={<CreatePost />} exact path="/post/new" />
                 <Route element={<ProfileEdit />} exact path="/profile/edit" />
                 <Route element={<ProfileEditAvatar />} exact path="/avatar/edit" />
-
-                <Route element={<ComingSoon />} exact path="/comingsoon" />
-                {/* <Route element={<ContactMe />} exact path="/contactme" /> */}
-
                 <Route element={<Post />} exact path="/posts/:id" />
 
-                <Route element={<UserIndex />} exact path="/users" />
-                <Route element={<LeaderBoard />} exact path="/leaderboard" />
+                {/* Coming soon & 404 Routes */}
+                <Route element={<ComingSoon />} exact path="/comingsoon" />
+                {/* <Route element={<ContactMe />} exact path="/contactme" /> */}
               </Routes>
             </Suspense>
           </BrowserRouter>

@@ -36,12 +36,9 @@ function Dashboard() {
           "x-access-token": token
         }
       })
-
       // console.log(typeof res)
       const posts = await res.json()
-
       setPosts(posts)
-
       console.log(Array.isArray(posts))
     } catch (error) {
       console.log("PostsIndex.js " + error)
