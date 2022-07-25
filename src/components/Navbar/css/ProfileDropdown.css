@@ -1,0 +1,40 @@
+#bootstrap-overrides .nav-menu {
+  display: flex;
+  margin-right: 15%;
+  list-style-type: none;
+  margin: auto;
+}
+
+.nav-profile {
+  /* list-style-type: none; */
+}
+
+.nav-search-buttons-item--small:hover {
+  border: 3px solid white;
+  /* border-right: 3px solid white; */
+
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+#bootstrap-overrides .nav-search-buttons-item--primary {
+  background-color: #404eed;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
+
+#bootstrap-overrides .hide-big {
+  font-size: 14px;
+  display: none;
+}
+
+@media screen and (max-width: 975px) {
+  #hide-small {
+    display: none;
+  }
+}

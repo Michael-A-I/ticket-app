@@ -1,0 +1,37 @@
+/* Authintication Nav Menu */
+
+.authentication-right {
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.nav-menu-authentication {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 10px;
+  list-style: none;
+  text-align: center;
+  /* width: 85vw; */
+  align-items: center;
+  justify-content: right;
+  /* margin-right: 50px; */
+}
+
+.nav-links-authentication {
+  background-color: #fff;
+  border-radius: 18px;
+  color: 404EED;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 50%;
+  /* margin-right: 6px; */
+}
+
+.nav-item-authentication {
+  /* center text in grid horizontally and vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

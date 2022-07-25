@@ -1,16 +1,35 @@
 .navbar-logo-container {
-  /* color: #fff; */
+  color: #fff;
   display: flex;
   flex-direction: row;
-  /* margin-right: auto; */
+  margin-right: auto;
   /* column-gap: 10px; */
-  justify-content: center;
-  align-items: center;
-  margin-right: 100px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  margin-left: 325px;
 }
 
 #bootstrap-overrides .navbar-logo-title {
   display: inline;
   color: #fff;
   margin-left: 5px;
+}
+
+@media screen and (max-width: 975px) {
+  .navbar-logo-container {
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    /* column-gap: 10px; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    margin-left: 10px;
+  }
+
+  #bootstrap-overrides .navbar-logo-title {
+    display: inline;
+    color: #fff;
+    margin-left: 5px;
+  }
 }

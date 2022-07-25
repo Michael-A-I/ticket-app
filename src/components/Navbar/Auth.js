@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react"
 import { Link } from "react-router-dom"
+import "./css/Auth.css"
 
 function Auth() {
   const [click, setClick] = useState(false)

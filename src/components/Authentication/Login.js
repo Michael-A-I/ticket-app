@@ -100,11 +100,11 @@ function Login() {
         localStorage.setItem("firstName", firstName)
         localStorage.setItem("lastName", lastName)
 
-        //   appDispatch({ type: "login" })
-        //   appDispatch({ type: "setToken", value: token })
-        //   appDispatch({ type: "setUser", value: data.user })
+        appDispatch({ type: "login" })
+        appDispatch({ type: "setToken", value: token })
+        appDispatch({ type: "setUser", value: name })
 
-        //   setMessage(data.message)
+        setMessage(data.message)
       }
       console.log(data.message)
       /*

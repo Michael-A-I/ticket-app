@@ -1,0 +1,57 @@
+.menu-icon {
+  display: none;
+  /* margin-right: 5%; */
+}
+
+@media screen and (max-width: 975px) {
+  /* for fade to work it must be below ham-middle for transition */
+  /* Hamburger */
+  .ham-top {
+    width: 35px;
+    height: 5px;
+    background-color: #302b2b;
+    border-radius: 25px;
+    margin: 6px 0;
+    transition: all 1s;
+  }
+  .ham-middle {
+    width: 35px;
+    height: 5px;
+    border-radius: 25px;
+    background-color: #302b2b;
+    margin: 6px 0;
+    opacity: 1;
+
+    transition: all 0.9s;
+  }
+  .ham-bottom {
+    width: 35px;
+    height: 5px;
+    border-radius: 25px;
+    background-color: #302b2b;
+    margin: 6px 0;
+    transition: all 1s;
+  }
+  /* Hamburger */
+
+  .ham-fade {
+    width: 0px;
+    opacity: 0;
+  }
+  .ham-rotate-down {
+    transform: translate(0px, 11px) rotate(45deg);
+  }
+  .ham-rotate-up {
+    transform: translate(0px, -11px) rotate(-45deg);
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+}

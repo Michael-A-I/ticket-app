@@ -17,10 +17,10 @@ import { autocomplete, getAlgoliaResults } from "@algolia/autocomplete-js"
 import Autocomplete from "./AutoComplete"
 import PostsHits from "./PostsHits"
 import "@algolia/autocomplete-theme-classic"
+import Hamburger from "./Hamburger"
 
 /* Algolia Search */
 const searchClient = algoliasearch("SJKC9QEQKE", "cce92e4d566fb529a97a2eb8b9993578")
-
 function Navbar() {
   /* user context  changed through navbar */
   const appDispatch = useContext(DispatchContext)
@@ -34,17 +34,6 @@ function Navbar() {
 
   console.log(appState)
 
-  async function logout() {
-    localStorage.removeItem("token")
-    localStorage.removeItem("email")
-    localStorage.removeItem("avatar")
-    localStorage.removeItem("id")
-    localStorage.clear()
-
-    appDispatch({ type: "logout" })
-
-    await history("/login")
-  }
   useEffect(() => {
     // logout()
     // algoliaPostIndex()
@@ -62,7 +51,9 @@ function Navbar() {
   return (
     <InstantSearch indexName="posts" searchClient={searchClient}>
       <div id="bootstrap-overrides">
-        <nav className="navbar">
+        <nav className={`navbar ${!appState.loggedIn ? "authentication" : ""}`}>
+          <Logo />
+          <Hamburger />
           <div className="navbar-container ">
             {/* Navbar Links */}
             {/* search for posts : links about site */}
@@ -72,9 +63,7 @@ function Navbar() {
               <>
                 <div className="nav-search">
                   {/* LOGO */}
-                  <Logo style={{ marginRight: "100px" }} />
                   {/* LOGO */}
-
                   {/* <Row className="search-row"> */}
                   {/* Algolia Search */}
                   {/* <Col> */}
@@ -111,15 +100,15 @@ function Navbar() {
                       }
                     ]}
                   />
-
                   {/* <HitsView /> */}
-
                   {/* Algolia Search */}
                   {/* </Col> */}
                   {/* </Row> */}
-
                   {/* DROP DOWN */}
-                  <DropDown />
+                  {/* //!repurpose drop down */}
+                  {/* <DropDown /> */}
+                  {/* //!repurpose drop down */}
+
                   {/* DROP DOWN */}
                 </div>
               </>

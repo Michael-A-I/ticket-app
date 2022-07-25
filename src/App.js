@@ -31,6 +31,7 @@ import StateContext from "./context/StateContext"
 import DispatchContext from "./context/DispatchContext"
 import Navbar from "./components/Navbar/Navbar"
 import ResetPassword from "./components/Authentication/ResetPassword"
+import Sidebar from "./components/Navbar/Sidebar/Sidebar"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -93,6 +94,9 @@ function App() {
               }
             >
               <Navbar />
+
+              <Sidebar />
+
               <Routes>
                 <Route element={<Home />} exact path="/" />
 
