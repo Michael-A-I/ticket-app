@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { Container } from "react-bootstrap"
+import "./css/Page.css"
 
 function Page(props) {
   useEffect(() => {
@@ -7,7 +8,7 @@ function Page(props) {
     window.scrollTo(0, 0)
   }, [props.title])
 
-  return <Container>{props.children}</Container>
+  return <Container className="page-container">{props.children}</Container>
 }
 
 export default Page

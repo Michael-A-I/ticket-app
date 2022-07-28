@@ -53,7 +53,7 @@ function Navbar() {
       <div id="bootstrap-overrides">
         <nav className={`navbar ${!appState.loggedIn ? "authentication" : ""}`}>
           <Logo />
-          <Hamburger />
+          <Hamburger click={click} setClick={setClick} />
           <div className="navbar-container ">
             {/* Navbar Links */}
             {/* search for posts : links about site */}
@@ -119,7 +119,7 @@ function Navbar() {
             {appState.loggedIn ? (
               <>
                 {/* ProfileDrowndown */}
-                <ProfileDropdown />
+                <ProfileDropdown click={click} setClick={setClick} />
                 {/* ProfileDrowndown */}
               </>
             ) : (

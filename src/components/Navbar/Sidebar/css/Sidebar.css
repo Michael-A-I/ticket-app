@@ -8,6 +8,7 @@
   padding: 48px 0 0;
   box-shadow: 5px 0px 10px rgb(226, 226, 226);
   transition: all 1s ease;
+  margin-right: 350px;
 }
 #sidebar-wrapper {
   min-height: 100vh !important;

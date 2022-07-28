@@ -24,26 +24,13 @@
   transition: all 0.1s ease;
 }
 #dropdown-basic-md {
-  opacity: 0;
+}
+#dropdown-basic {
 }
 @media screen and (max-width: 1300px) {
-  #dropdown-basic {
-    display: none;
-    transition: all 0.1s ease;
-  }
-  #dropdown-basic-md {
-    opacity: 1;
-    visibility: visible;
-    transition: all 1s ease;
-  }
 }
-@media screen and (max-width: 975px) {
+@media screen and (max-width: 999px) {
   #dropdown-basic-md {
-    opacity: 0;
-    visibility: visible;
-    margin-right: -100px;
-    margin-left: 100px;
-    transition: all 1s ease;
   }
   .nav-search-buttons {
     display: flex;

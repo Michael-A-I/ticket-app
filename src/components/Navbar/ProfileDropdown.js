@@ -5,11 +5,9 @@ import DispatchContext from "../../context/DispatchContext"
 import StateContext from "../../context/StateContext"
 import Userfront from "@userfront/core"
 
-function ProfileDropdown() {
+function ProfileDropdown(props) {
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
-
-  const [click, setClick] = useState(false)
 
   const history = useNavigate()
 
@@ -24,7 +22,7 @@ function ProfileDropdown() {
 
   return (
     <>
-      <ul className={click ? "nav-menu active" : "nav-menu"}>
+      <ul className={props.click ? "nav-menu active" : "nav-menu"}>
         <li className="nav-profile">
           <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/profile">
             Profile
@@ -61,9 +59,9 @@ function ProfileDropdown() {
               {appState.user.username}
             </Dropdown.Toggle>
 
-            <Dropdown.Toggle variant="success" id="dropdown-basic-md">
+            {/* <Dropdown.Toggle variant="success" id="dropdown-basic-md">
               <i class="fa-solid fa-circle-chevron-down"></i>
-            </Dropdown.Toggle>
+            </Dropdown.Toggle> */}
 
             <Dropdown.Menu>
               <Dropdown.Item href="/profile">Profile</Dropdown.Item>

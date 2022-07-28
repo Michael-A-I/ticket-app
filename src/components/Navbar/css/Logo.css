@@ -7,6 +7,7 @@
   /* justify-content: center; */
   /* align-items: center; */
   margin-left: 325px;
+  transition: all 0.01s ease;
 }
 
 #bootstrap-overrides .navbar-logo-title {
@@ -24,7 +25,8 @@
     /* column-gap: 10px; */
     /* justify-content: center; */
     /* align-items: center; */
-    margin-left: 10px;
+    margin-left: 60px;
+    transition: all 0.5s ease;
   }
 
   #bootstrap-overrides .navbar-logo-title {

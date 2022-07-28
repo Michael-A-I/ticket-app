@@ -119,16 +119,16 @@ dropdown-item {
   .NavbarItems {
     position: relative;
   }
-  .search-hide {
+  /* .search-hide {
     width: auto;
     visibility: hidden;
     display: none;
-  }
+  } */
   #bootstrap-overrides .hide-big {
     display: block;
   }
   #hide-small {
-    display: none;
+    /* display: none; */
   }
   .nav-menu {
     padding: 80px 0px 0px 0px;

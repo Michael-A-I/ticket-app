@@ -32,6 +32,11 @@ import DispatchContext from "./context/DispatchContext"
 import Navbar from "./components/Navbar/Navbar"
 import ResetPassword from "./components/Authentication/ResetPassword"
 import Sidebar from "./components/Navbar/Sidebar/Sidebar"
+import ManageProjects from "./components/Posts/ManageProjects/ManageProjects"
+import Tickets from "./components/Posts/Tickets/Tickets"
+import CreateProjects from "./components/Posts/CreateProjects/CreateProjects"
+import ManageProjectsUsers from "./components/Posts/ManageProjectUsers/ManageProjectUsers"
+import ManageRoleAssignments from "./components/Posts/ManageRoleAssignments/ManageRoleAssignments"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -116,6 +121,17 @@ function App() {
                 <Route element={<Profile />} exact path="/profile" />
                 <Route element={<UserIndex />} exact path="/users" />
                 <Route element={<LeaderBoard />} exact path="/leaderboard" />
+
+                {/* Projects */}
+                <Route element={<CreateProjects />} exact path="/projects/new" />
+
+                {/* Manage */}
+                <Route element={<ManageProjects />} exact path="/projects/index" />
+                <Route element={<ManageRoleAssignments />} exact path="/manage/role" />
+                <Route element={<ManageProjectsUsers />} exact path="/manage/users" />
+
+                {/* Tickets */}
+                <Route element={<Tickets />} exact path="/tickets/index" />
 
                 {/* Create Post Routes */}
                 <Route element={<CreatePost />} exact path="/post/new" />

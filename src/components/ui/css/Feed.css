@@ -1,5 +1,6 @@
 #bootstrap-overrides .feed-buttons {
   display: flex;
+  /* position: static; */
   flex-direction: row;
 }
 
