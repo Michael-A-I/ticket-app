@@ -34,9 +34,10 @@ import ResetPassword from "./components/Authentication/ResetPassword"
 import Sidebar from "./components/Navbar/Sidebar/Sidebar"
 import ManageProjects from "./components/Posts/ManageProjects/ManageProjects"
 import Tickets from "./components/Posts/Tickets/Tickets"
-import CreateProjects from "./components/Posts/CreateProjects/CreateProjects"
+import CreateProjects from "./components/Posts/ManageProjects/CreateProjects/CreateProjects"
 import ManageProjectsUsers from "./components/Posts/ManageProjectUsers/ManageProjectUsers"
 import ManageRoleAssignments from "./components/Posts/ManageRoleAssignments/ManageRoleAssignments"
+import ViewProject from "./components/Posts/ManageProjects/ViewProject/ViewProject"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -124,6 +125,9 @@ function App() {
 
                 {/* Projects */}
                 <Route element={<CreateProjects />} exact path="/projects/new" />
+                {/* View Project */}
+
+                <Route element={<ViewProject />} exact path="/projects/project/:id" />
 
                 {/* Manage */}
                 <Route element={<ManageProjects />} exact path="/projects/index" />

@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from "react"
+import React, { Fragment, useMemo, useState } from "react"
 import { dummy } from "./data/Data"
 import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination, useExpanded, useBlockLayout, useResizeColumns, useFlexLayout } from "react-table"
 import tableColumn from "./data/TableColumn"
@@ -10,8 +10,10 @@ import ColumnSelector from "./ColumnSelector"
 import Resizer from "./Resizer"
 import styles from "./css/ColumnSelector.module.css"
 import Pagination from "./Pagination"
-import { Col, Row, Input, Button } from "reactstrap"
-
+import { Form, Col, Row, Input, Button } from "reactstrap"
+import Dropdown from "react-bootstrap/Dropdown"
+import RenderEditRow from "./subComponenet/RenderEditRow"
+import EditRow from "./EditRow"
 // import { Button } from "bootstrap"
 
 function ReactTable({ columns, data, renderRowSubComponent }) {
@@ -62,7 +64,10 @@ function ReactTable({ columns, data, renderRowSubComponent }) {
     gotoPage(page)
   }
 
-  console.log(getTableProps)
+  const [state, setState] = useState()
+  const handleChange = e => {
+    setState(e.target.value)
+  }
   return (
     <>
       <Page>
@@ -83,11 +88,11 @@ function ReactTable({ columns, data, renderRowSubComponent }) {
               </tr>
             ))}
           </thead>
-
           {/* Body */}
           <tbody {...getTableBodyProps()}>
             {page.map(row => {
               prepareRow(row)
+
               return (
                 <Fragment key={row.getRowProps().key}>
                   <tr>
@@ -95,15 +100,11 @@ function ReactTable({ columns, data, renderRowSubComponent }) {
                       return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     })}
                   </tr>
-                  {row.isExpanded && (
-                    <tr>
-                      <td colSpan={visibleColumns.length}>{renderRowSubComponent(row)}</td>
-                    </tr>
-                  )}
+                  {row.isExpanded && <tr>{row.cells.map((cell, index) => (index == 0 ? <span></span> : <td {...cell.getCellProps()}>{/* <EditRow cell={cell} state={state} handleChange={handleChange} /> */}</td>))}</tr>}
                 </Fragment>
               )
             })}
-          </tbody>
+          </tbody>{" "}
         </Table>
         <Row style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
           <Col md={3}>

@@ -1,7 +1,6 @@
-// import { Container } from 'reactstrap';
 import { Container, Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap"
 
-const renderRowSubComponent = row => {
+const renderCard = row => {
   const {
     email
     // location: { city, street, postcode },
@@ -24,4 +23,4 @@ const renderRowSubComponent = row => {
   )
 }
 
-export default renderRowSubComponent
+export default renderCard

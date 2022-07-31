@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react"
 import { Input } from "reactstrap"
 /* render filter from table columns array */
 export const Filter = ({ column }) => {
-  console.log(column)
+  // console.log(column)
   // checks if fileter is on and what filter to render from table columns.. if nothing default filter.
   return <div style={{ marginTop: 5 }}>{column.canFilter && column.render("Filter")}</div>
 }

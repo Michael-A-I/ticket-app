@@ -7,7 +7,7 @@ function ManageProjectUsers() {
     <>
       <Page>
         <h1>ManageProjectUsers</h1>
-        <ReactTable />
+        {/* <ReactTable /> */}
       </Page>
     </>
   )
