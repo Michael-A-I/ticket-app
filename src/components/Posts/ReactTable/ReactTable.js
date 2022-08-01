@@ -12,11 +12,11 @@ import styles from "./css/ColumnSelector.module.css"
 import Pagination from "./Pagination"
 import { Form, Col, Row, Input, Button } from "reactstrap"
 import Dropdown from "react-bootstrap/Dropdown"
-import RenderEditRow from "./subComponenet/RenderEditRow"
+
 import EditRow from "./EditRow"
 // import { Button } from "bootstrap"
 
-function ReactTable({ columns, data, renderRowSubComponent }) {
+function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -100,7 +100,12 @@ function ReactTable({ columns, data, renderRowSubComponent }) {
                       return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     })}
                   </tr>
-                  {row.isExpanded && <tr>{row.cells.map((cell, index) => (index == 0 ? <span></span> : <td {...cell.getCellProps()}>{/* <EditRow cell={cell} state={state} handleChange={handleChange} /> */}</td>))}</tr>}
+                  {row.isExpanded && (
+                    <tr>
+                      {/* <h1>User Profile</h1> */}
+                      <td colSpan={visibleColumns.length}>{<SubComponenet row={row} users={users} />}</td>
+                    </tr>
+                  )}
                 </Fragment>
               )
             })}

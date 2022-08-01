@@ -54,24 +54,38 @@ function Register() {
         email: register.email,
         password: register.password,
         name: register.firstName,
+        lastName: register.lastName,
         data: {
           firstName: register.firstName,
           lastName: register.lastName,
-          email: register.email
+          email: register.email,
+          username: "",
+          userId: ""
         }
       }
 
       // !userfront registration
-      await Userfront.signup(formData)
+      const udata = await Userfront.signup(formData)
+
+      // appned userfront data to backend
+      formData.data.userId = udata.userId
+      formData.data.username = udata.username
+
+      const dataToDb = formData.data
 
       // !mongoose registration
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
+
+      const res = await fetch(
+        "/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(dataToDb)
         },
-        body: JSON.stringify(formData.data)
-      })
+        console.log(dataToDb)
+      )
 
       //! /* ! add check to make sure Userfront and BE BOTH succeed */
       const serverRes = await res.json()

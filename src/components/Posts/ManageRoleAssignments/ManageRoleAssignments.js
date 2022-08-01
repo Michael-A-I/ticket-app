@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
 import Page from "../../ui/Page"
 import ReactTable from "../ReactTable/ReactTable"
-import renderEditRow from "../ReactTable/subComponenet/RenderEditRow"
 // import { data } from "../ReactTable/data/Data"
 import columns from "../ReactTable/data/TableColumn"
 import StateContext from "../../../context/StateContext"
+import RenderEditRow from "../ReactTable/subComponenet/RenderEditRow"
 
-function ManageProjectUsers() {
+function ManageRoleAssignments() {
   const appState = useContext(StateContext)
   const token = appState.user.token
 
@@ -40,10 +40,10 @@ function ManageProjectUsers() {
     <>
       <Page>
         <h1>Manage Role Assignments</h1>
-        <ReactTable columns={columns} data={data} renderRowSubComponent={renderEditRow} />
+        <ReactTable columns={columns} data={data} renderRowSubComponent={RenderEditRow} users={users} />
       </Page>
     </>
   )
 }
 
-export default ManageProjectUsers
+export default ManageRoleAssignments
