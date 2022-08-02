@@ -9,30 +9,46 @@ import StateContext from "../../../../context/StateContext"
 
 export default function App() {
   // Files Upload
+  /* //!images not saving to database? */
   const [files, setFiles] = useState([])
   const [image, setImage] = useState("/upload.png")
   const [base64, setBase64] = useState("")
+
+  const [managers, setManagers] = useState()
+  const appState = useContext(StateContext)
+  const token = appState.user.token
 
   useEffect(() => {
     fileToBase64()
     getProjectManagers()
     // track state of files and run if updated
+    console.log(appState)
   }, [files])
 
   const editorRef = useRef(null)
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     console.log("handleSubmit")
-
     event.preventDefault()
     const target = event.target
+    const userId = localStorage.getItem("")
     // select managment group is 18
-    const project = { title: target[0].value, description: target[1].value, files: base64, category: target[20].value, projectManager: target[18].value }
+    const project = { title: target[0].value, description: target[1].value, files: base64, category: target[16].value, projectManager: target[18].value, email: appState.user.email }
 
-    console.log(project)
+    //  post data to db
+    try {
+      const res = await fetch("/api/projects/new", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          "x-access-token": token
+        },
+        body: JSON.stringify(project)
+      })
 
-    // console.log(project)
-
-    /* upload project to db */
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const log = () => {
@@ -66,9 +82,6 @@ export default function App() {
     })
   }
 
-  const [managers, setManagers] = useState()
-  const appState = useContext(StateContext)
-  const token = appState.user.token
   const getProjectManagers = async () => {
     // fetch project managers for form.
     const res = await fetch("/api/usersIndex", {

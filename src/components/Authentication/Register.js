@@ -58,9 +58,7 @@ function Register() {
         data: {
           firstName: register.firstName,
           lastName: register.lastName,
-          email: register.email,
-          username: "",
-          userId: ""
+          email: register.email
         }
       }
 

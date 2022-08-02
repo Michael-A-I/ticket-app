@@ -72,6 +72,7 @@ function Login() {
       const updatedAt = user.updatedAt
       const username = user.username
       const name = user.name
+
       // const roles = user.authorization.pn4qd8qb.roles
       const firstName = user.data.firstName
       const lastName = user.data.lastName
