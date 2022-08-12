@@ -37,7 +37,10 @@ import Tickets from "./components/Posts/Tickets/Tickets"
 import CreateProjects from "./components/Posts/ManageProjects/CreateProjects/CreateProjects"
 import ManageProjectsUsers from "./components/Posts/ManageProjectUsers/ManageProjectUsers"
 import ManageRoleAssignments from "./components/Posts/ManageRoleAssignments/ManageRoleAssignments"
-import ViewProject from "./components/Posts/ManageProjects/ViewProject/ViewProject"
+import ProjectViewTickets from "./components/Posts/ManageProjects/ProjectViewTickets/ProjectViewTickets"
+import ProjectView from "./components/Posts/ManageProjects/ProjectView/ProjectView"
+import CreateTickets from "./components/Posts/Tickets/CreateTickets"
+import Ticket from "./components/Posts/ManageProjects/ProjectViewTicket/Ticket"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -126,15 +129,21 @@ function App() {
                 {/* Projects */}
                 <Route element={<CreateProjects />} exact path="/projects/new" />
                 {/* View Project */}
+                <Route element={<ProjectView />} exact path="/projects/:id" />
+                {/* View Project Tickets*/}
+                <Route element={<ProjectViewTickets />} exact path="/projects/tickets/:id" />
+                {/* Project Ticket */}
+                <Route element={<CreateTickets />} exact path="/projects/tickets/:id/createtickets" />
 
-                <Route element={<ViewProject />} exact path="/projects/project/:id" />
+                {/* View single ticket */}
+                <Route element={<Ticket />} exact path="/projects/ticket/:id" />
 
                 {/* Manage */}
                 <Route element={<ManageProjects />} exact path="/projects/index" />
                 <Route element={<ManageRoleAssignments />} exact path="/manage/role" />
                 <Route element={<ManageProjectsUsers />} exact path="/manage/users" />
 
-                {/* Tickets */}
+                {/* My Tickets */}
                 <Route element={<Tickets />} exact path="/tickets/index" />
 
                 {/* Create Post Routes */}

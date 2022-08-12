@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import { Button, Card, Col, FloatingLabel, Form, Row } from "react-bootstrap"
 import { handleDate } from "../../helper/helper"
 import CreateAnswer from "../Answers/CreateAnswer"
 import CreatePostCommnets from "./CreatePostComments"
 import PostComments from "./PostComments"
+import { Editor } from "@tinymce/tinymce-react"
 
 /* Context */
 import StateContext from "../../context/StateContext"
@@ -204,8 +206,9 @@ function PostView(props) {
 
           <Card.Body>
             {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>}
+            <Link to={`/projects/tickets/${id}/createtickets`}> Create Ticket</Link>
             <Card.Title>{props.post.title}</Card.Title>
-            <Card.Text style={{ whiteSpace: "pre-line" }}>{props.post.description}</Card.Text>
+            <Card.Text style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: props.post.description }}></Card.Text>
             {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
             <Row>{props.post.file != undefined ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
 
@@ -224,7 +227,7 @@ function PostView(props) {
                 <Button variant="warning" onClick={editPost}>
                   Edit
                 </Button>
-                <Button variant="danger" onClick={() => deletePost(props.post._id)}>
+                <Button variant="danger" onClick={() => props.deletePost(props.post._id)}>
                   Delete
                 </Button>
               </>
@@ -241,13 +244,27 @@ function PostView(props) {
           {console.log(postState.title)}
 
           <Card.Body>
-            <Form onSubmit={e => handleSubmit(e, props.post._id)}>
+            <Form onSubmit={e => props.handleSubmit(e, props.post._id)}>
               <Form.Label>Title</Form.Label>
               {/* Title */}
               <Form.Control id="title" control="input" size="lg" type="text" placeholder={`${props.post.title}`} value={postState.title} name="title" onChange={e => handleEditPostState(e)} />
               <Form.Label>Description</Form.Label>
               {/* Description */}
-              {props.post.description == undefined ? null : <Form.Control id="description" as="textarea" style={{ height: "200px" }} placeholder={`${props.post.description}`} value={postState.description} onChange={e => handleEditPostState(e)} />}
+              {props.post.description == undefined ? null : (
+                <Editor
+                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  initialValue="Write Project/Bug specifications here"
+                  init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table paste code help wordcount"],
+                    toolbar: "undo redo | formatselect | " + "bold italic backcolor | alignleft aligncenter " + "alignright alignjustify | bullist numlist outdent indent | " + "removeformat | help",
+                    content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+                  }}
+                  value={postState.description}
+                  onChange={e => handleEditPostState(e)}
+                />
+              )}
 
               {props.post && props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
               {/* File upload */}
@@ -258,7 +275,7 @@ function PostView(props) {
               <Button variant="warning" onClick={handleEditCancel}>
                 Cancel
               </Button>
-              <Button variant="danger" onClick={() => deletePost(props.post._id)}>
+              <Button variant="danger" onClick={() => props.deletePost(props.post._id)}>
                 Delete
               </Button>
             </Form>

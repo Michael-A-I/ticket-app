@@ -9,29 +9,15 @@ const columns = [
     Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? "👇" : "👉"}</span>
   },
   {
-    Header: "Projects",
+    Header: "Ticket Title",
     accessor: "title"
     // Filter: SelectColumnFilter,
     // filter: "equals" //! selection must equal whole value. not partial match
     // getResizerProps: () => {}
   },
+
   {
-    Header: "Category",
-    accessor: "category",
-
-    // console.log(row)
-
-    Filter: SelectColumnFilter
-
-    // getResizerProps: () => {}
-    // Cell: (cellProps) => {
-    //   return <YourReactComponent {...cellProps}/>
-    // }
-    // disableSortBy: true
-    // disableFilters: true
-  },
-  {
-    Header: "Description",
+    Header: "Ticket Description",
     accessor: "description",
     // Filter: SelectColumnFilter
 
@@ -44,8 +30,23 @@ const columns = [
   },
   {
     Header: "Project Manager",
-    accessor: "projectManager",
+    accessor: "createdBy.username",
     // getResizerProps: () => {}
+    Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
+  },
+  {
+    Header: "Assigned",
+    accessor: "assigned.username",
+    // getResizerProps: () => {}
+    Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
+  },
+  {
+    Header: "status",
+    accessor: "done",
+    Cell: val => {
+      const value = val.cell.value
+      return value ? <p>Completed</p> : <p>Not Completed</p>
+    },
     Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
   },
   {
@@ -53,7 +54,7 @@ const columns = [
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/tickets/${row.original._id}`}>view tickets</Link>}</span>
+    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/ticket/${row.original._id}`}>view tickets</Link>}</span>
   },
   {
     Header: "Go to project",

@@ -81,7 +81,7 @@ function Post() {
       })
 
       const comments = await resComment.json()
-
+      console.log({ comments })
       setComments(comments)
     } catch (error) {
       return error

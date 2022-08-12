@@ -15,14 +15,13 @@ function PostView(props) {
   const token = appState.user.token
 
   const [edit, setEdit] = useState(true)
-  const [liked, setLiked] = useState()
 
+  const [liked, setLiked] = useState()
   const [following, setFollowing] = useState()
 
   const { id } = useParams()
 
   const editorRef = useRef(null)
-
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent())
@@ -30,170 +29,164 @@ function PostView(props) {
   }
 
   useEffect(() => {
-    setPostState({ title: props.post.title, description: props.post.description })
+    console.log("postview useEffect")
+    // setPostState({ title: props.post.title, description: props.post.description })
     // hasUserLiked()
     // checkFollow()
   }, [props.post.title, props.post.description])
 
   const editPost = () => {
     console.log("editPost")
+
     setEdit(!edit)
   }
-
   const deletePost = async id => {
     console.log("deletePost")
 
-    try {
-      console.log("PostsIndex.js token: " + token)
-      await fetch(`/api/posts/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token
-        }
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   console.log("PostsIndex.js token: " + token)
+    //   await fetch(`/api/posts/${id}`, {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "x-access-token": token
+    //     }
+    //   })
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   const handleSubmit = async (event, id) => {
     console.log("postView.js handleSubmit")
 
-    event.preventDefault()
-    const comment = event.target
-    const updatePost = { title: comment[0].value, description: comment[1].value }
+    // event.preventDefault()
+    // const comment = event.target
+    // const updatePost = { title: comment[0].value, description: comment[1].value }
 
-    try {
-      console.log("PostsIndex.js token: " + token)
-      await fetch(`/api/posts/${id}/edit`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token
-        },
-        body: JSON.stringify(updatePost)
-      })
-      setEdit(!edit)
-      /* refresh view */
-      props.getPost()
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   console.log("PostsIndex.js token: " + token)
+    //   await fetch(`/api/posts/${id}/edit`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "x-access-token": token
+    //     },
+    //     body: JSON.stringify(updatePost)
+    //   })
+    //   setEdit(!edit)
+    //   /* refresh view */
+    //   props.getPost()
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
-
   // check to see if user id is in db
   const checkFollow = async () => {
-    const res = await fetch(`/api/posts/${id}/followcheck`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      }
-    })
-    const follow = await res.json()
-    // console.log("Check Follow")
-    setFollowing(follow)
-
-    console.log("Check Follow" + follow)
+    // const res = await fetch(`/api/posts/${id}/followcheck`, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "x-access-token": token
+    //   }
+    // })
+    // const follow = await res.json()
+    // // console.log("Check Follow")
+    // setFollowing(follow)
+    // console.log("Check Follow" + follow)
   }
   // add user id to db
 
   const handleFollow = async () => {
     console.log("follow")
-    setFollowing(true)
-    const res = await fetch(`/api/posts/${id}/follow`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
+    // setFollowing(true)
+    // const res = await fetch(`/api/posts/${id}/follow`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "x-access-token": token
+    //   },
+    //   body: JSON.stringify({ hasUserFollowed: appState.user.id })
+    // })
 
-    const state = await res.json()
+    // const state = await res.json()
   }
 
   // remove user id from db
   const handleUnFollow = async () => {
     console.log("unfollow")
-    setFollowing(false)
-    const res = await fetch(`/api/posts/${id}/unfollow`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
+    // setFollowing(false)
+    // const res = await fetch(`/api/posts/${id}/unfollow`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "x-access-token": token
+    //   },
+    //   body: JSON.stringify({ hasUserFollowed: appState.user.id })
+    // })
 
-    const state = await res.json()
+    // const state = await res.json()
   }
 
   const handleLike = async () => {
-    setLiked(!liked)
-
-    console.log("like")
-    const res = await fetch(`/api/posts/${id}/like`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
-
-    const state = await res.json()
+    // setLiked(!liked)
+    // console.log("like")
+    // const res = await fetch(`/api/posts/${id}/like`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "x-access-token": token
+    //   },
+    //   body: JSON.stringify({ hasUserFollowed: appState.user.id })
+    // })
+    // const state = await res.json()
   }
 
   const handleUnLike = async () => {
     console.log("unlike")
-    setLiked(!liked)
+    // setLiked(!liked)
 
-    const res = await fetch(`/api/posts/${id}/unlike`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
+    // const res = await fetch(`/api/posts/${id}/unlike`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "x-access-token": token
+    //   },
+    //   body: JSON.stringify({ hasUserFollowed: appState.user.id })
+    // })
 
-    const state = await res.json()
+    // const state = await res.json()
   }
 
   const hasUserLiked = async () => {
     /* Persistance */
-    console.log("hasUserLiked")
-
-    const res = await fetch(`/api/posts/${id}/hasUserLiked`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      }
-    })
-
-    const state = await res.json()
-
-    setLiked(state.hasLiked)
+    // console.log("hasUserLiked")
+    // const res = await fetch(`/api/posts/${id}/hasUserLiked`, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "x-access-token": token
+    //   }
+    // })
+    // const state = await res.json()
+    // setLiked(state.hasLiked)
   }
   const [postState, setPostState] = useState({ title: props.post.title, description: props.post.description })
 
   const handleEditPostState = e => {
-    if (e.target.id == "title") {
-      const title = e.target.value
-      setPostState(prev => ({ ...prev, title: title }))
-    }
-    if (e.target.id == "description") {
-      const description = e.target.value
-      setPostState(prev => ({ ...prev, description: description }))
-    }
+    // if (e.target.id == "title") {
+    //   const title = e.target.value
+    //   setPostState(prev => ({ ...prev, title: title }))
+    // }
+    // if (e.target.id == "description") {
+    //   const description = e.target.value
+    //   setPostState(prev => ({ ...prev, description: description }))
+    // }
   }
 
   const handleEditCancel = () => {
     // setPostState(prev => ({ ...prev }))
-    setEdit(!edit)
+    // setEdit(!edit)
   }
 
   return (

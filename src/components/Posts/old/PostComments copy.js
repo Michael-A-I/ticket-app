@@ -88,7 +88,7 @@ function PostComments(props) {
     /* return array without comment._id  set comment out of edit mode*/
 
     // await fetchUpdateComment(createComment)
-    const res = await fetch(`/api/project/${id}/comments`, {
+    await fetch(`/api/posts/${id}/comments`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -97,9 +97,7 @@ function PostComments(props) {
       body: JSON.stringify(createComment)
     })
 
-    const comments = await res.json()
-
-    console.log({ comments })
+    console.log("after fetch")
   }
 
   const afterUpdate = id => {
