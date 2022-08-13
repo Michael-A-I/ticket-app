@@ -46,7 +46,7 @@ export const SelectColumnFilter = ({ column: { filterValue, setFilter, preFilter
       <option value="">All</option>
       {options.map(option => (
         <option key={option} value={option}>
-          {option}
+          {option == true ? "Completed" : option == false ? "Not Completed" : option}
         </option>
       ))}
     </Input>

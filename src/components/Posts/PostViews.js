@@ -10,19 +10,16 @@ import { Editor } from "@tinymce/tinymce-react"
 /* Context */
 import StateContext from "../../context/StateContext"
 import { useParams } from "react-router"
+import Status from "./Status"
 
 function PostView(props) {
   /* state context */
   const appState = useContext(StateContext)
   const token = appState.user.token
-
   const [edit, setEdit] = useState(true)
   const [liked, setLiked] = useState()
-
   const [following, setFollowing] = useState()
-
   const { id } = useParams()
-
   const editorRef = useRef(null)
 
   const log = () => {
@@ -206,12 +203,11 @@ function PostView(props) {
 
           <Card.Body>
             {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>}
-            <Link to={`/projects/tickets/${id}/createtickets`}> Create Ticket</Link>
+
             <Card.Title>{props.post.title}</Card.Title>
             <Card.Text style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: props.post.description }}></Card.Text>
             {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
             <Row>{props.post.file != undefined ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
-
             {/* User */}
             <Row>
               {props.post && props.post.user != undefined ? <p>{props.post.user.username}</p> : ""}
@@ -236,6 +232,10 @@ function PostView(props) {
             )}
 
             {liked ? <i class="fa-solid fa-heart" onClick={handleUnLike} style={{ color: "red", background: "grey" }}></i> : <i class="fa-solid fa-heart" onClick={handleLike} style={{ color: "white", background: "grey" }}></i>}
+
+            {/* Completed */}
+            <Status handleStatusSubmit={props.handleStatusSubmit} getStatus={props.getStatus} status={props.status} />
+            {/* Completed */}
           </Card.Body>
         </Card>
       ) : (

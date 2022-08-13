@@ -45,6 +45,7 @@ const columns = [
     accessor: "done",
     Cell: val => {
       const value = val.cell.value
+      console.log({ value })
       return value ? <p>Completed</p> : <p>Not Completed</p>
     },
     Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
@@ -54,16 +55,15 @@ const columns = [
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/ticket/${row.original._id}`}>view tickets</Link>}</span>
+    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/ticket/${row.original._id}`}>view ticket</Link>}</span>
   },
   {
     Header: "Go to project",
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    Cell: ({ row }) => {
-      console.log({ row })
 
+    Cell: ({ row }) => {
       return <span>{row.isExpanded ? null : <Link to={`/projects/${row.original.project}`}>Go to project</Link>}</span>
     }
   }

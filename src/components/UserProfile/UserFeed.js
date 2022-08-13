@@ -16,7 +16,8 @@ function UserFeed() {
   }, [])
 
   const setFeeder = async () => {
-    const res = await fetch("/api/userfeed", {
+    let email = localStorage.getItem("email")
+    const res = await fetch(`/api/userfeed/${email}`, {
       method: "GET",
       headers: {
         "x-access-token": token,

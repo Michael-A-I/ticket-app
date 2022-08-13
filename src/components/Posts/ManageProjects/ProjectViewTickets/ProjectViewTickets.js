@@ -6,6 +6,7 @@ import ReactTable from "../../ReactTable/ReactTable"
 import columns from "../../ReactTable/data/ProjectViewTickets/TableColumn"
 
 import renderRowSubComponent from "../../ReactTable/subComponenet/TicketRow"
+import { Link } from "react-router-dom"
 
 function ProjectViewTickets() {
   let { id } = useParams()
@@ -41,7 +42,7 @@ function ProjectViewTickets() {
     <>
       <Page>
         <h1>Project Tickets</h1>
-
+        <Link to={`/projects/tickets/${id}/createtickets`}> Create Ticket</Link>
         {/* TABLE TICKETS */}
         <ReactTable columns={columns} data={data} renderRowSubComponent={renderRowSubComponent} />
       </Page>

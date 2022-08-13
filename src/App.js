@@ -41,6 +41,7 @@ import ProjectViewTickets from "./components/Posts/ManageProjects/ProjectViewTic
 import ProjectView from "./components/Posts/ManageProjects/ProjectView/ProjectView"
 import CreateTickets from "./components/Posts/Tickets/CreateTickets"
 import Ticket from "./components/Posts/ManageProjects/ProjectViewTicket/Ticket"
+import MyTickets from "./components/Posts/MyTickets/MyTickets"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -144,7 +145,7 @@ function App() {
                 <Route element={<ManageProjectsUsers />} exact path="/manage/users" />
 
                 {/* My Tickets */}
-                <Route element={<Tickets />} exact path="/tickets/index" />
+                <Route element={<MyTickets />} exact path="/myticket/:id" />
 
                 {/* Create Post Routes */}
                 <Route element={<CreatePost />} exact path="/post/new" />

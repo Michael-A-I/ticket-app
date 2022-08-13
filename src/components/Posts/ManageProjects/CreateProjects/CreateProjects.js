@@ -14,7 +14,12 @@ export default function App() {
   const [image, setImage] = useState("/upload.png")
   const [base64, setBase64] = useState("")
 
-  const [managers, setManagers] = useState()
+  const [managers, setManagers] = useState([])
+  const [developers, setDevelopers] = useState([])
+  const [matches, setMatch] = useState([])
+  const [filter, setFilter] = useState()
+  const [assigned, setAssigned] = useState()
+
   const appState = useContext(StateContext)
   const token = appState.user.token
 
@@ -25,14 +30,28 @@ export default function App() {
     console.log(appState)
   }, [files])
 
+  useEffect(() => {
+    setAssignedJob()
+  }, [matches, managers])
+
+  // filter developer
+  useEffect(() => {
+    handleDeveloperState()
+  }, [filter])
+
   const editorRef = useRef(null)
+
   const handleSubmit = async event => {
     console.log("handleSubmit")
     event.preventDefault()
     const target = event.target
     const userId = localStorage.getItem("")
     // select managment group is 18
-    const project = { title: target[0].value, description: target[1].value, files: base64, category: target[16].value, projectManager: target[18].value, email: appState.user.email }
+    console.log({ target })
+
+    const project = { title: target[0].value, description: target[1].value, files: base64, category: target[17].value, createdBy: assigned._id, assigned: assigned._id, email: appState.user.email }
+
+    console.log({ project })
 
     //  post data to db
     try {
@@ -100,7 +119,42 @@ export default function App() {
     })
 
     console.log({ managers })
+    setDevelopersWithIsCheckedProperty(managers)
+  }
+
+  const setDevelopersWithIsCheckedProperty = async data => {
+    let managers = data.map(data => {
+      data.isChecked = false
+
+      return data
+    })
+
     setManagers(managers)
+    setMatch(managers)
+  }
+
+  //! How to change an object property in an array state container?? React Hooks useState
+  const checker = i => {
+    console.log(i)
+    setMatch(matches.map((item, index) => (i == index ? { ...item, isChecked: !item.isChecked } : { ...item, isChecked: false })))
+  }
+  // !https://stackoverflow.com/questions/54002792/in-general-is-it-better-to-use-one-or-many-useeffect-hooks-in-a-single-component
+  const setAssignedJob = () => {
+    matches.map(developer => (developer.isChecked ? setAssigned(developer) : null))
+  }
+
+  const handleSelect = e => {
+    const value = e.target.value
+    setFilter(value)
+  }
+
+  const handleDeveloperState = () => {
+    const regex = new RegExp(filter, "g")
+    console.log({ regex })
+    const matches = managers.filter(developer => {
+      return regex.test(developer.username)
+    })
+    setMatch(matches)
   }
 
   return (
@@ -130,14 +184,18 @@ export default function App() {
             <Col>
               {/* input filter for group list*/}
               <InputGroup className="mb-3">
-                <Form.Control placeholder="Select Developer Group" aria-label="Username" aria-describedby="basic-addon1" />
+                <Form.Control placeholder="Select Management Group" aria-label="Username" aria-describedby="basic-addon1" value={filter} onChange={e => handleSelect(e)} />
               </InputGroup>
               {/* Group List */}
+              {/* Group List */}
               <ListGroup style={{ height: "200px", overflowY: "scroll" }}>
-                <ListGroup.Item>
-                  <input type="checkbox" id="c1" class="chk-btn" />
-                  <label for="c1">Check Button</label>
-                </ListGroup.Item>
+                {matches.map((developer, index) => (
+                  <ListGroup.Item onClick={() => checker(index)}>
+                    {index}
+                    <input type="checkbox" id="c1" class="chk-btn" style={{ opacity: "1", position: "relative", margin: "10px" }} checked={developer.isChecked} value={developer._id} />
+                    <label for="c1">{developer.username}</label>
+                  </ListGroup.Item>
+                ))}
               </ListGroup>
             </Col>
 

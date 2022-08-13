@@ -136,12 +136,55 @@ function ProjectView() {
     }
   }
 
+  const handleStatusSubmit = async e => {
+    e.preventDefault()
+    console.log("handleSubmit Status")
+
+    const target = e.target
+    const body = { done: target[0].value }
+    console.log({ body })
+
+    console.log(body)
+    try {
+      const res = await fetch(`/api/projects/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token
+        },
+        body: JSON.stringify(body)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const [status, setStatus] = useState()
+  const getStatus = async () => {
+    try {
+      const res = await fetch(`/api/projects/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": token
+        }
+      })
+
+      const { done } = await res.json()
+
+      console.log(done)
+      setStatus(done)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <Page>
         <h1>ProjectView</h1>
         {/* post views */}
-        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} />
+        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} />
 
         {/* comments for post views */}
         <PostComments comments={comments} getComments={getComments} />

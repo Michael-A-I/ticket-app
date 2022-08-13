@@ -10,3 +10,7 @@
   align-items: center;
   padding-top: 20px;
 }
+
+input {
+  opacity: 1;
+}

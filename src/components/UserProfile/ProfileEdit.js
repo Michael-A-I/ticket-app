@@ -40,7 +40,8 @@ function ProfileEdit() {
     console.log("Register User Post Data username: " + user.username)
 
     try {
-      const res = await fetch("/api/profile/edit", {
+      const email = localStorage.getItem("email")
+      const res = await fetch(`/api/profile/edit/${email}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +63,8 @@ function ProfileEdit() {
 
   const userInfo = async () => {
     try {
-      const res = await fetch("/api/user", {
+      const email = localStorage.getItem("email")
+      const res = await fetch(`/api/user/${email}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

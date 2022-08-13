@@ -44,7 +44,18 @@ const columns = [
   },
   {
     Header: "Project Manager",
-    accessor: "projectManager",
+    accessor: "createdBy.username",
+    // getResizerProps: () => {}
+    Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
+  },
+  {
+    Header: "status",
+    accessor: "done",
+    Cell: val => {
+      const value = val.cell.value
+      console.log({ value })
+      return value ? <p>Completed</p> : <p>Not Completed</p>
+    },
     // getResizerProps: () => {}
     Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
   },

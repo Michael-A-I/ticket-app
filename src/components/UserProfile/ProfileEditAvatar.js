@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Navbar from "../Navbar/Navbar"
-import { Alert, Button, Card, Col, Container, Fade, FloatingLabel, Form, Row } from "react-bootstrap"
+import { Alert, Button, Card, Col, Container, Fade, FloatingLabel, Form, FormCheck, Row } from "react-bootstrap"
 import Page from "../ui/Page"
 import Thumb from "../ui/Thumb"
 import StateContext from "../../context/StateContext"
@@ -9,6 +9,7 @@ import DispatchContext from "../../context/DispatchContext"
 import { useContext } from "react"
 import { useEffect } from "react"
 import Avatar from "./Avatar"
+import Feedback from "react-bootstrap/esm/Feedback"
 
 function ProfileEditAvatar() {
   const appState = useContext(StateContext)
@@ -28,7 +29,8 @@ function ProfileEditAvatar() {
   // peristance
   const handlePersistance = async () => {
     try {
-      const res = await fetch("/api/user", {
+      const email = localStorage.getItem("email")
+      const res = await fetch(`/api/user/${email}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -39,6 +41,7 @@ function ProfileEditAvatar() {
       const user = await res.json()
       console.log(user)
       // setUserState({ title: user.title, bio: user.bio })
+      console.log({ profile: user.upload })
       setProfile({ avatar: user.upload, gravatar: !user.upload })
       setImage(user.image)
       console.log(user.image)
@@ -48,7 +51,8 @@ function ProfileEditAvatar() {
   }
 
   // Ui
-  const handleChange = selection => {
+  const handleChange = () => {
+    console.log("handleChange")
     setProfile({ avatar: !profile.avatar, gravatar: !profile.gravatar })
   }
 
@@ -62,9 +66,10 @@ function ProfileEditAvatar() {
 
     const body = { upload: checked, image: base64 }
 
+    const email = localStorage.getItem("email")
     /* upload to DB */
     try {
-      const res = await fetch("/api/profile/edit", {
+      const res = await fetch(`/api/profile/edit/${email}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -100,10 +105,16 @@ function ProfileEditAvatar() {
           <Row>
             <p>Choose an existing avatar, or drag and drop a photo from your computer.</p>
           </Row>
+          {/* current profile */}
+          <h1>Picture being used</h1>
           <Avatar width={"250px"} height={"200px"} />
           <Row>
-            <Col>{file ? <Thumb file={file} /> : <img src={`${image}`} className="img-thumbnail mt-2" style={{ height: "152px", width: "200px", background: "white" }} />}</Col>
             <Col>
+              <h1>Upload Pic</h1>
+              {file ? <Thumb file={file} /> : <img src={`${image}`} className="img-thumbnail mt-2" style={{ height: "152px", width: "200px", background: "white" }} />}
+            </Col>
+            <Col>
+              <h1>Defaul Pic</h1>
               <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "152px", width: "200px" }} />
             </Col>
           </Row>
@@ -111,9 +122,25 @@ function ProfileEditAvatar() {
           <Row>
             {/* Form */}
 
-            <Form onSubmit={e => handleSubmit(e)}>
-              <Form.Check type="switch" label="Avatar" checked={profile.avatar} onChange={() => handleChange("avatar")} />
-              <Form.Check type="switch" label="Defaul Profile" checked={profile.gravatar} onChange={() => handleChange("gravatar")} />
+            <Form onSubmit={e => handleSubmit(e)} id="checkbox">
+              <div onClick={() => handleChange()}>
+                <FormCheck>
+                  <FormCheck.Input style={{ opacity: "1" }} type={"checkbox"} checked={profile.avatar} />
+                  <FormCheck.Label>Avatar</FormCheck.Label>
+                  {/* <Feedback type="invalid">Yo this is required</Feedback> */}
+                </FormCheck>
+              </div>
+              <div onClick={() => handleChange()}>
+                <FormCheck>
+                  <FormCheck.Input style={{ opacity: "1" }} type={"checkbox"} checked={profile.gravatar} />
+                  <FormCheck.Label>Default</FormCheck.Label>
+                  {/* <Feedback type="invalid">Yo this is required</Feedback> */}
+                </FormCheck>
+              </div>
+
+              {/* <Form.Check type="switch" label="Avatar" style={{ opacity: "1" }} />
+                <Form.Check type="switch" label="Defaul Profile" id="checkbox" /> */}
+
               {/* Switch to select Image type */}
               {/* Image upload */}
               <input
