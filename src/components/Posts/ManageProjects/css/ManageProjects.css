@@ -1,0 +1,25 @@
+.button {
+  padding: 10px 50px;
+  color: white;
+  text-decoration: none;
+  background: #404eed;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.table-container {
+  margin-bottom: 30px;
+}
+
+.button-container {
+  /* margin-bottom: 70px; */
+  margin: "100px";
+}
+
+.heading-container {
+  margin-left: 350px;
+}
+
+.title {
+  /* margin-bottom: 30px; */
+}

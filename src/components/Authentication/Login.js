@@ -2,6 +2,7 @@ import { useNavigate, Navigate, Link } from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
 import Navbar from "../Navbar/Navbar"
 import { Button, Card, Form, Toast } from "react-bootstrap"
+import StateContext from "../../context/StateContext"
 
 /* Validation */
 // import { Formik } from "formik"
@@ -25,6 +26,9 @@ import msgConext from "../ui/helpers/toastyMessages"
 Userfront.init("pn4qd8qb")
 
 function Login() {
+  const appState = useContext(StateContext)
+  const token = appState.user.token
+
   const [message, setMessage] = useState("")
   const [login, setLogin] = useState({ email: "", password: "" })
   const [msg, setMsg] = useState({
@@ -80,6 +84,7 @@ function Login() {
       console.log(user)
 
       console.log(email)
+      logID(email)
       console.log(data.message)
       if (data.message == "OK") {
         //   console.log("build local storage")
@@ -104,6 +109,8 @@ function Login() {
         appDispatch({ type: "login" })
         appDispatch({ type: "setToken", value: token })
         appDispatch({ type: "setUser", value: name })
+        appDispatch({ type: "setFirst", value: firstName })
+        appDispatch({ type: "setLast", value: lastName })
 
         setMessage(data.message)
       }
@@ -123,6 +130,16 @@ function Login() {
         context: msgConext.danger
       })
     }
+  }
+
+  const logID = async email => {
+    await fetch(`/api/login/${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token
+      }
+    })
   }
 
   return (

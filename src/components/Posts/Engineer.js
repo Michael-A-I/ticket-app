@@ -49,7 +49,6 @@ function Engineer() {
 
   async function handleDelete(id) {
     try {
-      console.log("PostsIndex.js token: " + token)
       await fetch(`/api/posts/${id}`, {
         method: "DELETE",
         headers: {

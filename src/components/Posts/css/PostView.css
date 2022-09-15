@@ -1,0 +1,11 @@
+.row {
+  justify-content: left;
+  align-items: center;
+}
+
+.row .postview-status {
+  display: flex;
+  justify-content: left;
+  align-items: initial;
+  /* margin-bottom: auto; */
+}

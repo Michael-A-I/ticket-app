@@ -8,7 +8,11 @@ function Page(props) {
     window.scrollTo(0, 0)
   }, [props.title])
 
-  return <Container className="page-container">{props.children}</Container>
+  return (
+    <div className="page-container">
+      <Container>{props.children}</Container>
+    </div>
+  )
 }
 
 export default Page

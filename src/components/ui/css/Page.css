@@ -1,3 +1,10 @@
 .page-container {
-  margin-left: 350px;
+  padding-left: 350px;
+  /* width: 80%; */
+}
+
+@media only screen and (max-width: 975px) {
+  .page-container {
+    padding-left: 0px;
+  }
 }

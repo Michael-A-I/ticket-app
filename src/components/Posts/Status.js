@@ -10,26 +10,25 @@ function Status(props) {
   const { id } = useParams()
 
   useEffect(() => {
+    if (props.retrun) return
     props.getStatus()
   }, [])
 
+  const [status, setStatus] = useState()
+
+  let stat = ["completed", "additional", "inprogress", "new"]
+  stat = stat.filter(item => item !== props.status)
+  stat.unshift(props.status)
+
   return (
     <>
-      <Form onSubmit={e => props.handleStatusSubmit(e)}>
-        {props.status ? (
-          <Form.Select aria-label="Default select example">
-            <option value={true}>Completed</option>
-            <option value={false}>Not Completed</option>
-          </Form.Select>
-        ) : (
-          <Form.Select aria-label="Default select example">
-            <option value={false}>Not Completed</option>
-            <option value={true}>Completed</option>
-          </Form.Select>
-        )}
-
-        <Button type="submit">Submit</Button>
-      </Form>
+      {console.log(props.status)}
+      <h1>Status</h1>
+      <Form.Select aria-label="Default select example">
+        {stat.map(s => (
+          <option value={s}>{s}</option>
+        ))}
+      </Form.Select>
     </>
   )
 }

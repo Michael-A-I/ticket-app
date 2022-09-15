@@ -1,0 +1,35 @@
+.row {
+  justify-content: center;
+  align-items: center;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.charts {
+  position: relative;
+  /* height: 25vh; */
+  width: 35vw;
+  /* margin: auto; */
+  /* padding: ; */
+  max-width: "450px";
+  min-width: 185px;
+}
+
+.piecharts {
+  width: 15vw;
+  max-width: 300px;
+}
+.barcharts {
+  width: 25vw;
+  max-width: 400px;
+}
+
+.graph-title {
+  color: white;
+}
+
+.graph-container {
+}

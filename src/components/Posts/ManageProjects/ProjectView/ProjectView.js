@@ -6,6 +6,9 @@ import { useParams } from "react-router"
 import StateContext from "../../../../context/StateContext"
 import PostComments from "../../PostComments"
 import CreatePostComments from "../../CreatePostComments"
+import Assigned from "./Assigned"
+import ProjectTickets from "./ProjectTickets"
+import { Col, Row } from "reactstrap"
 
 function ProjectView() {
   const { id } = useParams()
@@ -179,18 +182,30 @@ function ProjectView() {
     }
   }
 
+  const [base64, setBase64] = useState()
+
   return (
     <>
       <Page>
         <h1>ProjectView</h1>
-        {/* post views */}
-        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} />
 
-        {/* comments for post views */}
+        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} />
+
         <PostComments comments={comments} getComments={getComments} />
 
         {/* Post Comments Create */}
-        <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+
+        <div style={{ width: "100%", height: "154px", display: "flex", placeContent: "center", alignItems: "center" }}>
+          <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+        </div>
+
+        <div style={{ border: "1px solid black", borderRadius: "5px" }}>
+          <ProjectTickets />
+        </div>
+
+        {/* post views */}
+
+        {/* comments for post views */}
       </Page>
     </>
   )

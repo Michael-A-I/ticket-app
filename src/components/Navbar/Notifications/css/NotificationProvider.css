@@ -1,0 +1,13 @@
+.notification-provider {
+  position: absolute; /*or fixed*/
+  right: 10%;
+  background: yellow;
+  background-color: yellow;
+  /* color: yellow; */
+  width: 20%;
+}
+
+.notifnication-provider-hide {
+  right: 0px;
+  visibility: hidden;
+}

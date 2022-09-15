@@ -6,6 +6,7 @@ const columns = [
   {
     Header: () => null, //! no header rendered explains why it is empty.
     id: "expander", // 'id' is required
+    width: 40,
     Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? "👇" : "👉"}</span>
   },
   {
@@ -31,6 +32,7 @@ const columns = [
   {
     Header: "Project Manager",
     accessor: "createdBy.username",
+
     // getResizerProps: () => {}
     Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
   },
@@ -43,6 +45,7 @@ const columns = [
   {
     Header: "status",
     accessor: "done",
+
     Cell: val => {
       const value = val.cell.value
       console.log({ value })
@@ -55,16 +58,33 @@ const columns = [
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/ticket/${row.original._id}`}>view ticket</Link>}</span>
+    width: 120,
+    Cell: ({ row }) => (
+      <span>
+        {row.isExpanded ? null : (
+          <Link style={{ background: "black", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/ticket/${row.original._id}`}>
+            view ticket
+          </Link>
+        )}
+      </span>
+    )
   },
   {
     Header: "Go to project",
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-
+    width: 120,
     Cell: ({ row }) => {
-      return <span>{row.isExpanded ? null : <Link to={`/projects/${row.original.project}`}>Go to project</Link>}</span>
+      return (
+        <span>
+          {row.isExpanded ? null : (
+            <Link style={{ background: "black", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/${row.original.project}`}>
+              Go to project
+            </Link>
+          )}
+        </span>
+      )
     }
   }
 ]

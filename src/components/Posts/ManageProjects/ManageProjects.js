@@ -10,6 +10,9 @@ import ReactTable from "../ReactTable/ReactTable"
 
 import RenderRowSubComponent from "../ReactTable/subComponenet/ProjectsCard"
 
+// CSS
+import "./css/ManageProjects.css"
+
 function ManageProjects() {
   const appState = useContext(StateContext)
   const token = appState.user.token
@@ -41,11 +44,19 @@ function ManageProjects() {
       return error
     }
   }
+
   return (
     <>
-      <Page title="Manage Projects">
-        <h1>Manage Projects</h1>
-        <Link to="/projects/new">Create Project</Link>
+      <Page>
+        <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
+          <h1 className="title">Manage Projects</h1>
+
+          <div className="button-container">
+            <Link className="button" to="/projects/new">
+              Create Project
+            </Link>
+          </div>
+        </div>
 
         <ReactTable columns={columns} data={data} renderRowSubComponent={RenderRowSubComponent} />
       </Page>

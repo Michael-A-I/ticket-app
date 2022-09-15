@@ -64,14 +64,32 @@ const columns = [
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/tickets/${row.original._id}`}>view tickets</Link>}</span>
+    width: 150,
+    Cell: ({ row }) => (
+      <span>
+        {row.isExpanded ? null : (
+          <Link style={{ background: "black", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/tickets/${row.original._id}`}>
+            view tickets
+          </Link>
+        )}
+      </span>
+    )
   },
   {
     Header: "Go to project",
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/${row.original._id}`}>Go to project</Link>}</span>
+
+    Cell: ({ row }) => (
+      <span>
+        {row.isExpanded ? null : (
+          <Link style={{ background: "black", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/${row.original._id}`}>
+            Go to project
+          </Link>
+        )}
+      </span>
+    )
   }
 ]
 

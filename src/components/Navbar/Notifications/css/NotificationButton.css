@@ -1,0 +1,6 @@
+.notification-button {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin: 50px;
+}

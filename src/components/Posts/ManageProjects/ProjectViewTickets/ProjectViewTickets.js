@@ -42,9 +42,16 @@ function ProjectViewTickets() {
     <>
       <Page>
         <h1>Project Tickets</h1>
-        <Link to={`/projects/tickets/${id}/createtickets`}> Create Ticket</Link>
+        <div style={{ margin: "25px 0px " }}>
+          <Link style={{ background: "black", padding: "10px 20px", border: "1px solid black", borderRadius: "5px", textDecoration: "none" }} to={`/projects/tickets/${id}/createtickets`}>
+            {" "}
+            Create Ticket
+          </Link>
+        </div>
         {/* TABLE TICKETS */}
-        <ReactTable columns={columns} data={data} renderRowSubComponent={renderRowSubComponent} />
+        <div style={{}}>
+          <ReactTable columns={columns} data={data} renderRowSubComponent={renderRowSubComponent} />
+        </div>
       </Page>
     </>
   )

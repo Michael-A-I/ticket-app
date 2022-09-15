@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Row } from "react-bootstrap"
+import { Card, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import StateContext from "../../context/StateContext"
 import { handleDate } from "../../helper/helper"
+import "./css/userfeed.css"
 
 function UserFeed() {
   const appState = useContext(StateContext)
@@ -26,7 +27,7 @@ function UserFeed() {
     })
 
     const feed = await res.json()
-    console.log(feed)
+    console.log({ feed })
     setUserFeed(feed)
   }
 
@@ -49,23 +50,70 @@ function UserFeed() {
     <>
       <Row>
         <h1>Recent Activity</h1>
-        <pre>{JSON.stringify(userFeed)}</pre>
+        {/* <pre>{JSON.stringify(userFeed)}</pre> */}
         {console.log(userFeed)}
         {userFeed.map(feed =>
           feed.typeOf == "Post" ? (
             <p>
-              <i class="fa-solid fa-comment"></i>
+              <i class="fa-solid fa-comment icon"></i>
               <a href="">{feed.name}</a> Asked <Link to={`/posts/${feed._id}`}>{feed.title}</Link> @{handleDate(feed.createdAt)}
             </p>
           ) : feed.typeOf == "Answer" ? (
             <p>
-              <i class="fa-solid fa-comment-medical"></i> Answered<Link to={`/posts/${feed.post}`}>{feed.text}</Link>@{handleDate(feed.createdAt)}
+              <i class="fa-solid fa-comment-medical icon"></i> Answered<Link to={`/posts/${feed.post}`}>{feed.text}</Link>@{handleDate(feed.createdAt)}
+            </p>
+          ) : feed.typeOf == "ticket" ? (
+            <>
+              <Card>
+                <Card.Body>
+                  <blockquote className="blockquote mb-0">
+                    <p>
+                      <i class="fa-solid fa-ticket icon"></i>
+                      <a href="">{feed.name}</a> Assigned Ticket <Link to={`/project/ticket/${feed._id}`}>{feed.title}</Link>
+                    </p>
+                    <footer className="blockquote-footer">
+                      <p>{handleDate(feed.createdAt)}</p>
+                    </footer>
+                  </blockquote>
+                </Card.Body>
+              </Card>
+            </>
+          ) : feed.typeOf == "Project" ? (
+            <p>
+              <Card className="card-container">
+                <Card.Body>
+                  <blockquote className="blockquote mb-0">
+                    <p>
+                      <i class="fa-solid fa-diagram-project icon"></i>
+                      <a href="">{feed.name}</a> Assigned Project <Link to={`/project/${feed._id}`}>{feed.title}</Link>
+                    </p>
+                    <footer className="blockquote-footer">
+                      <p>{handleDate(feed.createdAt)}</p>
+                    </footer>
+                  </blockquote>
+                </Card.Body>
+              </Card>
+            </p>
+          ) : feed.typeOf == "Comment" && feed.ticket != undefined ? (
+            <p>
+              {console.log("comment for")}
+
+              <Card>
+                <Card.Body>
+                  <blockquote className="blockquote mb-0">
+                    <p>
+                      <i class="fa-solid fa-comment icon"></i>
+                      <a href="">{feed.name}</a> Commented <Link to={`/project/ticket/${feed.ticket._id}`}>{feed.ticket.title}</Link>
+                    </p>
+                    <footer className="blockquote-footer">
+                      <p>{handleDate(feed.createdAt)}</p>
+                    </footer>
+                  </blockquote>
+                </Card.Body>
+              </Card>
             </p>
           ) : (
-            <p>
-              <i class="fa-brands fa-rocketchat"></i>
-              <a href="">{feed.name}</a> Commented <Link to={`/posts/${feed.post}`}>{feed.postName}</Link>@{handleDate(feed.createdAt)}
-            </p>
+            ""
           )
         )}
       </Row>

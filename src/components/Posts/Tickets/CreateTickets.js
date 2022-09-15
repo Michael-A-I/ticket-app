@@ -7,8 +7,10 @@ import Thumb from "../../ui/Thumb"
 import { object } from "yup"
 import StateContext from "../../../context/StateContext"
 import { match } from "assert"
+import Status from "../Status"
+import Priority from "../Priority"
 
-function CreateTickets() {
+function CreateTickets(props) {
   const [files, setFiles] = useState([])
   const [image, setImage] = useState("/upload.png")
   const [assigned, setAssigned] = useState()
@@ -49,7 +51,7 @@ function CreateTickets() {
     const target = event.target
     const userId = localStorage.getItem("Id")
 
-    const ticket = { title: target[0].value, description: target[1].value, files: base64, developer: target[18].value, email: appState.user.email, assigned: assigned._id }
+    const ticket = { title: target[0].value, description: target[1].value, files: base64, developer: target[18].value, email: appState.user.email, assigned: assigned._id, priority: target[25].value, status: target[26].value }
     console.log("Dasdf")
     console.log({ ticket })
 
@@ -144,6 +146,10 @@ function CreateTickets() {
     setMatch(matches)
   }
 
+  let priority = ["none", "low", "medium", "high"]
+
+  let status = ["new", "completed", "additional", "inprogress"]
+
   return (
     <>
       <Page>
@@ -189,11 +195,18 @@ function CreateTickets() {
             </Col>
 
             <Col>
-              {/* <Form.Select aria-label="Default select example">
-                <option>Open this select menu</option>
-                <option value="Feature">Feature</option>
-                <option value="Bug">Bug</option>
-              </Form.Select> */}
+              <h1>Priority</h1>
+              <Form.Select aria-label="Default select example">
+                {priority.map(s => (
+                  <option value={s}>{s}</option>
+                ))}
+              </Form.Select>
+              <h1>Status</h1>
+              <Form.Select aria-label="Default select example">
+                {status.map(s => (
+                  <option value={s}>{s}</option>
+                ))}
+              </Form.Select>
             </Col>
           </Row>
 

@@ -15,7 +15,7 @@ import Profile from "./components/UserProfile/Profile"
 import ProfileEdit from "./components/UserProfile/ProfileEdit"
 import ProfileEditAvatar from "./components/UserProfile/ProfileEditAvatar"
 import CreatePost from "./components/Posts/CreatePost"
-import Dashboard from "./components/Posts/Dashboard"
+import Dashboard from "./components/Posts/Dashboard/Dashboard"
 import Post from "./components/Posts/Post"
 import LeaderBoard from "./components/UsersIndex/LeaderBoard"
 import UserIndex from "./components/UsersIndex/UserIndex"
@@ -42,6 +42,7 @@ import ProjectView from "./components/Posts/ManageProjects/ProjectView/ProjectVi
 import CreateTickets from "./components/Posts/Tickets/CreateTickets"
 import Ticket from "./components/Posts/ManageProjects/ProjectViewTicket/Ticket"
 import MyTickets from "./components/Posts/MyTickets/MyTickets"
+import NotificationProvider from "./components/Navbar/Notifications/NotificationsProvider"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -59,11 +60,14 @@ function App() {
     user: {
       token: localStorage.getItem("token"),
       username: localStorage.getItem("username"),
+      first: localStorage.getItem("firstName"),
+      last: localStorage.getItem("lastName"),
       email: localStorage.getItem("email"),
       avatar: localStorage.getItem("avatar"),
       id: localStorage.getItem("id"),
       createdAt: localStorage.getItem("createdAt")
-    }
+    },
+    notification: false
   }
   /* set action type and return state */
   function ourReducer(draft, action) {
@@ -83,6 +87,15 @@ function App() {
         return
       case "setUser":
         draft.user.username = action.value
+        return
+      case "setFirst":
+        draft.user.firstName = action.value
+        return
+      case "setLast":
+        draft.user.lastName = action.value
+        return
+      case "setNotification":
+        draft.notification = !draft.notification
         return
     }
   }
@@ -104,7 +117,7 @@ function App() {
               }
             >
               <Navbar />
-
+              <NotificationProvider />
               <Sidebar />
 
               <Routes>

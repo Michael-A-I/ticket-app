@@ -31,7 +31,7 @@ function Ticket() {
     })
 
     const ticket = await res.json()
-    console.log({ ticket })
+    // console.log({ ticket })
     setPost(ticket)
   }
 
@@ -60,7 +60,7 @@ function Ticket() {
     event.preventDefault()
     const comment = event.target
     const updatePost = { title: comment[0].value, description: comment[1].value }
-
+    console.log({ updatePost })
     try {
       console.log("PostsIndex.js token: " + token)
       await fetch(`/api/projects/ticket/${id}`, {
@@ -118,8 +118,8 @@ function Ticket() {
 
     const comments = { text: comment[0].value, ticket: id, email: email }
 
-    console.log({ user, username })
-    console.log({ comments })
+    // console.log({ user, username })
+    // console.log({ comments })
 
     try {
       const res = await fetch(`/api/projects/ticket/${id}/comments`, {
@@ -130,7 +130,7 @@ function Ticket() {
         },
         body: JSON.stringify(comments)
       })
-      console.log({ comments })
+      // console.log({ comments })
 
       getComments()
     } catch (error) {
@@ -138,14 +138,20 @@ function Ticket() {
     }
   }
 
+  const [base64, setBase64] = useState("")
   const handleStatusSubmit = async e => {
     e.preventDefault()
     console.log("handleSubmit Status")
 
     const target = e.target
-    const body = { done: target[0].value }
+    // console.log({ target })
 
-    console.log(body)
+    let body
+    if (base64 != []) body = { status: target[0].value, priority: target[1].value, files: base64 }
+    else body = { status: target[0].value, priority: target[1].value }
+
+    // console.log(body)
+
     try {
       const res = await fetch(`/api/projects/ticket/${id}`, {
         method: "PUT",
@@ -155,11 +161,19 @@ function Ticket() {
         },
         body: JSON.stringify(body)
       })
+
+      const ticket = await res.json()
+      // !NOT UPDATING IMAGE ON SUBMIT?
+      // console.log("update")
+      setPost(ticket)
+      // console.log("update")
     } catch (error) {
       console.log(error)
     }
   }
+  const [priority, setPriority] = useState()
   const [status, setStatus] = useState()
+
   const getStatus = async () => {
     try {
       const res = await fetch(`/api/projects/ticket/${id}`, {
@@ -170,10 +184,10 @@ function Ticket() {
         }
       })
 
-      const { done } = await res.json()
+      const { status, priority } = await res.json()
 
-      console.log(done)
-      setStatus(done)
+      setStatus(status)
+      setPriority(priority)
     } catch (error) {
       console.log(error)
     }
@@ -183,13 +197,17 @@ function Ticket() {
       <Page>
         <h1>Ticket</h1>
         {/* post views */}
-        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} />
+        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} priority={priority} showStatus={true} setBase64={setBase64} base64={base64} />
 
         {/* comments for post views */}
-        <PostComments comments={comments} getComments={getComments} />
+        <div style={{ width: "1320px" }}>
+          <PostComments comments={comments} getComments={getComments} setComments={setComments} />
+        </div>
 
         {/* Post Comments Create */}
-        <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50px", margin: "50px 0px 400px" }}>
+          <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+        </div>
       </Page>
     </>
   )

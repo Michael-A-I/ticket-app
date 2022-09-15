@@ -4,7 +4,9 @@ import StateContext from "../../../context/StateContext"
 import Page from "../../ui/Page"
 import columns from "../ReactTable/data/MyTickets/TableColumn"
 import ReactTable from "../ReactTable/ReactTable"
-import RenderEditRow from "../ReactTable/subComponenet/RenderEditRow"
+import MyTicketRow from "../ReactTable/subComponenet/MyTicketRow"
+
+import "./css/MyTickets.css"
 
 function MyTickets() {
   const appState = useContext(StateContext)
@@ -41,10 +43,15 @@ function MyTickets() {
 
   return (
     <>
-      <Page>
-        <h1>My Tickets</h1>
-        <ReactTable columns={columns} data={data} renderRowSubComponent={RenderEditRow} users={myTickets} />
-      </Page>
+      <div style={{ width: "90%", fontSize: "10px" }}>
+        <Page>
+          <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
+            <h1>My Tickets</h1>
+          </div>
+
+          <ReactTable columns={columns} data={data} renderRowSubComponent={MyTicketRow} users={myTickets} />
+        </Page>
+      </div>
     </>
   )
 }

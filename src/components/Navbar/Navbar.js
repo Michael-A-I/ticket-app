@@ -18,6 +18,8 @@ import Autocomplete from "./AutoComplete"
 import PostsHits from "./PostsHits"
 import "@algolia/autocomplete-theme-classic"
 import Hamburger from "./Hamburger"
+import NotificationButtion from "./Notifications/NotificationButtion"
+import NotificationProvider from "./Notifications/NotificationsProvider"
 
 /* Algolia Search */
 const searchClient = algoliasearch("SJKC9QEQKE", "cce92e4d566fb529a97a2eb8b9993578")
@@ -35,17 +37,26 @@ function Navbar() {
   console.log(appState)
 
   useEffect(() => {
-    // logout()
-    // algoliaPostIndex()
+    algoliaPostIndex()
+    algoliaTicketIndex()
   }, [])
 
   const algoliaPostIndex = async () => {
-    // const searchedPosts = await fetch("/api/posts/search", {
-    //   headers: {
-    //     method: "GET",
-    //     "x-access-token": token
-    //   }
-    // })
+    await fetch("/api/search/indexSearch", {
+      headers: {
+        method: "GET",
+        "x-access-token": token
+      }
+    })
+  }
+
+  const algoliaTicketIndex = async () => {
+    await fetch("/api/search/indexTickets", {
+      headers: {
+        method: "GET",
+        "x-access-token": token
+      }
+    })
   }
 
   return (
@@ -69,12 +80,14 @@ function Navbar() {
                   {/* <Col> */}
                   {/* <SearchBox className="search-box" /> */}
                   {/* <Hits hitComponent={Hit} /> */}
+                  {/* <NotificationButtion /> */}
+
                   <Autocomplete
                     Style={{ borderBotton: "none" }}
                     searchClient={searchClient}
                     openOnFocus={true}
                     // detachedMediaQuery="none"
-                    placeholder="Search posts"
+                    placeholder="Search"
                     getSources={({ query }) => [
                       {
                         sourceId: "posts",
@@ -83,7 +96,7 @@ function Navbar() {
                             searchClient,
                             queries: [
                               {
-                                indexName: "posts",
+                                indexName: "projects",
                                 query
                               }
                             ]
@@ -91,7 +104,11 @@ function Navbar() {
                         },
                         templates: {
                           item({ item, components }) {
-                            return <PostsHits hit={item} components={components} />
+                            return (
+                              <>
+                                <PostsHits hit={item} components={components} />
+                              </>
+                            )
                           },
                           noResults() {
                             return "No posts for this query."

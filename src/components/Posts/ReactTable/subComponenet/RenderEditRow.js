@@ -4,6 +4,7 @@
 import { Form, Card, Button } from "react-bootstrap"
 import { useContext, useEffect, useState } from "react"
 import StateContext from "../../../../context/StateContext"
+import { handleDate } from "../../../../helper/helper"
 
 // import { useState } from "react"
 // import { Dropdown } from "bootstrap"
@@ -22,11 +23,16 @@ const RenderEditRow = props => {
   console.log("original: " + props.row.original)
 
   const [edit, setEdit] = useState(true)
+  const [input, setInput] = useState({ Email: userState.email, firstName: userState.firstName, lastName: userState.lastName })
 
   const handleChange = event => {
     const target = event.target
 
     console.log(target.name)
+    console.log(target.value)
+
+    setInput(prev => ({ ...prev, [target.name]: target.value }))
+    console.log(input)
   }
   /* edit mode */
   const handleEdit = event => {
@@ -98,65 +104,84 @@ const RenderEditRow = props => {
   return (
     <>
       {edit ? (
-        <Card style={{ width: "18rem", margin: "0 auto" }}>
-          <Card.Title>
+        <Card style={{ display: "flex", flexFlow: "row wrap", alignItems: "center", width: "100%", margin: "0 auto", padding: "10px" }}>
+          <Card.Title style={{ margin: "auto" }}>
             {userState.firstName} {userState.lastName}{" "}
           </Card.Title>
 
-          <Card.Img variant="top" src={userState.image} />
-          <Card.Text>Role: {userState.role}</Card.Text>
-          <Card.Text>Email: {userState.email}</Card.Text>
-          <Card.Text>Created: {userState.createdAt}</Card.Text>
-          <Card.Text>id: {userState._id}</Card.Text>
+          <Card.Img variant="top" src={userState.image} style={{ height: "50px", width: "50px", margin: "auto" }} />
 
-          <Button variant="primary">Go somewhere</Button>
-          <Button variant="primary" onClick={handleEdit}>
+          <div style={{ padding: "10px", margin: "auto" }}>
+            <Card.Text>Email: {userState.email ? userState.email : "N/A"}</Card.Text>
+          </div>
+          <div style={{ padding: "10px", margin: "auto" }}>
+            <Card.Text>Created: {handleDate(userState.createdAt)}</Card.Text>
+          </div>
+          <div style={{ padding: "10px", margin: "auto" }}>
+            <Card.Text>Role: {userState.role}</Card.Text>
+          </div>
+          {/* <Card.Text>id: {userState._id}</Card.Text> */}
+
+          {/* <Button variant="primary">Go somewhere</Button> */}
+          <Button style={{ width: "10%", margin: "auto" }} variant="primary" onClick={handleEdit}>
             Edit
           </Button>
         </Card>
       ) : (
         <>
-          <pre>{JSON.stringify(props.row.original)}</pre>
-          <Form style={{ width: "18rem", margin: "0 auto" }} onSubmit={event => handleSubmit(event, userState._id)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>First name</Form.Label>
-              <Form.Control type="text" name="firstName" placeholder="First Name" value={userState.firstName} onChange={handleChange} />
-              <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" name="lastName" placeholder="Last Name" value={userState.lastName} onChange={handleChange} />
-              <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" name="lastName" placeholder="Email" value={userState.email} onChange={handleChange} />
-              <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Select aria-label="Default select example">
-                <option value={userState.role}>{userState.role}</option>
-                {roles.map(role => {
-                  return role == userState.role ? null : <option value={role}>{role}</option>
-                })}
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-            <Button variant="primary" type="btn" onClick={handleEdit}>
-              Cancel
-            </Button>
-            <Button variant="primary" type="btn" onClick={event => handleDelete(event, userState._id)}>
-              Delete
-            </Button>
+          {/* <pre>{JSON.stringify(props.row.original)}</pre> */}
+          <Form style={{ display: "flex", flexFlow: "row wrap", alignItems: "center", justifyContent: "space-between" }} onSubmit={event => handleSubmit(event, userState._id)}>
+            <div>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>First name</Form.Label>
+                <Form.Control type="text" name="firstName" placeholder="First Name" value={input.firstName} onChange={handleChange} />
+                <Form.Text className="text-muted">edit first name</Form.Text>
+              </Form.Group>
+            </div>
+            <div>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="text" name="lastName" placeholder="Last Name" value={input.lastName} onChange={handleChange} />
+                <Form.Text className="text-muted">{"edit last name"}</Form.Text>
+              </Form.Group>
+            </div>
+            <div>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" name="Email" placeholder="Email" value={input.Email} onChange={handleChange} />
+                <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
+              </Form.Group>
+            </div>
+            <div>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Select aria-label="Default select example">
+                  <option value={userState.role}>{userState.role}</option>
+                  {roles.map(role => {
+                    return role == userState.role ? null : <option value={role}>{role}</option>
+                  })}
+                </Form.Select>
+              </Form.Group>
+            </div>
+            <div>
+              {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Check me out" />
+              </Form.Group> */}
+            </div>
+            <div>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </div>
+            <div>
+              <Button variant="primary" type="btn" onClick={handleEdit}>
+                Cancel
+              </Button>
+            </div>
+            <div>
+              <Button variant="primary" type="btn" onClick={event => handleDelete(event, userState._id)}>
+                Delete
+              </Button>
+            </div>
           </Form>
         </>
       )}

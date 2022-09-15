@@ -56,7 +56,7 @@ function ProfileDropdown(props) {
         <li>
           <Dropdown id="hide-small">
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-              {appState.user.username}
+              {appState.user.first} {appState.user.last}
             </Dropdown.Toggle>
 
             {/* <Dropdown.Toggle variant="success" id="dropdown-basic-md">
@@ -65,8 +65,8 @@ function ProfileDropdown(props) {
 
             <Dropdown.Menu>
               <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-              <Dropdown.Item href={`#/u/${appState.user.id}/notifications`}>Subscription</Dropdown.Item>
-              <Dropdown.Item href="/contactme">Contact Me</Dropdown.Item>
+              {/* <Dropdown.Item href={`#/u/${appState.user.id}/notifications`}>Subscription</Dropdown.Item>
+              <Dropdown.Item href="/contactme">Contact Me</Dropdown.Item> */}
               <Dropdown.Item onClick={logout}>logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

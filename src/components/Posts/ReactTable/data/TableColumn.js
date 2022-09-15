@@ -1,4 +1,5 @@
 import { Filter, SelectColumnFilter, DefaultColumnFilter } from "../Filter"
+import React, { Fragment } from "react"
 
 const columns = [
   {
@@ -8,13 +9,15 @@ const columns = [
   },
   {
     Header: "User Name",
-    accessor: "username"
+    accessor: "username",
+    width: 250
     // Filter: SelectColumnFilter,
     // filter: "equals" //! selection must equal whole value. not partial match
     // getResizerProps: () => {}
   },
   {
     Header: "Name",
+    width: 250,
     accessor: values => {
       // console.log(values)
       const firstName = values.firstName
@@ -38,7 +41,8 @@ const columns = [
   },
   {
     Header: "Email",
-    accessor: "email"
+    accessor: "email",
+    width: 250
     // Filter: SelectColumnFilter
 
     // getResizerProps: () => {}
@@ -51,6 +55,7 @@ const columns = [
   {
     Header: "Role",
     accessor: "role",
+    width: 250,
     // getResizerProps: () => {}
     Filter: SelectColumnFilter
     //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/

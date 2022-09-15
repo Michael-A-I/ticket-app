@@ -11,6 +11,11 @@ import { Editor } from "@tinymce/tinymce-react"
 import StateContext from "../../context/StateContext"
 import { useParams } from "react-router"
 import Status from "./Status"
+import Priority from "./Priority"
+import Thumb from "../ui/Thumb"
+import ImageView from "./ImageView"
+
+import "./css/PostView.css"
 
 function PostView(props) {
   /* state context */
@@ -21,6 +26,31 @@ function PostView(props) {
   const [following, setFollowing] = useState()
   const { id } = useParams()
   const editorRef = useRef(null)
+  const [files, setFiles] = useState([])
+
+  useEffect(() => {
+    fileToBase64()
+  }, [files])
+
+  const fileToBase64 = () => {
+    console.log("fileToBase64")
+    console.log(files)
+    // clear values in state.
+    props.setBase64("")
+
+    files.map((file, index) => {
+      const fileReader = new FileReader()
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        if (fileReader.readyState === 2) {
+          // Base64 conversion load in array
+          const response = fileReader.result
+          // loop and set values in state
+          props.setBase64(prev => [...prev, response])
+        }
+      }
+    })
+  }
 
   const log = () => {
     if (editorRef.current) {
@@ -81,102 +111,6 @@ function PostView(props) {
     }
   }
 
-  // check to see if user id is in db
-  const checkFollow = async () => {
-    const res = await fetch(`/api/posts/${id}/followcheck`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      }
-    })
-    const follow = await res.json()
-    // console.log("Check Follow")
-    setFollowing(follow)
-
-    console.log("Check Follow" + follow)
-  }
-  // add user id to db
-
-  const handleFollow = async () => {
-    console.log("follow")
-    setFollowing(true)
-    const res = await fetch(`/api/posts/${id}/follow`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
-
-    const state = await res.json()
-  }
-
-  // remove user id from db
-  const handleUnFollow = async () => {
-    console.log("unfollow")
-    setFollowing(false)
-    const res = await fetch(`/api/posts/${id}/unfollow`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
-
-    const state = await res.json()
-  }
-
-  const handleLike = async () => {
-    setLiked(!liked)
-
-    console.log("like")
-    const res = await fetch(`/api/posts/${id}/like`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
-
-    const state = await res.json()
-  }
-
-  const handleUnLike = async () => {
-    console.log("unlike")
-    setLiked(!liked)
-
-    const res = await fetch(`/api/posts/${id}/unlike`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      body: JSON.stringify({ hasUserFollowed: appState.user.id })
-    })
-
-    const state = await res.json()
-  }
-
-  const hasUserLiked = async () => {
-    /* Persistance */
-    console.log("hasUserLiked")
-
-    const res = await fetch(`/api/posts/${id}/hasUserLiked`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      }
-    })
-
-    const state = await res.json()
-
-    setLiked(state.hasLiked)
-  }
   const [postState, setPostState] = useState({ title: props.post.title, description: props.post.description })
 
   const handleEditPostState = e => {
@@ -201,19 +135,16 @@ function PostView(props) {
         <Card>
           {console.log(props.post.title)}
 
-          <Card.Body>
-            {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>}
+          <Card.Body style={{ margin: "20px", height: "100%" }}>
+            {/* {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>} */}
 
             <Card.Title>{props.post.title}</Card.Title>
             <Card.Text style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: props.post.description }}></Card.Text>
             {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
             <Row>{props.post.file != undefined ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
             {/* User */}
-            <Row>
-              {props.post && props.post.user != undefined ? <p>{props.post.user.username}</p> : ""}
-
-              {props.post.user == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px" }} /> : <img src={props.post.user.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px" }} />}
-            </Row>
+            <Row>{props.post && props.post.user != undefined ? <p>{props.post.user.username}</p> : <p>undefined</p>}</Row>
+            <Row style={{ width: "100%" }}>{props.post.user == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.user.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />}</Row>
             {/* Conditional to fix issue with props.post.user._id returning undefined */}
             {props.post.user && props.post.user._id == appState.user.id ? (
               <>
@@ -231,11 +162,57 @@ function PostView(props) {
               ""
             )}
 
-            {liked ? <i class="fa-solid fa-heart" onClick={handleUnLike} style={{ color: "red", background: "grey" }}></i> : <i class="fa-solid fa-heart" onClick={handleLike} style={{ color: "white", background: "grey" }}></i>}
+            {/* {liked ? <i class="fa-solid fa-heart" onClick={handleUnLike} style={{ color: "red", background: "grey" }}></i> : <i class="fa-solid fa-heart" onClick={handleLike} style={{ color: "white", background: "grey" }}></i>} */}
 
-            {/* Completed */}
-            <Status handleStatusSubmit={props.handleStatusSubmit} getStatus={props.getStatus} status={props.status} />
-            {/* Completed */}
+            {props.showStatus ? (
+              <Form onSubmit={e => props.handleStatusSubmit(e)}>
+                <Row className="postview-status">
+                  <Col>
+                    <Status handleStatusSubmit={props.handleStatusSubmit} getStatus={props.getStatus} status={props.status} return={true} />
+                    <Priority handleStatusSubmit={props.handleStatusSubmit} getStatus={props.getStatus} priority={props.priority} return={true} />
+                  </Col>
+                  <Col>
+                    {/* IMAGE VIEW */}
+                    {props.post.files ? <ImageView files={props.post.files} /> : ""}
+
+                    <Form.Label>File Upload</Form.Label>
+
+                    <input
+                      id="file"
+                      name="file"
+                      type="file"
+                      onChange={event => {
+                        // from computer load files into state for thumbnail
+                        setFiles([...event.target.files])
+
+                        // read contents of specified blob or file, turns to base 64 encoded string.
+
+                        //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
+                      }}
+                      className="form-control"
+                      multiple
+                    />
+
+                    {files.map((file, index) => {
+                      return <Thumb file={files[index]} />
+                    })}
+                  </Col>
+                </Row>
+                {/* Image View */}
+                {/* File upload */}
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                  {/* Image upload */}
+                  {/* //! Ability to post multiple images */}
+
+                  {/* {files.map(file => {
+                })} */}
+                </Form.Group>
+
+                <Button type="submit">Submit</Button>
+              </Form>
+            ) : (
+              ""
+            )}
           </Card.Body>
         </Card>
       ) : (

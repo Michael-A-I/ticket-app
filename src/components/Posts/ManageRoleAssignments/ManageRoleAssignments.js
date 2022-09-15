@@ -39,13 +39,20 @@ function ManageRoleAssignments() {
     }
   }
 
+  // select
+
   return (
     <>
+      {/* create user w/o password or generic password  */}
+      {/* <Link to="#">Create User</Link> */}
+
       <Page>
-        <h1>Manage Role Assignments</h1>
-        {/* create user w/o password or generic password  */}
-        {/* <Link to="#">Create User</Link> */}
-        <ReactTable columns={columns} data={data} renderRowSubComponent={RenderEditRow} users={users} />
+        <div style={{ width: "fit-content" }}>
+          <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
+            <h1>Manage Role Assignments</h1>
+          </div>
+          <ReactTable columns={columns} data={data} renderRowSubComponent={RenderEditRow} users={users} />
+        </div>
       </Page>
     </>
   )

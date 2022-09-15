@@ -4,13 +4,10 @@ import { Filter, SelectColumnFilter, DefaultColumnFilter } from "../../Filter"
 
 const columns = [
   {
-    Header: () => null, //! no header rendered explains why it is empty.
-    id: "expander", // 'id' is required
-    Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? "👇" : "👉"}</span>
-  },
-  {
     Header: "Ticket Title",
-    accessor: "title"
+    accessor: "title",
+    width: 150
+
     // Filter: SelectColumnFilter,
     // filter: "equals" //! selection must equal whole value. not partial match
     // getResizerProps: () => {}
@@ -20,7 +17,8 @@ const columns = [
     Header: "Ticket Description",
     accessor: "description",
     // Filter: SelectColumnFilter
-
+    width: 200,
+    whiteSpace: "nowrap",
     // getResizerProps: () => {}
     Cell: value => {
       return <p dangerouslySetInnerHTML={{ __html: value.cell.value.substring(0, 50) }}></p>
@@ -54,7 +52,15 @@ const columns = [
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    Cell: ({ row }) => <span>{row.isExpanded ? null : <Link to={`/projects/ticket/${row.original._id}`}>view tickets</Link>}</span>
+    Cell: ({ row }) => (
+      <span>
+        {row.isExpanded ? null : (
+          <Link className="link-style" style={{ background: "black", padding: "10px 20px", border: "1px solid black", textDecoration: "none", borderRadius: "5px" }} to={`/projects/ticket/${row.original._id}`}>
+            view tickets
+          </Link>
+        )}
+      </span>
+    )
   },
   {
     Header: "Go to project",
@@ -64,7 +70,15 @@ const columns = [
     Cell: ({ row }) => {
       console.log({ row })
 
-      return <span>{row.isExpanded ? null : <Link to={`/projects/${row.original.project}`}>Go to project</Link>}</span>
+      return (
+        <span>
+          {row.isExpanded ? null : (
+            <Link style={{ background: "black", padding: "10px 20px", border: "1px solid black", borderRadius: "5px", textDecoration: "none" }} to={`/projects/${row.original.project}`}>
+              Go to project
+            </Link>
+          )}
+        </span>
+      )
     }
   }
 ]

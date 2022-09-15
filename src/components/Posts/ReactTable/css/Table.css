@@ -16,3 +16,23 @@ thead {
   color: white;
   background: white;
 }
+.yo {
+  height: 61px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: " ...";
+  font-size: 10px;
+}
+
+.display-row {
+  margin: auto;
+  padding: 10px;
+
+  /* border: 1px solid black; */
+}
+
+td span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

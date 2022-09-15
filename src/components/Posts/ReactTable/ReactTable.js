@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo, useState } from "react"
 import { dummy } from "./data/Data"
-import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination, useExpanded, useBlockLayout, useResizeColumns, useFlexLayout } from "react-table"
+import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination, useExpanded, useBlockLayout, useResizeColumns, useFlexLayout, useRowSelect } from "react-table"
 import tableColumn from "./data/TableColumn"
 import Page from "../../ui/Page"
 import "./css/Table.css"
@@ -15,6 +15,20 @@ import Dropdown from "react-bootstrap/Dropdown"
 
 import EditRow from "./EditRow"
 // import { Button } from "bootstrap"
+const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
+  const defaultRef = React.useRef()
+  const resolvedRef = ref || defaultRef
+
+  React.useEffect(() => {
+    resolvedRef.current.indeterminate = indeterminate
+  }, [resolvedRef, indeterminate])
+
+  return (
+    <>
+      <input type="checkbox" ref={resolvedRef} {...rest} />
+    </>
+  )
+})
 
 function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users }) {
   const {
@@ -33,6 +47,9 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
     nextPage,
     previousPage,
     setPageSize,
+    selectedFlatRows,
+
+    state: { selectedRowIds },
     state: { pageIndex, pageSize }
   } = useTable(
     {
@@ -47,7 +64,9 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
     useSortBy,
     // defaultColumn
     useExpanded,
-    usePagination
+    usePagination,
+    useRowSelect,
+    useBlockLayout
   )
 
   /* sorting */
@@ -70,7 +89,7 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
   }
   return (
     <>
-      <Page>
+      <div style={{ margin: "auto" }}>
         <Table {...getTableProps()}>
           {/* Headers */}
           <thead>
@@ -90,14 +109,14 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
           </thead>
           {/* Body */}
           <tbody {...getTableBodyProps()}>
-            {page.map(row => {
+            {page.map((row, i) => {
               prepareRow(row)
 
               return (
                 <Fragment key={row.getRowProps().key}>
                   <tr>
                     {row.cells.map(cell => {
-                      return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      return <td {...cell.getCellProps({ className: "yo display-row" })}>{cell.render("Cell")}</td>
                     })}
                   </tr>
                   {row.isExpanded && (
@@ -111,6 +130,7 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
             })}
           </tbody>{" "}
         </Table>
+
         <Row style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
           <Col md={3}>
             <Button color="primary" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -148,7 +168,7 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
           </Col>
         </Row>
         {/* <Pagination setPageSize={setPageSize} gotoPage={gotoPage} pageIndex={pageIndex} nextPage={nextPage} canNextPage={canNextPage} pageOptions={pageOptions} /> */}
-      </Page>
+      </div>
     </>
   )
 }
