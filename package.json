@@ -90,6 +90,8 @@
     "stream-browserify": "^3.0.0",
     "styled-components": "^5.3.5",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.4.33",
+    "sweetalert2-react-content": "^5.0.3",
     "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
     "use-immer": "^0.7.0",

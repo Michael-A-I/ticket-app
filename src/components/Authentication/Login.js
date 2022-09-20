@@ -76,6 +76,7 @@ function Login() {
       const updatedAt = user.updatedAt
       const username = user.username
       const name = user.name
+      const id = user.userId
 
       // const roles = user.authorization.pn4qd8qb.roles
       const firstName = user.data.firstName
@@ -105,6 +106,7 @@ function Login() {
         localStorage.setItem("name", name)
         localStorage.setItem("firstName", firstName)
         localStorage.setItem("lastName", lastName)
+        localStorage.setItem("userfrontId", id)
 
         appDispatch({ type: "login" })
         appDispatch({ type: "setToken", value: token })
@@ -133,20 +135,20 @@ function Login() {
   }
 
   const logID = async email => {
-    await fetch(`/api/login/${email}`, {
+    await fetch(`/api/login/test`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
+        "Content-Type": "application/json"
       }
     })
+
+    console.log({ token })
   }
 
   return (
     <>
       <Page>
-        {console.log(login)}
-        {console.log(msg)}
+        {console.log({ token })}
 
         {message == "Success" ? (
           navigate("/dashboard")
@@ -165,11 +167,11 @@ function Login() {
               <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
+                  <Form.Control name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control name="password" type="password" value={login.password} placeholder="Enter password" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
+                  <Form.Control name="password" type="password" value={login.password} placeholder="Enter password" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
                 <Button type="submit">Submit</Button>
                 {/* Navigation */}

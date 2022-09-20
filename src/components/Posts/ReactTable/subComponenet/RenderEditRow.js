@@ -5,6 +5,7 @@ import { Form, Card, Button } from "react-bootstrap"
 import { useContext, useEffect, useState } from "react"
 import StateContext from "../../../../context/StateContext"
 import { handleDate } from "../../../../helper/helper"
+import msgConext from "../../../ui/helpers/toastyMessages"
 
 // import { useState } from "react"
 // import { Dropdown } from "bootstrap"
@@ -13,6 +14,8 @@ const RenderEditRow = props => {
   const token = appState.user.token
 
   const { name } = props.row.original
+
+  console.log(props.row.original.userId)
 
   const [userState, setUserState] = useState(props.row.original)
 
@@ -50,19 +53,30 @@ const RenderEditRow = props => {
 
     console.log(roles)
   }
+
   /* submit User info */
   const handleSubmit = async (event, id) => {
     event.preventDefault()
-
-    console.log(id)
 
     const form = event.target
 
     const body = { firstName: form[0].value, lastName: form[1].value, email: form[2].value, role: form[3].value }
     console.log(body)
 
-    /* send data to back end */
+    let formRole = body.role
+
+    const roleUpdate = { owner: ["owner", "admin", "member", "support"], administrator: ["admin", "member", "support"], member: ["member", "support"], support: ["support"] }
+
+    for (const [key, value] of Object.entries(roleUpdate)) {
+      if (key == formRole) {
+        formRole = value
+      }
+    }
+
     try {
+      /* send data to back end */
+
+      // ! Update front end
       const res = await fetch(`/api/user/${id}`, {
         method: "PUT",
         headers: {
@@ -76,8 +90,41 @@ const RenderEditRow = props => {
       // refresh view
       props.users()
       // console.log(user)
-    } catch (error) {
-      console.log(error)
+
+      //! Update Userfront
+      const userId = props.row.original.userId
+      const payload = {
+        email: body.email,
+        roles: formRole,
+        data: {
+          firstName: body.firstName,
+          lastName: body.lastName,
+          email: body.email
+        },
+        authorization: {
+          pn4qd8qb: {
+            roles: formRole
+          }
+        }
+      }
+
+      const response = await fetch(`https://api.userfront.com/v0/users/${userId}/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token
+        },
+        body: JSON.stringify(payload)
+      })
+    } catch (err) {
+      console.log(err)
+      props.setMsg({
+        show: true,
+        poisiton: "center",
+        msg: err.message,
+        title: "Error",
+        context: msgConext.danger
+      })
     }
   }
 

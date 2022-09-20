@@ -51,6 +51,7 @@ function ManageRoleAssignments() {
           <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
             <h1>Manage Role Assignments</h1>
           </div>
+
           <ReactTable columns={columns} data={data} renderRowSubComponent={RenderEditRow} users={users} />
         </div>
       </Page>

@@ -23,3 +23,30 @@ function Toasty(props) {
 }
 
 export default Toasty
+
+/* 
+How to use:
+
+import msgConext from "../ui/helpers/toastyMessages"
+
+
+const [msg, setMsg] = useState({
+    show: false,
+    poisiton: "center",
+    msg: "",
+    context: "",
+    title: ""
+  })
+
+
+ setMsg({
+        show: true,
+        poisiton: "center",
+        msg: err.message,
+        title: "Error",
+        context: msgConext.danger
+      })
+
+
+      <Toasty msg={msg} setMsg={setMsg} />
+*/

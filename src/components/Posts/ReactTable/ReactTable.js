@@ -12,6 +12,7 @@ import styles from "./css/ColumnSelector.module.css"
 import Pagination from "./Pagination"
 import { Form, Col, Row, Input, Button } from "reactstrap"
 import Dropdown from "react-bootstrap/Dropdown"
+import Toasty from "../../ui/Toasty"
 
 import EditRow from "./EditRow"
 // import { Button } from "bootstrap"
@@ -29,8 +30,16 @@ const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref)
     </>
   )
 })
-
+// !renderRowSubComponent is interchangable
 function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users }) {
+  const [msg, setMsg] = useState({
+    show: false,
+    poisiton: "center",
+    msg: "",
+    context: "",
+    title: ""
+  })
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -89,6 +98,9 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
   }
   return (
     <>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Toasty msg={msg} setMsg={setMsg} />
+      </div>
       <div style={{ margin: "auto" }}>
         <Table {...getTableProps()}>
           {/* Headers */}
@@ -122,7 +134,7 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
                   {row.isExpanded && (
                     <tr>
                       {/* <h1>User Profile</h1> */}
-                      <td colSpan={visibleColumns.length}>{<SubComponenet row={row} users={users} />}</td>
+                      <td colSpan={visibleColumns.length}>{<SubComponenet row={row} users={users} setMsg={setMsg} />}</td>
                     </tr>
                   )}
                 </Fragment>

@@ -59,6 +59,14 @@ const columns = [
     // getResizerProps: () => {}
     Filter: SelectColumnFilter
     //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
+  },
+  {
+    Header: "ID",
+    accessor: "userId",
+    width: 250,
+    // getResizerProps: () => {}
+    Filter: SelectColumnFilter
+    //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
   }
 ]
 

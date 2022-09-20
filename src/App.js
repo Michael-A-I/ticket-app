@@ -7,6 +7,8 @@ import { useImmerReducer } from "use-immer"
 import Home from "./components/General/Home"
 import Login from "./components/Authentication/Login"
 import Register from "./components/Authentication/Register"
+import ResetPassword from "./components/Authentication/ResetPassword"
+import SendReset from "./components/Authentication/SendReset"
 import Engineer from "./components/Posts/Engineer"
 import Support from "./components/Posts/Support"
 import Product from "./components/Posts/Product"
@@ -22,15 +24,8 @@ import UserIndex from "./components/UsersIndex/UserIndex"
 import ContactMe from "./components/General/ContactMe"
 import ReactLoading from "react-loading"
 import ComingSoon from "./components/General/ComingSoon"
-/* Styles */
-import "./App.css"
-import "./components/Navbar/css/Navbar.css"
-
-/* Context */
-import StateContext from "./context/StateContext"
-import DispatchContext from "./context/DispatchContext"
 import Navbar from "./components/Navbar/Navbar"
-import ResetPassword from "./components/Authentication/ResetPassword"
+
 import Sidebar from "./components/Navbar/Sidebar/Sidebar"
 import ManageProjects from "./components/Posts/ManageProjects/ManageProjects"
 import Tickets from "./components/Posts/Tickets/Tickets"
@@ -43,6 +38,15 @@ import CreateTickets from "./components/Posts/Tickets/CreateTickets"
 import Ticket from "./components/Posts/ManageProjects/ProjectViewTicket/Ticket"
 import MyTickets from "./components/Posts/MyTickets/MyTickets"
 import NotificationProvider from "./components/Navbar/Notifications/NotificationsProvider"
+import RequireAuth from "./RequireAuth"
+
+/* Styles */
+import "./App.css"
+import "./components/Navbar/css/Navbar.css"
+
+/* Context */
+import StateContext from "./context/StateContext"
+import DispatchContext from "./context/DispatchContext"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -124,7 +128,16 @@ function App() {
                 <Route element={<Home />} exact path="/" />
 
                 {/* LoggedIn Routes */}
-                <Route element={<Dashboard />} exact path="/dashboard" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <Dashboard />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/dashboard"
+                />
+
                 <Route element={<General />} exact path="/general" />
                 <Route element={<Engineer />} exact path="/engineer" />
                 <Route element={<Product />} exact path="/product" />
@@ -134,37 +147,158 @@ function App() {
                 <Route element={<Login />} exact path="/login" />
                 <Route element={<Register />} exact path="/register" />
                 <Route element={<ResetPassword />} exact path="/reset" />
+                <Route element={<SendReset />} exact path="/forgotpassword" />
 
                 {/* User */}
-                <Route element={<Profile />} exact path="/profile" />
-                <Route element={<UserIndex />} exact path="/users" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <Profile />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/profile"
+                />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <UserIndex />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/users"
+                />
                 <Route element={<LeaderBoard />} exact path="/leaderboard" />
 
                 {/* Projects */}
-                <Route element={<CreateProjects />} exact path="/projects/new" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <CreateProjects />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/projects/new"
+                />
                 {/* View Project */}
-                <Route element={<ProjectView />} exact path="/projects/:id" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <ProjectView />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/projects/:id"
+                />
                 {/* View Project Tickets*/}
-                <Route element={<ProjectViewTickets />} exact path="/projects/tickets/:id" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <ProjectViewTickets />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/projects/tickets/:id"
+                />
                 {/* Project Ticket */}
-                <Route element={<CreateTickets />} exact path="/projects/tickets/:id/createtickets" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <CreateTickets />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/projects/tickets/:id/createtickets"
+                />
 
                 {/* View single ticket */}
-                <Route element={<Ticket />} exact path="/projects/ticket/:id" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <Ticket />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/projects/ticket/:id"
+                />
 
                 {/* Manage */}
-                <Route element={<ManageProjects />} exact path="/projects/index" />
-                <Route element={<ManageRoleAssignments />} exact path="/manage/role" />
-                <Route element={<ManageProjectsUsers />} exact path="/manage/users" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <ManageProjects />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/projects/index"
+                />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <ManageRoleAssignments />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/manage/role"
+                />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <ManageProjectsUsers />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/manage/users"
+                />
 
                 {/* My Tickets */}
-                <Route element={<MyTickets />} exact path="/myticket/:id" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <MyTickets />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/myticket/:id"
+                />
 
                 {/* Create Post Routes */}
-                <Route element={<CreatePost />} exact path="/post/new" />
-                <Route element={<ProfileEdit />} exact path="/profile/edit" />
-                <Route element={<ProfileEditAvatar />} exact path="/avatar/edit" />
-                <Route element={<Post />} exact path="/posts/:id" />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <CreatePost />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/post/new"
+                />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <ProfileEdit />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/profile/edit"
+                />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <ProfileEditAvatar />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/avatar/edit"
+                />
+                <Route
+                  element={
+                    <RequireAuth>
+                      <Post />
+                    </RequireAuth>
+                  }
+                  exact
+                  path="/posts/:id"
+                />
 
                 {/* Coming soon & 404 Routes */}
                 <Route element={<ComingSoon />} exact path="/comingsoon" />
