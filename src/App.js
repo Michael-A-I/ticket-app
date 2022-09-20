@@ -121,7 +121,7 @@ function App() {
               }
             >
               <Navbar />
-              <NotificationProvider />
+              {/* <NotificationProvider /> */}
               <Sidebar />
 
               <Routes>
