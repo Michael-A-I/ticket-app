@@ -6,7 +6,7 @@ const columns = [
   {
     Header: () => null, //! no header rendered explains why it is empty.
     id: "expander", // 'id' is required
-    width: 40,
+    width: 150,
     Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? "👇" : "👉"}</span>
   },
   {
@@ -58,7 +58,7 @@ const columns = [
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    width: 120,
+    width: 150,
     Cell: ({ row }) => (
       <span>
         {row.isExpanded ? null : (
@@ -74,7 +74,7 @@ const columns = [
     // accessor: "projectManager",
     // getResizerProps: () => {}
     // Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
-    width: 120,
+    width: 150,
     Cell: ({ row }) => {
       return (
         <span>

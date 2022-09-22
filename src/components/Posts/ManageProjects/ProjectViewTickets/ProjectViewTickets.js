@@ -40,13 +40,15 @@ function ProjectViewTickets() {
 
   return (
     <>
-      <Page>
-        <h1>Project Tickets</h1>
-        <div style={{ margin: "25px 0px " }}>
-          <Link style={{ background: "black", padding: "10px 20px", border: "1px solid black", borderRadius: "5px", textDecoration: "none" }} to={`/projects/tickets/${id}/createtickets`}>
-            {" "}
-            Create Ticket
-          </Link>
+      <Page title="project tickets">
+        <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Project Tickets</h1>
+          <div className="button-container">
+            <Link className="button" to={`/projects/tickets/${id}/createtickets`}>
+              {" "}
+              Create Ticket
+            </Link>
+          </div>
         </div>
         {/* TABLE TICKETS */}
         <div style={{}}>

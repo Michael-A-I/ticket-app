@@ -5,6 +5,7 @@ import { Form, Card, Button } from "react-bootstrap"
 import { useContext, useEffect, useState } from "react"
 import StateContext from "../../../../context/StateContext"
 import { handleDate } from "../../../../helper/helper"
+import { Link } from "react-router-dom"
 
 // import { useState } from "react"
 // import { Dropdown } from "bootstrap"
@@ -20,7 +21,9 @@ const RenderEditRow = props => {
     setRoles()
   }, [userState.role])
 
-  console.log("original: " + props.row.original)
+  console.log("original: " + props.row.original._id)
+
+  console.log(props.row.original)
 
   const [edit, setEdit] = useState(true)
   const [input, setInput] = useState({ Email: userState.email, firstName: userState.firstName, lastName: userState.lastName })
@@ -122,9 +125,9 @@ const RenderEditRow = props => {
           {/* <Card.Text>id: {userState._id}</Card.Text> */}
 
           {/* <Button variant="primary">Go somewhere</Button> */}
-          <Button style={{}} variant="primary" onClick={handleEdit}>
-            Go to ticket
-          </Button>
+          <Link style={{ background: "black", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/ticket/${props.row.original._id}`}>
+            Go to Ticket
+          </Link>
         </Card>
       ) : (
         <>

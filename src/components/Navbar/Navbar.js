@@ -87,7 +87,7 @@ function Navbar() {
                     searchClient={searchClient}
                     openOnFocus={true}
                     // detachedMediaQuery="none"
-                    placeholder="Search"
+                    placeholder="Search Projects"
                     getSources={({ query }) => [
                       {
                         sourceId: "posts",

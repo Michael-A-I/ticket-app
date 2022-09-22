@@ -147,7 +147,7 @@ function Login() {
 
   return (
     <>
-      <Page>
+      <Page style={{ paddingLeft: "0px" }} title="Login">
         {console.log({ token })}
 
         {message == "Success" ? (
@@ -158,7 +158,7 @@ function Login() {
           </div>
         )}
         <div className="center-page">
-          <Card style={{ width: "35rem", backgroundColor: "#36393f" }}>
+          <Card style={{ width: "35rem", backgroundColor: "#36393f", marginTop: "100px" }}>
             <Card.Body>
               <Card.Title className="card-center-title">Welcom Back!</Card.Title>
               <Card.Subtitle className="card-sub-title">Nice to see you again!</Card.Subtitle>
@@ -191,7 +191,7 @@ function Login() {
 
                 <p className="form-footer">
                   Sign in as{" "}
-                  <Link className="link-style" to="/#">
+                  <Link className="link-style" to="/comingsoon">
                     Demo User
                   </Link>
                 </p>

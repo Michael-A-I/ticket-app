@@ -129,8 +129,8 @@ function Register() {
 
   return (
     <>
-      {console.log(register)}
-      <Page title="Register">
+      {console.log(register)}{" "}
+      <Page style={{ paddingLeft: "0px" }} title="Register">
         {message === "Success" ? (
           navigate("/login")
         ) : (
@@ -139,7 +139,7 @@ function Register() {
           </div>
         )}
         <div className="center-page">
-          <Card style={{ width: "35rem", backgroundColor: "#36393f" }}>
+          <Card style={{ width: "35rem", backgroundColor: "#36393f", marginTop: "100px" }}>
             <Card.Body>
               <Card.Title className="card-center-title">Create an Account</Card.Title>
 

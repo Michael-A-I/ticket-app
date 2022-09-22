@@ -65,7 +65,7 @@ const columns = [
     accessor: "userId",
     width: 250,
     // getResizerProps: () => {}
-    Filter: SelectColumnFilter
+    Filter: ""
     //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
   }
 ]

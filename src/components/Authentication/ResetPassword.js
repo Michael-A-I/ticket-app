@@ -65,19 +65,25 @@ function ResetPassword() {
 
   return (
     <>
-      <Page>
-        <h1>Enter New Password</h1>
-        <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
-          <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control name="password" type="password" value={password.password} placeholder="Password" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control name="conrimPassword" type="password" value={password.passwordConfirm} placeholder="Confirm Password" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
-          </Form.Group>
-          <Button type="submit">Sumbit</Button>
-        </Form>
+      <Page style={{ paddingLeft: "0px" }} title="Password Reset">
+        <div className="center-page">
+          <Card style={{ width: "35rem", backgroundColor: "#36393f", marginTop: "100px" }}>
+            <Card.Body>
+              <Card.Title className="card-center-title">Enter New Password</Card.Title>
+              <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
+                <Form.Group className="mb-3" controlId="formGroupPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control name="password" type="password" value={password.password} placeholder="Password" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupPassword">
+                  <Form.Label>Confirm Password</Form.Label>
+                  <Form.Control name="conrimPassword" type="password" value={password.passwordConfirm} placeholder="Confirm Password" required minLength={5} maxLength={25} onChange={e => handleChange(e)} />
+                </Form.Group>
+                <Button type="submit">Sumbit</Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </div>
       </Page>
     </>
   )

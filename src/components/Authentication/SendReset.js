@@ -57,7 +57,7 @@ function SendReset() {
 
   return (
     <>
-      <Page>
+      <Page style={{ paddingLeft: "0px" }} title="Forgot Password">
         {msg == "Success" ? (
           console.log("Success")
         ) : (
@@ -66,7 +66,7 @@ function SendReset() {
           </div>
         )}
         <div className="center-page">
-          <Card style={{ width: "35rem", backgroundColor: "#36393f" }}>
+          <Card style={{ width: "35rem", backgroundColor: "#36393f", marginTop: "100px" }}>
             <Card.Body>
               <Card.Title className="card-center-title">Password Reset</Card.Title>
               <Card.Subtitle className="card-sub-title">Kindly enter your email</Card.Subtitle>

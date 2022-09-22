@@ -40,33 +40,34 @@ function Profile() {
   return (
     <>
       <Page title="Profile">
-        <h1>Profile</h1>
-        <Container>
-          <Row>
-            {/* Profile Card */}
-            <Card>
-              <Row>{localStorage.getItem("avatar") != "null" ? <Avatar width={"250px"} height={"200px"} /> : <img src={"/default-profile.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
+        <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
+          <h1>Profile</h1>
+        </div>
 
-              <Card.Body>
-                <Card.Title>Username: {appState.user.username}</Card.Title>
-                <Card.Text>Email: {appState.user.email}</Card.Text>
-                <Card.Text>Joined on {appState.user.createdAt}</Card.Text>
+        <Row>
+          {/* Profile Card */}
+          <Card>
+            <Row>{localStorage.getItem("avatar") != "null" ? <Avatar width={"250px"} height={"200px"} /> : <img src={"/default-profile.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
 
-                <Card.Text>Job Title: {user.title}</Card.Text>
-                <Card.Text>Bio: {user.bio}</Card.Text>
+            <Card.Body>
+              <Card.Title>Username: {appState.user.username}</Card.Title>
+              <Card.Text>Email: {appState.user.email}</Card.Text>
+              <Card.Text>Joined on {appState.user.createdAt}</Card.Text>
 
-                {console.log(user.title)}
-                {console.log(user.bio)}
+              <Card.Text>Job Title: {user.title}</Card.Text>
+              <Card.Text>Bio: {user.bio}</Card.Text>
 
-                <Link to="/profile/edit">Edit Profile</Link>
-              </Card.Body>
-            </Card>
-          </Row>
+              {console.log(user.title)}
+              {console.log(user.bio)}
 
-          <Row>
-            <UserFeed />
-          </Row>
-        </Container>
+              <Link to="/profile/edit">Edit Profile</Link>
+            </Card.Body>
+          </Card>
+        </Row>
+
+        <Row>
+          <UserFeed />
+        </Row>
       </Page>
       {/* initial state show nothing */}
     </>
