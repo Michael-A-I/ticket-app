@@ -64,7 +64,7 @@ function Navbar() {
       <div id="bootstrap-overrides">
         <nav className={`navbar ${!appState.loggedIn ? "authentication" : ""}`}>
           <Logo />
-          <Hamburger click={click} setClick={setClick} />
+          {appState.loggedIn ? <Hamburger click={click} setClick={setClick} /> : ""}
           <div className="navbar-container ">
             {/* Navbar Links */}
             {/* search for posts : links about site */}

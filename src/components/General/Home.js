@@ -34,13 +34,16 @@ function Home() {
                   Go to Dashboard
                 </Link>
               ) : (
-                <Link className="jumbotron-button" to="/login">
-                  Login
-                </Link>
+                <>
+                  <Link style={{ margin: "10px auto" }} className="jumbotron-button" to="/login">
+                    Login
+                  </Link>
+
+                  <Link style={{ margin: "10px auto" }} className="jumbotron-button" to="/register">
+                    Register
+                  </Link>
+                </>
               )}
-              <Link className="jumbotron-button" to="/comingsoon">
-                Download for `OS`
-              </Link>
             </Row>
           </div>
         </div>

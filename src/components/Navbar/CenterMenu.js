@@ -4,7 +4,7 @@ import "./css/CenterMenu.css"
 function CenterMenu() {
   return (
     <>
-      <div>
+      {/* <div>
         <ul className="navbar-menu-center">
           <li className="nav-item-center">
             <Link className="nav-links" to="/comingsoon">
@@ -27,7 +27,7 @@ function CenterMenu() {
             </Link>
           </li>
         </ul>
-      </div>
+      </div> */}
     </>
   )
 }
