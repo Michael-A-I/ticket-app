@@ -5,7 +5,7 @@ import StateContext from "../../../../context/StateContext"
 import "../css/charts.css"
 
 function TicketStatus() {
-  const [status, setStatu] = useState([])
+  const [status, setStatus] = useState([])
 
   const appState = useContext(StateContext)
   const token = appState.user.token
@@ -25,9 +25,27 @@ function TicketStatus() {
       }
     })
 
-    const status = await res.json()
+    const users = await res.json()
+    console.log({ users })
 
-    setStatu(status)
+    const status = [0, 0, 0, 0]
+
+    users.myTickets.forEach(user => {
+      if (user.status == "new") {
+        console.log((status[0] += 1))
+      }
+      if (user.status == "inprogress") {
+        console.log((status[1] += 1))
+      }
+      if (user.status == "completed") {
+        console.log((status[2] += 1))
+      }
+      if (user.status == "additional") {
+        console.log((status[3] += 1))
+      }
+    })
+
+    setStatus(status)
   }
 
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)

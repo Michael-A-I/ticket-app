@@ -39,9 +39,24 @@ function BugsFeatures() {
       }
     })
 
-    const priority = await res.json()
+    const users = await res.json()
 
-    console.log({ priority })
+    const priority = [0, 0, 0, 0]
+
+    users.myTickets.forEach(user => {
+      if (user.priority == "low") {
+        console.log((priority[0] += 1))
+      }
+      if (user.priority == "medium") {
+        console.log((priority[1] += 1))
+      }
+      if (user.priority == "high") {
+        console.log((priority[2] += 1))
+      }
+      if (user.priority == "none") {
+        console.log((priority[3] += 1))
+      }
+    })
     setPriority(priority)
   }
 
