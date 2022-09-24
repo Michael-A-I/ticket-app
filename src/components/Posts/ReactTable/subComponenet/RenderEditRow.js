@@ -15,7 +15,7 @@ const RenderEditRow = props => {
 
   const { name } = props.row.original
 
-  console.log(props.row.original.userId)
+  console.log({ userId: props.row.original.userId })
 
   const [userState, setUserState] = useState(props.row.original)
 
@@ -56,6 +56,7 @@ const RenderEditRow = props => {
 
   /* submit User info */
   const handleSubmit = async (event, id) => {
+    console.log("handleSubmit")
     event.preventDefault()
 
     const form = event.target
@@ -75,6 +76,9 @@ const RenderEditRow = props => {
 
     try {
       /* send data to back end */
+      console.log("id")
+
+      console.log({ id })
 
       // ! Update front end
       const res = await fetch(`/api/user/${id}`, {
@@ -85,37 +89,42 @@ const RenderEditRow = props => {
         },
         body: JSON.stringify(body)
       })
-      console.log(res)
-      // const user = await res.json()
-      // refresh view
+
       props.users()
-      // console.log(user)
 
       //! Update Userfront
       const userId = props.row.original.userId
       const payload = {
         email: body.email,
-        roles: formRole,
         data: {
           firstName: body.firstName,
           lastName: body.lastName,
           email: body.email
-        },
-        authorization: {
-          pn4qd8qb: {
-            roles: formRole
-          }
         }
       }
+      const roles = {
+        roles: formRole
+      }
 
-      const response = await fetch(`https://api.userfront.com/v0/users/${userId}/`, {
+      // const response = await fetch(`https://api.userfront.com/v0/users/${userId}/`, {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: "Bearer uf_test_admin_pn4qd8qb_716f06f96e75339e20560eff39515269"
+      //   },
+      //   body: JSON.stringify(payload)
+      // })
+
+      const response = await fetch(`/api/user/userfront/${userId}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: token
+          Authorization: "Bearer uf_test_admin_pn4qd8qb_716f06f96e75339e20560eff39515269"
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify([payload, roles])
       })
+
+      console.log(await response.json())
     } catch (err) {
       console.log(err)
       props.setMsg({
