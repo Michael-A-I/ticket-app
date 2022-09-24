@@ -30,7 +30,7 @@ function Home() {
             </Row>
             <Row>
               {appState.loggedIn ? (
-                <Link className="jumbotron-button" to="/general">
+                <Link className="jumbotron-button" to="/dashboard">
                   Go to Dashboard
                 </Link>
               ) : (
