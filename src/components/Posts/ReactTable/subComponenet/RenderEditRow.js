@@ -114,18 +114,52 @@ const RenderEditRow = props => {
       //   },
       //   body: JSON.stringify(payload)
       // })
+      try {
+        const response = await fetch(`/api/user/userfront/${userId}/`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify([payload, roles])
+        })
 
-      const response = await fetch(`/api/user/userfront/${userId}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer uf_test_admin_pn4qd8qb_716f06f96e75339e20560eff39515269"
-        },
-        body: JSON.stringify([payload, roles])
-      })
+        const msg = await response.json()
 
-      console.log(await response.json())
+        msgHandler(msg)
+      } catch (err) {
+        console.log(err)
+        props.setMsg({
+          show: true,
+          poisiton: "center",
+          msg: err.message,
+          title: "Error",
+          context: msgConext.danger
+        })
+      }
     } catch (err) {
+      errHandler(err)
+    }
+
+    const msgHandler = msg => {
+      if (msg.err) {
+        props.setMsg({
+          show: true,
+          poisiton: "center",
+          msg: msg.err,
+          title: "Error",
+          context: msgConext.danger
+        })
+      } else {
+        props.setMsg({
+          show: true,
+          poisiton: "center",
+          msg: msg.msg,
+          title: "Error",
+          context: msgConext.success
+        })
+      }
+    }
+    const errHandler = err => {
       console.log(err)
       props.setMsg({
         show: true,
@@ -136,7 +170,6 @@ const RenderEditRow = props => {
       })
     }
   }
-
   /* delete user */
   const handleDelete = async (event, id) => {
     console.log(id)
