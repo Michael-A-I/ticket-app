@@ -228,10 +228,16 @@ function Login() {
     console.log({ token })
   }
 
+  useEffect(() => {
+    if (appState.loggedIn) {
+      navigate("/dashboard")
+    }
+  }, [])
+
   return (
     <>
       <Page style={{ paddingLeft: "0px" }} title="Login">
-        {console.log({ token })}
+        {console.log(appState.loggedIn)}
 
         {message == "Success" ? (
           navigate("/dashboard")
