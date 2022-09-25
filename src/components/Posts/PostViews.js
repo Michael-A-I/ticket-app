@@ -133,18 +133,44 @@ function PostView(props) {
     <Row>
       {edit ? (
         <Card>
-          {console.log(props.post.title)}
+          {console.log(props.post)}
 
           <Card.Body style={{ margin: "20px", height: "100%" }}>
             {/* {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>} */}
 
-            <Card.Title>{props.post.title}</Card.Title>
+            <Card.Title style={{ fontSize: "20px" }}>{props.post.title}</Card.Title>
             <Card.Text style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: props.post.description }}></Card.Text>
-            {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated at {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created at {handleDate(props.post.updatedAt)}</Card.Text>}
             <Row>{props.post.file != undefined ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
             {/* User */}
-            <Row>{props.post && props.post.user != undefined ? <p>{props.post.user.username}</p> : <p>undefined</p>}</Row>
-            <Row style={{ width: "100%" }}>{props.post.user == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.user.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />}</Row>
+            <Row>
+              {props.post.assigned ? <Row style={{ width: "100%" }}>{props.post.assigned.image == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.assigned.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />}</Row> : ""}{" "}
+              {props.post && props.post.assigned != undefined ? (
+                <div style={{ display: "flex", alignItems: "first baseline" }}>
+                  <p style={{ fontSize: "14px" }}>Assigned:</p>
+                  <p style={{ fontSize: "14px", marginLeft: "10px" }}>
+                    {props.post.assigned.firstName}
+                    {props.post.assigned.lastName}
+                  </p>
+                </div>
+              ) : (
+                <p>undefined</p>
+              )}
+            </Row>
+            <Row>
+              {props.post.createdBy ? <Row style={{ width: "100%" }}>{props.post.createdBy.image == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.createdBy.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />}</Row> : ""}
+              {props.post && props.post.assigned != undefined ? (
+                <div style={{ display: "flex", alignItems: "first baseline" }}>
+                  <p style={{ fontSize: "14px" }}>Created By:</p>
+                  <p style={{ fontSize: "14px", marginLeft: "10px" }}>
+                    {props.post.assigned.firstName}
+                    {props.post.assigned.lastName}
+                  </p>
+                </div>
+              ) : (
+                <p>undefined</p>
+              )}
+              {props.post.updatedAt != props.post.createdAt ? <Card.Text>updated {handleDate(props.post.updatedAt)}</Card.Text> : <Card.Text>created {handleDate(props.post.updatedAt)}</Card.Text>}
+            </Row>
             {/* Conditional to fix issue with props.post.user._id returning undefined */}
             {props.post.user && props.post.user._id == appState.user.id ? (
               <>

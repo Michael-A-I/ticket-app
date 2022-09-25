@@ -9,6 +9,8 @@ import StateContext from "../../../context/StateContext"
 import { match } from "assert"
 import Status from "../Status"
 import Priority from "../Priority"
+import Toasty from "../../ui/Toasty"
+import msgConext from "../../ui/helpers/toastyMessages"
 
 function CreateTickets(props) {
   const [files, setFiles] = useState([])
@@ -23,6 +25,14 @@ function CreateTickets(props) {
   const [matches, setMatch] = useState([])
   /* filter developers */
   const [filter, setFilter] = useState()
+
+  const [msg, setMsg] = useState({
+    show: false,
+    poisiton: "center",
+    msg: "",
+    context: "",
+    title: ""
+  })
 
   const log = () => {
     if (editorRef.current) {
@@ -45,14 +55,19 @@ function CreateTickets(props) {
     handleDeveloperState()
   }, [filter])
 
+  const [value, setEditorValue] = useState(props.initialValue ?? "")
+  useEffect(() => setEditorValue(props.initialValue ?? ""), [props.initialValue])
+
   const handleSubmit = async event => {
     console.log("handleSubmit")
     event.preventDefault()
     const target = event.target
     const userId = localStorage.getItem("Id")
-
-    const ticket = { title: target[0].value, description: target[1].value, files: base64, developer: target[18].value, email: appState.user.email, assigned: assigned._id, priority: target[25].value, status: target[26].value }
-    console.log("Dasdf")
+    const priority = target.name
+    console.log({ value })
+    console.log({ priority })
+    console.log(formVal)
+    const ticket = { title: target[0].value, description: value, files: base64, developer: target[18].value, email: appState.user.email, assigned: assigned._id, priority: formVal.priority, status: formVal.status }
     console.log({ ticket })
 
     try {
@@ -149,22 +164,63 @@ function CreateTickets(props) {
   let priority = ["none", "low", "medium", "high"]
 
   let status = ["new", "completed", "additional", "inprogress"]
+  const [formVal, setForm] = useState({})
+
+  const handleChange = e => {
+    const target = e.target
+    setForm(prev => ({ ...prev, [target.name]: target.value }))
+  }
+  const msgHandler = msg => {
+    if (msg.err || msg.error) {
+      setMsg({
+        show: true,
+        poisiton: "center",
+        msg: msg.err,
+        title: "Error",
+        context: msgConext.danger
+      })
+    } else {
+      setMsg({
+        show: true,
+        poisiton: "center",
+        msg: msg.msg,
+        title: "OK",
+        context: msgConext.success
+      })
+    }
+  }
+
+  const errHandler = err => {
+    console.log(err)
+    setMsg({
+      show: true,
+      poisiton: "center",
+      msg: err.message,
+      title: "Error",
+      context: msgConext.danger
+    })
+  }
 
   return (
     <>
       <Page>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Toasty msg={msg} setMsg={setMsg} />
+        </div>
         <h1>Create Tickets</h1>
         <Form onSubmit={handleSubmit}>
           <Row>
-            <InputGroup className="mb-3">
-              <Form.Control placeholder="Title" name="title" aria-label="Title" />
+            <InputGroup name="title" className="mb-3">
+              <Form.Control onChange={e => handleChange(e)} placeholder="Title" name="title" aria-label="Title" />
             </InputGroup>
           </Row>
 
           <Row>
             <Editor
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              initialValue=""
+              initialValue={props.initialValue}
+              value={value}
+              onEditorChange={(newValue, editor) => setEditorValue(newValue)}
+              // onInit={(evt, editor) => (editorRef.current = editor)}
               init={{
                 height: 500,
                 menubar: false,
@@ -185,7 +241,7 @@ function CreateTickets(props) {
               {/* Group List */}
               <ListGroup style={{ height: "200px", overflowY: "scroll" }}>
                 {matches.map((developer, index) => (
-                  <ListGroup.Item onClick={() => checker(index)}>
+                  <ListGroup.Item onChange={e => handleChange(e)} onClick={() => checker(index)} name="select_management_group">
                     {index}
                     <input type="checkbox" id="c1" class="chk-btn" style={{ opacity: "1", position: "relative", margin: "10px" }} checked={developer.isChecked} value={developer._id} />
                     <label for="c1">{developer.username}</label>
@@ -196,13 +252,13 @@ function CreateTickets(props) {
 
             <Col>
               <h1>Priority</h1>
-              <Form.Select aria-label="Default select example">
+              <Form.Select onChange={e => handleChange(e)} name="priority" aria-label="Default select example">
                 {priority.map(s => (
                   <option value={s}>{s}</option>
                 ))}
               </Form.Select>
               <h1>Status</h1>
-              <Form.Select aria-label="Default select example">
+              <Form.Select onChange={e => handleChange(e)} name="status" aria-label="Default select example">
                 {status.map(s => (
                   <option value={s}>{s}</option>
                 ))}

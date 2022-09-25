@@ -204,7 +204,7 @@ function App() {
                 <Route
                   element={
                     <RequireAuth>
-                      <CreateTickets />
+                      <CreateTickets initialValue={""} />
                     </RequireAuth>
                   }
                   exact
