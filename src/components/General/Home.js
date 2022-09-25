@@ -23,10 +23,10 @@ function Home() {
         <div id="override-bootstrap" className="home-container">
           <div className="jumbotron">
             <Row>
-              <h1>IMAGINE A PLACE...</h1>
+              <h1>Welcom to Chatter APP</h1>
             </Row>
             <Row>
-              <p>Where you can collaborate with you fellow engineers regarding a product and get answers fast!</p>
+              <p>A place for you to track you applications features and bugs</p>
             </Row>
             <Row>
               {appState.loggedIn ? (

@@ -10,13 +10,12 @@ import Toasty from "../../../ui/Toasty"
 
 // import { Dropdown } from "bootstrap"
 
-export default function App() {
+function CreateProjects(props) {
   // Files Upload
   /* //!images not saving to database? */
   const [files, setFiles] = useState([])
   const [image, setImage] = useState("/upload.png")
   const [base64, setBase64] = useState("")
-
   const [managers, setManagers] = useState([])
   const [developers, setDevelopers] = useState([])
   const [matches, setMatch] = useState([])
@@ -29,6 +28,9 @@ export default function App() {
     context: "",
     title: ""
   })
+
+  const [value, setEditorValue] = useState(props.initialValue ?? "")
+  useEffect(() => setEditorValue(props.initialValue ?? ""), [props.initialValue])
 
   const appState = useContext(StateContext)
   const token = appState.user.token
@@ -50,7 +52,7 @@ export default function App() {
   }, [filter])
 
   const editorRef = useRef(null)
-
+  const [form, setForm] = useState()
   const handleSubmit = async event => {
     console.log("handleSubmit")
     event.preventDefault()
@@ -60,11 +62,11 @@ export default function App() {
       const userId = localStorage.getItem("")
 
       // return console.log({ target })
-      const project = { title: target[0].value, description: target[1].value, files: base64, category: target[20].value, createdBy: assigned._id, assigned: assigned._id, email: appState.user.email }
+      const project = { title: form.title, description: value, files: base64, category: form.select, createdBy: assigned._id, assigned: assigned._id, email: appState.user.email }
       console.log("project")
 
       console.log({ project })
-
+      return
       const res = await fetch("/api/projects/new", {
         method: "POST",
         headers: {
@@ -201,6 +203,11 @@ export default function App() {
     setMatch(matches)
   }
 
+  const handleChanges = e => {
+    const target = e.target
+    setForm(prev => ({ ...prev, [target.name]: target.value }))
+  }
+
   return (
     <>
       <Page>
@@ -211,14 +218,16 @@ export default function App() {
         <Form onSubmit={handleSubmit}>
           <Row>
             <InputGroup className="mb-3">
-              <Form.Control placeholder="Title" name="title" aria-label="Title" />
+              <Form.Control onChange={e => handleChanges(e)} placeholder="Title" name="title" aria-label="Title" />
             </InputGroup>
           </Row>
 
           <Row>
             <Editor
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              initialValue="Write Project/Bug specifications here"
+              onIn
+              initialValue={props.initialValue}
+              value={value}
+              onEditorChange={(newValue, editor) => setEditorValue(newValue)}
               init={{
                 height: 500,
                 menubar: false,
@@ -248,7 +257,7 @@ export default function App() {
             </Col>
 
             <Col style={{ height: "269px" }}>
-              <Form.Select aria-label="Default select example">
+              <Form.Select onChange={e => handleChanges(e)} name="select" aria-label="Default select example">
                 <option>Open this select menu</option>
                 <option value="Feature">Feature</option>
                 <option value="Bug">Bug</option>
@@ -297,3 +306,5 @@ export default function App() {
     </>
   )
 }
+
+export default CreateProjects
