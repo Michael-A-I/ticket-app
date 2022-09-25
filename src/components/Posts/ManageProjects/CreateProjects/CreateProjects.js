@@ -7,12 +7,13 @@ import { object } from "yup"
 import StateContext from "../../../../context/StateContext"
 import msgConext from "../../../ui/helpers/toastyMessages"
 import Toasty from "../../../ui/Toasty"
-
+import { useNavigate } from "react-router"
 // import { Dropdown } from "bootstrap"
 
 function CreateProjects(props) {
   // Files Upload
   /* //!images not saving to database? */
+  const navigate = useNavigate()
   const [files, setFiles] = useState([])
   const [image, setImage] = useState("/upload.png")
   const [base64, setBase64] = useState("")
@@ -53,6 +54,7 @@ function CreateProjects(props) {
 
   const editorRef = useRef(null)
   const [form, setForm] = useState()
+
   const handleSubmit = async event => {
     console.log("handleSubmit")
     event.preventDefault()
@@ -66,7 +68,7 @@ function CreateProjects(props) {
       console.log("project")
 
       console.log({ project })
-      return
+
       const res = await fetch("/api/projects/new", {
         method: "POST",
         headers: {
@@ -78,7 +80,9 @@ function CreateProjects(props) {
 
       const msg = await res.json()
       console.log({ msg })
+
       msgHandler(msg)
+      navigate(`/projects/${msg._id}`)
     } catch (error) {
       console.log(error)
       errHandler(error)
