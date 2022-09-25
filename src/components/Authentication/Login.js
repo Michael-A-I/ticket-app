@@ -134,6 +134,89 @@ function Login() {
     }
   }
 
+  async function demoLogin(event) {
+    console.log("handleSubmit")
+    event.preventDefault()
+
+    console.log(login)
+
+    try {
+      const data = await Userfront.login({
+        method: "password",
+        email: "testadmin@testadmin.com",
+        password: "testadmin@testadmin.com"
+      })
+
+      console.log(JSON.stringify(data.message))
+
+      const token = `Bearer ${Userfront.tokens.accessToken}`
+
+      /* User Details */
+      const user = Userfront.user
+      const email = user.email
+      const avatar = user.image
+      const createdAt = user.createdAt
+      const updatedAt = user.updatedAt
+      const username = user.username
+      const name = user.name
+      const id = user.userId
+
+      // const roles = user.authorization.pn4qd8qb.roles
+      const firstName = user.data.firstName
+      const lastName = user.data.lastName
+
+      console.log(user)
+
+      console.log(email)
+      logID(email)
+      console.log(data.message)
+      if (data.message == "OK") {
+        //   console.log("build local storage")
+        const update = new Date(handleTimestamp(updatedAt)).toDateString()
+        const created = new Date(handleTimestamp(createdAt)).toDateString()
+
+        //   console.log(email)
+        localStorage.setItem("token", token)
+        //   localStorage.setItem("roles", roles)
+
+        localStorage.setItem("avatar", avatar)
+        // localStorage.setItem("id", data.id)
+        localStorage.setItem("email", email)
+        localStorage.setItem("createdAt", created)
+        localStorage.setItem("updatedAt", update)
+
+        localStorage.setItem("username", username)
+        localStorage.setItem("name", name)
+        localStorage.setItem("firstName", firstName)
+        localStorage.setItem("lastName", lastName)
+        localStorage.setItem("userfrontId", id)
+
+        appDispatch({ type: "login" })
+        appDispatch({ type: "setToken", value: token })
+        appDispatch({ type: "setUser", value: name })
+        appDispatch({ type: "setFirst", value: firstName })
+        appDispatch({ type: "setLast", value: lastName })
+
+        setMessage(data.message)
+      }
+      console.log(data.message)
+      /*
+         if user autheticats set Success authentication message
+       */
+      console.log(message)
+    } catch (err) {
+      console.log("err")
+      console.log(err.message)
+      setMsg({
+        show: true,
+        poisiton: "center",
+        msg: err.message,
+        title: "Error",
+        context: msgConext.danger
+      })
+    }
+  }
+
   const logID = async email => {
     await fetch(`/api/login/test`, {
       method: "GET",
@@ -191,7 +274,7 @@ function Login() {
 
                 <p className="form-footer">
                   Sign in as{" "}
-                  <Link className="link-style" to="/comingsoon">
+                  <Link className="link-style" to="#" onClick={e => demoLogin(e)}>
                     Demo User
                   </Link>
                 </p>
