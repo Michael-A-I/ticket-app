@@ -5,6 +5,9 @@ import { Button, Checkbox, Col, Row, ListGroup, InputGroup, Form, Dropdown } fro
 import Thumb from "../../../ui/Thumb"
 import { object } from "yup"
 import StateContext from "../../../../context/StateContext"
+import msgConext from "../../../ui/helpers/toastyMessages"
+import Toasty from "../../../ui/Toasty"
+
 // import { Dropdown } from "bootstrap"
 
 export default function App() {
@@ -19,6 +22,13 @@ export default function App() {
   const [matches, setMatch] = useState([])
   const [filter, setFilter] = useState()
   const [assigned, setAssigned] = useState()
+  const [msg, setMsg] = useState({
+    show: false,
+    poisiton: "center",
+    msg: "",
+    context: "",
+    title: ""
+  })
 
   const appState = useContext(StateContext)
   const token = appState.user.token
@@ -44,17 +54,17 @@ export default function App() {
   const handleSubmit = async event => {
     console.log("handleSubmit")
     event.preventDefault()
-    const target = event.target
-    const userId = localStorage.getItem("")
-    // select managment group is 18
-    console.log({ target })
 
-    const project = { title: target[0].value, description: target[1].value, files: base64, category: target[17].value, createdBy: assigned._id, assigned: assigned._id, email: appState.user.email }
-
-    console.log({ project })
-
-    //  post data to db
     try {
+      const target = event.target
+      const userId = localStorage.getItem("")
+
+      // return console.log({ target })
+      const project = { title: target[0].value, description: target[1].value, files: base64, category: target[20].value, createdBy: assigned._id, assigned: assigned._id, email: appState.user.email }
+      console.log("project")
+
+      console.log({ project })
+
       const res = await fetch("/api/projects/new", {
         method: "POST",
         headers: {
@@ -64,9 +74,12 @@ export default function App() {
         body: JSON.stringify(project)
       })
 
-      console.log(res)
+      const msg = await res.json()
+      console.log({ msg })
+      msgHandler(msg)
     } catch (error) {
       console.log(error)
+      errHandler(error)
     }
   }
 
@@ -98,6 +111,37 @@ export default function App() {
           setBase64(prev => [...prev, response])
         }
       }
+    })
+  }
+
+  const msgHandler = msg => {
+    if (msg.err || msg.error) {
+      setMsg({
+        show: true,
+        poisiton: "center",
+        msg: msg.err,
+        title: "Error",
+        context: msgConext.danger
+      })
+    } else {
+      setMsg({
+        show: true,
+        poisiton: "center",
+        msg: msg.msg,
+        title: "OK",
+        context: msgConext.success
+      })
+    }
+  }
+
+  const errHandler = err => {
+    console.log(err)
+    setMsg({
+      show: true,
+      poisiton: "center",
+      msg: err.message,
+      title: "Error",
+      context: msgConext.danger
     })
   }
 
@@ -160,6 +204,10 @@ export default function App() {
   return (
     <>
       <Page>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Toasty msg={msg} setMsg={setMsg} />
+        </div>
+
         <Form onSubmit={handleSubmit}>
           <Row>
             <InputGroup className="mb-3">
@@ -192,14 +240,14 @@ export default function App() {
                 {matches.map((developer, index) => (
                   <ListGroup.Item onClick={() => checker(index)}>
                     {index}
-                    <input type="checkbox" id="c1" class="chk-btn" style={{ opacity: "1", position: "relative", margin: "10px" }} checked={developer.isChecked} value={developer._id} />
-                    <label for="c1">{developer.username}</label>
+                    <input type="checkbox" id={`${index}`} class="chk-btn" style={{ opacity: "1", position: "relative", margin: "10px" }} checked={developer.isChecked} value={developer._id} />
+                    <label for={`${index}`}>{developer.username}</label>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
             </Col>
 
-            <Col>
+            <Col style={{ height: "269px" }}>
               <Form.Select aria-label="Default select example">
                 <option>Open this select menu</option>
                 <option value="Feature">Feature</option>
