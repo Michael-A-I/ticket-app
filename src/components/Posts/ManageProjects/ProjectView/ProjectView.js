@@ -2,19 +2,21 @@ import React, { useContext, useEffect, useState } from "react"
 import Page from "../../../ui/Page"
 import PostViews from "../../PostViews"
 
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import StateContext from "../../../../context/StateContext"
 import PostComments from "../../PostComments"
 import CreatePostComments from "../../CreatePostComments"
 import Assigned from "./Assigned"
 import ProjectTickets from "./ProjectTickets"
 import { Col, Row } from "reactstrap"
+import { Button } from "react-bootstrap"
 
 function ProjectView() {
   const { id } = useParams()
   const appState = useContext(StateContext)
   const token = appState.user.token
-
+  const navigate = useNavigate()
+  const [base64, setBase64] = useState()
   const [post, setPost] = useState([])
 
   useEffect(() => {
@@ -139,15 +141,15 @@ function ProjectView() {
     }
   }
 
-  const handleStatusSubmit = async e => {
+  const handleProjectViewImgSubmit = async e => {
     e.preventDefault()
     console.log("handleSubmit Status")
 
     const target = e.target
-    const body = { done: target[0].value }
+
+    const body = { files: base64 }
     console.log({ body })
 
-    console.log(body)
     try {
       const res = await fetch(`/api/projects/${id}`, {
         method: "PUT",
@@ -182,14 +184,26 @@ function ProjectView() {
     }
   }
 
-  const [base64, setBase64] = useState()
+  const createTicket = async () => {
+    console.log("createTicket")
+    navigate(`/projects/tickets/${id}/createtickets`)
+  }
 
   return (
     <>
       <Page>
-        <h1>ProjectView</h1>
+        <Row style={{ paddingTop: "25px" }}>
+          <Col>
+            <h1>ProjectView</h1>
+          </Col>
+          <Col>
+            <Button onClick={() => createTicket()} style={{ width: "250px", float: "right" }}>
+              Create Ticket
+            </Button>
+          </Col>
+        </Row>
 
-        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} />
+        <PostViews post={post} deletePost={deletePost} handleProjectViewImgSubmit={handleProjectViewImgSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} projectViewImg={true} />
 
         <PostComments comments={comments} getComments={getComments} />
 

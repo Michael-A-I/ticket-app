@@ -8,8 +8,9 @@ import StateContext from "../../../../context/StateContext"
 import msgConext from "../../../ui/helpers/toastyMessages"
 import Toasty from "../../../ui/Toasty"
 import { useNavigate } from "react-router"
-// import { Dropdown } from "bootstrap"
+import { v4 as uuid } from "uuid"
 
+// import { Dropdown } from "bootstrap"
 function CreateProjects(props) {
   // Files Upload
   /* //!images not saving to database? */
@@ -29,6 +30,10 @@ function CreateProjects(props) {
     context: "",
     title: ""
   })
+
+  //form uuid
+  const unique_id = uuid()
+  const page_id = useState(unique_id)
 
   const [value, setEditorValue] = useState(props.initialValue ?? "")
   useEffect(() => setEditorValue(props.initialValue ?? ""), [props.initialValue])
@@ -62,9 +67,10 @@ function CreateProjects(props) {
     try {
       const target = event.target
       const userId = localStorage.getItem("")
+      console.log(typeof unique_id)
 
       // return console.log({ target })
-      const project = { title: form.title, description: value, files: base64, category: form.select, createdBy: assigned._id, assigned: assigned._id, email: appState.user.email }
+      const project = { title: form.title, description: value, files: base64, category: form.select, createdBy: assigned._id, assigned: assigned._id, email: appState.user.email, uuid: unique_id }
       console.log("project")
 
       console.log({ project })
@@ -82,6 +88,7 @@ function CreateProjects(props) {
       console.log({ msg })
 
       msgHandler(msg)
+      return
       navigate(`/projects/${msg._id}`)
     } catch (error) {
       console.log(error)
