@@ -28,3 +28,13 @@
   height: 200px;
   width: 250px;
 }
+
+.profile_wrap {
+  padding-left: 60px;
+}
+
+@media only screen and (max-width: 500px) {
+  .profile_wrap {
+    padding-left: 0px;
+  }
+}

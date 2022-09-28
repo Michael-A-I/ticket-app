@@ -192,34 +192,36 @@ function ProjectView() {
   return (
     <>
       <Page>
-        <Row style={{ paddingTop: "25px" }}>
-          <Col>
-            <h1>ProjectView</h1>
-          </Col>
-          <Col>
-            <Button onClick={() => createTicket()} style={{ width: "250px", float: "right" }}>
-              Create Ticket
-            </Button>
-          </Col>
-        </Row>
+        <div style={{ width: "90%", margin: "0px auto" }}>
+          <Row style={{ paddingTop: "25px" }}>
+            <Col>
+              <h1>ProjectView</h1>
+            </Col>
+            <Col>
+              <Button onClick={() => createTicket()} style={{ width: "250px", float: "right" }}>
+                Create Ticket
+              </Button>
+            </Col>
+          </Row>
 
-        <PostViews post={post} deletePost={deletePost} handleProjectViewImgSubmit={handleProjectViewImgSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} projectViewImg={true} />
+          <PostViews post={post} deletePost={deletePost} handleProjectViewImgSubmit={handleProjectViewImgSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} projectViewImg={true} />
 
-        <PostComments comments={comments} getComments={getComments} />
+          <PostComments comments={comments} getComments={getComments} />
 
-        {/* Post Comments Create */}
+          {/* Post Comments Create */}
 
-        <div style={{ width: "100%", height: "154px", display: "flex", placeContent: "center", alignItems: "center" }}>
-          <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+          <div style={{ width: "100%", height: "154px", display: "flex", placeContent: "center", alignItems: "center" }}>
+            <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+          </div>
+
+          <div style={{ border: "1px solid black", borderRadius: "5px" }}>
+            <ProjectTickets />
+          </div>
+
+          {/* post views */}
+
+          {/* comments for post views */}
         </div>
-
-        <div style={{ border: "1px solid black", borderRadius: "5px" }}>
-          <ProjectTickets />
-        </div>
-
-        {/* post views */}
-
-        {/* comments for post views */}
       </Page>
     </>
   )

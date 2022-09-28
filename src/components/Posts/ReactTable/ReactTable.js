@@ -102,7 +102,7 @@ function ReactTable({ columns, data, renderRowSubComponent: SubComponenet, users
         <Toasty msg={msg} setMsg={setMsg} />
       </div>
       <div style={{ margin: "auto" }}>
-        <Table {...getTableProps()}>
+        <Table className="tableWrap" {...getTableProps()}>
           {/* Headers */}
           <thead>
             {headerGroups.map(headerGroup => (

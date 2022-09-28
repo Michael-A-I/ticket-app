@@ -47,9 +47,9 @@ function ManageRoleAssignments() {
       {/* <Link to="#">Create User</Link> */}
 
       <Page>
-        <div style={{ width: "fit-content" }}>
+        <div>
           <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
-            <h1>Manage Role Assignments</h1>
+            <h1 style={{ paddingLeft: "60px" }}>Manage Role Assignments</h1>
           </div>
 
           <ReactTable columns={columns} data={data} renderRowSubComponent={RenderEditRow} users={users} />

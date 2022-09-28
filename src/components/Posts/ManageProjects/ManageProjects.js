@@ -50,7 +50,9 @@ function ManageProjects() {
     <>
       <Page>
         <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
-          <h1>Manage Projects</h1>
+          <div style={{ paddingLeft: "60px" }}>
+            <h1>Manage Projects</h1>
+          </div>
 
           <div className="button-container">
             <Link className="button" to="/projects/new">

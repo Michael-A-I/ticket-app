@@ -195,18 +195,20 @@ function Ticket() {
   return (
     <>
       <Page>
-        <h1>Ticket</h1>
-        {/* post views */}
-        <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} priority={priority} showStatus={true} setBase64={setBase64} base64={base64} />
+        <div style={{ width: "90%", margin: "auto" }}>
+          <h1>Ticket</h1>
+          {/* post views */}
+          <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} priority={priority} showStatus={true} setBase64={setBase64} base64={base64} />
 
-        {/* comments for post views */}
-        <div style={{ width: "1320px" }}>
-          <PostComments comments={comments} getComments={getComments} setComments={setComments} />
-        </div>
+          {/* comments for post views */}
+          <div>
+            <PostComments comments={comments} getComments={getComments} setComments={setComments} />
+          </div>
 
-        {/* Post Comments Create */}
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50px", margin: "50px 0px 400px" }}>
-          <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+          {/* Post Comments Create */}
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50px", margin: "50px 0px 400px" }}>
+            <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+          </div>
         </div>
       </Page>
     </>

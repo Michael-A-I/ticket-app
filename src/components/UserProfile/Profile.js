@@ -40,34 +40,36 @@ function Profile() {
   return (
     <>
       <Page title="Profile">
-        <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
-          <h1>Profile</h1>
+        <div className="profile_wrap">
+          <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
+            <h1>Profile</h1>
+          </div>
+
+          <Row>
+            {/* Profile Card */}
+            <Card style={{ width: "90%" }}>
+              <Row>{localStorage.getItem("avatar") != "null" ? <Avatar width={"250px"} height={"200px"} /> : <img src={"/default-profile.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
+
+              <Card.Body>
+                <Card.Title>Username: {appState.user.username}</Card.Title>
+                <Card.Text>Email: {appState.user.email}</Card.Text>
+                <Card.Text>Joined on {appState.user.createdAt}</Card.Text>
+
+                <Card.Text>Job Title: {user.title}</Card.Text>
+                <Card.Text>Bio: {user.bio}</Card.Text>
+
+                {console.log(user.title)}
+                {console.log(user.bio)}
+
+                <Link to="/profile/edit">Edit Profile</Link>
+              </Card.Body>
+            </Card>
+          </Row>
+
+          <Row>
+            <UserFeed />
+          </Row>
         </div>
-
-        <Row>
-          {/* Profile Card */}
-          <Card>
-            <Row>{localStorage.getItem("avatar") != "null" ? <Avatar width={"250px"} height={"200px"} /> : <img src={"/default-profile.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
-
-            <Card.Body>
-              <Card.Title>Username: {appState.user.username}</Card.Title>
-              <Card.Text>Email: {appState.user.email}</Card.Text>
-              <Card.Text>Joined on {appState.user.createdAt}</Card.Text>
-
-              <Card.Text>Job Title: {user.title}</Card.Text>
-              <Card.Text>Bio: {user.bio}</Card.Text>
-
-              {console.log(user.title)}
-              {console.log(user.bio)}
-
-              <Link to="/profile/edit">Edit Profile</Link>
-            </Card.Body>
-          </Card>
-        </Row>
-
-        <Row>
-          <UserFeed />
-        </Row>
       </Page>
       {/* initial state show nothing */}
     </>
