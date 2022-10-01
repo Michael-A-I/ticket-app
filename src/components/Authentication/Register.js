@@ -146,23 +146,23 @@ function Register() {
               <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control name="firstName" type="text" placeholder="Enter First Name" required minLength={2} maxLength={25} onChange={handleChange} />
+                  <Form.Control style={{ color: "white" }} name="firstName" type="text" placeholder="Enter First Name" required minLength={2} maxLength={25} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control name="lastName" type="text" placeholder="Enter Last Name" required minLength={2} maxLength={25} onChange={handleChange} />
+                  <Form.Control style={{ color: "white" }} name="lastName" type="text" placeholder="Enter Last Name" required minLength={2} maxLength={25} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>Email address</Form.Label>
-                  <Form.Control name="email" type="email" placeholder="Enter email" required onChange={handleChange} />
+                  <Form.Control style={{ color: "white" }} name="email" type="email" placeholder="Enter email" required onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control name="password" type="password" placeholder="Password" required minLength={5} maxLength={100} onChange={handleChange} />
+                  <Form.Control style={{ color: "white" }} name="password" type="password" placeholder="Password" required minLength={5} maxLength={100} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control name="confirmPassword" type="password" placeholder="Password" required minLength={5} maxLength={100} onChange={handleChange} />
+                  <Form.Control style={{ color: "white" }} name="confirmPassword" type="password" placeholder="Password" required minLength={5} maxLength={100} onChange={handleChange} />
                 </Form.Group>
                 <Button type="submit">Sumbit</Button>
 

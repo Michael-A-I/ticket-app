@@ -19,7 +19,7 @@ function Home() {
   return (
     <>
       <div className="home-background"></div>
-      <Page title="Home">
+      <Page style={{ paddingLeft: "0px" }} title="Home">
         <div id="override-bootstrap" className="home-container">
           <div className="jumbotron">
             <Row>

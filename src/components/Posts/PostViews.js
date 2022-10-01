@@ -219,27 +219,31 @@ function PostView(props) {
 
       <Row style={{ width: "100%" }}>
         {edit ? (
-          <Card>
+          <Card style={{ borderRadius: "15px", boxShadow: "4.5px 5px #404eed" }}>
             {console.log(props.post)}
             <Card.Body style={{ margin: "20px", height: "100%" }}>
               {/* {following ? <Button onClick={handleUnFollow}>Followed</Button> : <Button onClick={handleFollow}>Follow</Button>} */}
 
               <Row>
                 <Col>
-                  <Card.Title style={{ fontSize: "20px" }}>{props.post.title}</Card.Title>
+                  <Card.Title style={{ fontSize: "40px" }}>{props.post.title}</Card.Title>
                 </Col>
                 <Col>
-                  <Button variant="warning" onClick={() => archive()} style={{ width: "150px", borderRadius: "15px", float: "right" }}>
-                    Archive
-                  </Button>
+                  {props.archiveButton ? (
+                    <Button variant="warning" onClick={() => archive()} style={{ width: "150px", borderRadius: "15px", float: "right" }}>
+                      Archive
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </Col>
               </Row>
 
               <Card.Text style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: props.post.description }}></Card.Text>
               <Row>{props.post.file != undefined ? <img src={props.post.file} className="img-thumbnail mt-2" style={{ height: "100px", width: "150px" }} /> : ""}</Row>
               {/* User */}
-              <Row>
-                {props.post.assigned ? <Row style={{ width: "100%" }}>{props.post.assigned.image == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.assigned.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />}</Row> : ""}{" "}
+              <Row style={{ height: "0px" }}>
+                {props.post.assigned ? <Row style={{ width: "100%" }}>{/* {props.post.assigned.image == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.assigned.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />} */}</Row> : ""}{" "}
                 {props.post && props.post.assigned != undefined ? (
                   <div style={{ display: "flex", alignItems: "first baseline" }}>
                     <p style={{ fontSize: "14px" }}>Assigned:</p>
@@ -253,7 +257,7 @@ function PostView(props) {
                 )}
               </Row>
               <Row>
-                {props.post.createdBy ? <Row style={{ width: "100%" }}>{props.post.createdBy.image == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.createdBy.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />}</Row> : ""}
+                {props.post.createdBy ? <Row style={{ width: "100%" }}>{/* {props.post.createdBy.image == undefined ? <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} /> : <img src={props.post.createdBy.image} className="img-thumbnail mt-2" style={{ height: "40px", width: "50px", float: "left" }} />} */}</Row> : ""}
                 {props.post && props.post.assigned != undefined ? (
                   <div style={{ display: "flex", alignItems: "first baseline" }}>
                     <p style={{ fontSize: "14px" }}>Created By:</p>

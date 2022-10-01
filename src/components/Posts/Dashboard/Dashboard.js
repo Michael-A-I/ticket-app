@@ -13,12 +13,12 @@ import TicketType from "./charts/TicketType"
 import "./css/charts.css"
 
 function Dashboard() {
-  const graphContainer = { height: "55vh", width: "35vw", minHeight: "55vh", minWidth: "150px", maxWidth: "600px", margin: "auto", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", background: "gray" }
+  const graphContainer = { borderRadius: "15px", boxShadow: "2.5px 5px #404eed", height: "55vh", width: "35vw", minHeight: "55vh", minWidth: "150px", maxWidth: "600px", margin: "auto", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", background: "gainsboro" }
   return (
     <>
       <Page>
         <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
-          <h1>Dashboard</h1>
+          <h1 style={{ paddingLeft: "60px" }}>Dashboard</h1>
         </div>
 
         <div>

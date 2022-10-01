@@ -256,11 +256,11 @@ function Login() {
               <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
+                  <Form.Control style={{ color: "white" }} name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control name="password" type="password" value={login.password} placeholder="Enter password" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
+                  <Form.Control style={{ color: "white" }} name="password" type="password" value={login.password} placeholder="Enter password" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
                 <Button type="submit">Submit</Button>
                 {/* Navigation */}

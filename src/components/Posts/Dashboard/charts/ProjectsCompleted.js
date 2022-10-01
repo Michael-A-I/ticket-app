@@ -56,7 +56,7 @@ function ProjectCompleted() {
   }
 
   const options = {
-    color: "#ffff",
+    color: "black",
     responsive: true,
     maintainAspectRatio: true
   }
@@ -66,7 +66,7 @@ function ProjectCompleted() {
       {/* {console.log(state)} */}
       {/* {console.log(state.completed)} */}
       <div className="charts piecharts">
-        <p className="graph-title">Ticket Priorities</p>
+        <p className="graph-title">Projects Completed</p>
         <Pie data={data} options={options} />
       </div>
     </>

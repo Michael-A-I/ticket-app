@@ -139,48 +139,55 @@ function PostComments(props) {
   return (
     <>
       {/* <pre>{JSON.stringify(props.comments[0].user.image)}</pre> */}
-      <div style={{ border: "1px solid black", height: "747px", paddingTop: "0px", overflow: "scroll" }}>
+      <h1 style={{ fontSize: "16px", boxShadow: "2px 1px #404eed" }}>Comments</h1>
+      <div style={{ border: "1px solid black", borderRadius: "5px", height: "747px", padding: "10px", overflow: "scroll", boxShadow: "2.5px 5px #404eed" }}>
         {props.comments.map((comment, index) => (
           <Row>
             {console.log("edit after click JSX " + edit)}
             {commentId == comment._id || edit.includes(comment._id) ? (
               edit.includes(comment._id) ? (
                 <>
-                  <p> {comment.name}</p>
-                  {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} />}
+                  <div style={{ margin: "10px" }}>
+                    {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "50px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} />}
+                    <p> {comment.name}</p>
 
-                  {/*! run function after fetch */}
-                  <Form onSubmit={e => test(e) & updateComment(e, comment._id) & afterUpdate(e, comment._id)}>
-                    {console.log(comment.ticket)}
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                      <Form.Control style={{ padding: "10px", wordWrap: "break-word" }} required as="textarea" rows={3} value={commentValue[index].text} onChange={e => handleChange(e, index)} />
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                      Save
-                    </Button>
+                    {/*! run function after fetch */}
+                    <Form onSubmit={e => test(e) & updateComment(e, comment._id) & afterUpdate(e, comment._id)}>
+                      {console.log(comment.ticket)}
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Control style={{ padding: "10px", wordWrap: "break-word" }} required as="textarea" rows={3} value={commentValue[index].text} onChange={e => handleChange(e, index)} />
+                      </Form.Group>
+                      <Button style={{ width: "100px" }} variant="primary" type="submit">
+                        Save
+                      </Button>
 
-                    <Button variant="warning" onClick={() => cancelEdit(comment._id)}>
-                      Cancel
-                    </Button>
-                    <Button variant="danger" onClick={() => deleteComment(comment._id)}>
-                      Delete
-                    </Button>
-                  </Form>
-                  <p> {handleDate(comment.updatedAt)}</p>
+                      <Button style={{ width: "100px" }} variant="warning" onClick={() => cancelEdit(comment._id)}>
+                        Cancel
+                      </Button>
+                      <Button style={{ width: "100px" }} variant="danger" onClick={() => deleteComment(comment._id)}>
+                        Delete
+                      </Button>
+                    </Form>
+                    <p style={{ padding: "15px" }}> {handleDate(comment.updatedAt)}</p>
+                  </div>
                 </>
               ) : (
                 <>
                   {/* mouseover */}
                   <div>
-                    <div style={{ border: "2px solid black", borderRadius: "5px", margin: "5px", padding: "15px", background: "rgb(229, 229, 229)" }}>
-                      {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "35px", width: "55px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} />}
+                    <div style={{ borderRadius: "5px", margin: "5px", padding: "15px", background: "rgb(229, 229, 229)", boxShadow: "1.5px 1px #404eed" }}>
+                      {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "50px", width: "50px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "50px", width: "50px" }} />}
                       <p> {comment.name}</p>
                       <p> {handleDate(comment.updatedAt)}</p>
-                      <div>
-                        <p style={{ padding: "10px", wordWrap: "break-word" }} className="comments-style" key={comment._id} keyvalue={comment._id} onMouseLeave={editMouseLeave} onClick={() => editOnClick(comment._id)}>
-                          {comment.text}
-                          <i style={{ float: "right", paddingRight: "15px", marginTop: "3px" }} class="fa-solid fa-pen"></i>
-                        </p>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <div style={{ width: "100%" }}>
+                          <p style={{ padding: "10px", wordWrap: "break-word" }} className="comments-style" key={comment._id} keyvalue={comment._id} onMouseLeave={editMouseLeave} onClick={() => editOnClick(comment._id)}>
+                            {comment.text}
+                          </p>
+                        </div>
+                        <div style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                          <i style={{}} class="fa-solid fa-pen"></i>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -190,14 +197,27 @@ function PostComments(props) {
               <>
                 {/* start */}
                 <div>
-                  <div style={{ border: "1px solid black", borderRadius: "5px", margin: "5px", padding: "15px", background: "white" }}>
-                    {comment.user.image == undefined ? <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "35px", width: "55px" }} /> : <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "25px", width: "50px" }} />}
-                    <p> {comment.name}</p>
-                    <p> {handleDate(comment.updatedAt)}</p>
-
-                    <p style={{ margin: "5px", padding: "10px", wordWrap: "break-word" }} key={comment._id} keyvalue={comment._id} onMouseOver={e => editMouseOver(e, comment._id, comment.user._id)}>
-                      {comment.text}
-                    </p>
+                  <div style={{ borderRadius: "5px", margin: "5px", padding: "15px", background: "white", boxShadow: "1.5px 1px #404eed" }}>
+                    {comment.user.image == undefined ? (
+                      <div>
+                        <img src="/default-profile.jpg" alt="profile-image" className="thumbnail" style={{ height: "50px", width: "50px" }} />
+                      </div>
+                    ) : (
+                      <div>
+                        <img src={`${comment.user.image}`} alt="profile-image" className="thumbnail" style={{ height: "50px", width: "50px" }} />
+                      </div>
+                    )}
+                    <div>
+                      <p> {comment.name}</p>
+                    </div>
+                    <div>
+                      <p> {handleDate(comment.updatedAt)}</p>
+                    </div>
+                    <div>
+                      <p style={{ margin: "5px", padding: "10px", wordWrap: "break-word" }} key={comment._id} keyvalue={comment._id} onMouseOver={e => editMouseOver(e, comment._id, comment.user._id)}>
+                        {comment.text}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </>

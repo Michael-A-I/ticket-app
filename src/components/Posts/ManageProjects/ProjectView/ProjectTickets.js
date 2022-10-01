@@ -36,8 +36,8 @@ function ProjectTickets() {
 
   return (
     <>
-      <h1>Project Tickets</h1>
-      <div style={{ width: "90%", fontSize: "10px" }}>
+      <h1 style={{ fontSize: "16px", boxShadow: "1.5px 1.5px rgb(64, 78, 237)" }}>Project Tickets</h1>
+      <div style={{ width: "100%", fontSize: "10px", border: "1px solid black", padding: "5px", borderRadius: "5px", boxShadow: "2.5px 3.5px rgb(64, 78, 237)" }}>
         <ReactTable columns={columns} data={data} renderRowSubComponent={renderRowSubComponent} />
       </div>
     </>

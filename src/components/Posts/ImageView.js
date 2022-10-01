@@ -12,7 +12,7 @@ function ImageView(props) {
 
   return (
     <>
-      <h1>Image View</h1>
+      <h1 style={{ fontSize: "16px", padding: "10px 0px" }}>Image View</h1>
       <div style={{ display: "flex" }}>
         {files.map((file, index) => {
           console.log({ file, index })

@@ -75,12 +75,18 @@ function SendReset() {
               <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
+                  <Form.Control style={{ color: "white" }} name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
 
                 <Button type="submit">Submit</Button>
                 {/* Navigation */}
                 <p className="form-footer">We will send a reset link to your email.</p>
+                <p className="form-footer">
+                  Go back to{" "}
+                  <Link className="link-style" to="/login">
+                    Login
+                  </Link>
+                </p>
               </Form>
             </Card.Body>
           </Card>

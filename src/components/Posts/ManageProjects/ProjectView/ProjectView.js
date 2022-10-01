@@ -193,18 +193,18 @@ function ProjectView() {
     <>
       <Page>
         <div style={{ width: "90%", margin: "0px auto" }}>
-          <Row style={{ paddingTop: "25px" }}>
+          <Row style={{ margin: "25px 0px 0px 0px", boxShadow: "1.5px 1.5px rgb(64, 78, 237)" }}>
             <Col>
-              <h1>ProjectView</h1>
+              <h1 style={{ fontSize: "16px" }}>ProjectView</h1>
             </Col>
             <Col>
-              <Button onClick={() => createTicket()} style={{ width: "250px", float: "right" }}>
+              <Button onClick={() => createTicket()} style={{ width: "250px", float: "right", borderRadius: "5px" }}>
                 Create Ticket
               </Button>
             </Col>
           </Row>
 
-          <PostViews post={post} deletePost={deletePost} handleProjectViewImgSubmit={handleProjectViewImgSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} projectViewImg={true} />
+          <PostViews post={post} deletePost={deletePost} handleProjectViewImgSubmit={handleProjectViewImgSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} projectViewImg={true} archiveButton={true} />
 
           <PostComments comments={comments} getComments={getComments} />
 
@@ -214,7 +214,7 @@ function ProjectView() {
             <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
           </div>
 
-          <div style={{ border: "1px solid black", borderRadius: "5px" }}>
+          <div style={{}}>
             <ProjectTickets />
           </div>
 

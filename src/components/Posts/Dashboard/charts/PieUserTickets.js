@@ -62,6 +62,7 @@ function PieUserTickets() {
         <Pie
           data={data}
           options={{
+            color: "black",
             responsive: true,
             maintainAspectRatio: false
           }}

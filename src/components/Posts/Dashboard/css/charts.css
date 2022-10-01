@@ -16,19 +16,26 @@
   /* padding: ; */
   max-width: "450px";
   min-width: 185px;
+  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .piecharts {
   width: 15vw;
   max-width: 300px;
+  border-radius: 15px;
 }
 .barcharts {
   width: 25vw;
   max-width: 400px;
+  border-radius: 15px;
 }
 
 .graph-title {
-  color: white;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  color: black;
 }
 
 .graph-container {

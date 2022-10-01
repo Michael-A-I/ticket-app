@@ -23,7 +23,7 @@ function Priority(props) {
   return (
     <>
       {console.log(props.priority)}
-      <h1>Priority</h1>
+      <h1 style={{ fontSize: "16px", padding: "10px 0px" }}>Priority</h1>
       <Form.Select aria-label="Default select example">
         {stat.map(s => (
           <option value={s}>{s}</option>

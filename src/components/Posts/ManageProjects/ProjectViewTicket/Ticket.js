@@ -196,7 +196,7 @@ function Ticket() {
     <>
       <Page>
         <div style={{ width: "90%", margin: "auto" }}>
-          <h1>Ticket</h1>
+          <h1 style={{ fontSize: "16px", boxShadow: "2px 1px #404eed", margin: "20px 0px 0px" }}>Ticket</h1>
           {/* post views */}
           <PostViews post={post} handleSubmit={handleSubmit} deletePost={deletePost} handleStatusSubmit={handleStatusSubmit} getStatus={getStatus} status={status} priority={priority} showStatus={true} setBase64={setBase64} base64={base64} />
 

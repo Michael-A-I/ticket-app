@@ -61,15 +61,15 @@ function BugsFeatures() {
   }
 
   const options = {
-    color: "#ffff",
+    color: "black",
     responsive: true,
     maintainAspectRatio: true
   }
 
   return (
     <>
-      <div className="charts piecharts">
-        <p className="graph-title">Ticket Priorities</p>
+      <div className="charts piecharts" style={{ borderRadius: "15px" }}>
+        <p className="graph-title">Ticket Status</p>
         <Doughnut data={data} options={options} />
       </div>
     </>

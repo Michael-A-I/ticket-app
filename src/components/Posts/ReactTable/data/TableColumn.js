@@ -5,7 +5,7 @@ const columns = [
   {
     Header: () => null, //! no header rendered explains why it is empty.
     id: "expander", // 'id' is required
-    Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? "👇" : "👉"}</span>
+    Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}>{row.isExpanded ? <i class="fa-sharp fa-solid fa-square-check"></i> : <i class="fa-thin fa-square"></i>}</span>
   },
   {
     Header: "User Name",

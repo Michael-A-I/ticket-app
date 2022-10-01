@@ -23,7 +23,7 @@ function Status(props) {
   return (
     <>
       {console.log(props.status)}
-      <h1>Status</h1>
+      <h1 style={{ fontSize: "16px", padding: "10px 0px" }}>Status</h1>
       <Form.Select aria-label="Default select example">
         {stat.map(s => (
           <option value={s}>{s}</option>
