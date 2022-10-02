@@ -134,7 +134,7 @@ function ProfileEdit() {
     <>
       <Container id="bootstrap-overrides">
         <Page title="Register">
-          <ProfileEditNav></ProfileEditNav>
+          <ProfileEditNav button={"profile"} />
           {/* Profile Edit Form */}
           <Row>
             <Form onSubmit={handleSubmit}>

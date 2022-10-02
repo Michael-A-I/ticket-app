@@ -103,7 +103,7 @@ function ProfileEditAvatar() {
         <Container>
           {/* ROW */}
           {/* Two Images */}
-          <ProfileEditNav></ProfileEditNav>
+          <ProfileEditNav button={"avatar"} />
 
           <Row>
             <p>Choose an existing avatar, or drag and drop a photo from your computer.</p>
