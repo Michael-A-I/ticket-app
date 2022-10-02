@@ -10,6 +10,7 @@ import { useContext } from "react"
 import { useEffect } from "react"
 import Avatar from "./Avatar"
 import Feedback from "react-bootstrap/esm/Feedback"
+import ProfileEditNav from "./ProfileEditNav"
 
 function ProfileEditAvatar() {
   const appState = useContext(StateContext)
@@ -102,6 +103,8 @@ function ProfileEditAvatar() {
         <Container>
           {/* ROW */}
           {/* Two Images */}
+          <ProfileEditNav></ProfileEditNav>
+
           <Row>
             <p>Choose an existing avatar, or drag and drop a photo from your computer.</p>
           </Row>

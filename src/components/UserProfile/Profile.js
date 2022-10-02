@@ -47,8 +47,8 @@ function Profile() {
 
           <Row>
             {/* Profile Card */}
-            <Card style={{ width: "90%" }}>
-              <Row>{localStorage.getItem("avatar") != "null" ? <Avatar width={"250px"} height={"200px"} /> : <img src={"/default-profile.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
+            <Card style={{ width: "90%", border: "1px solid black", boxShadow: "2.5px 4.5px rgb(64, 78, 237)" }}>
+              <Row style={{ margin: "0px 0px 0px 2%;" }}>{localStorage.getItem("avatar") != "null" ? <Avatar width={"250px"} height={"200px"} /> : <img src={"/default-profile.jpg"} alt="profile-image" className="thumbnail" style={{ paddingTop: "10px" }} />}</Row>
 
               <Card.Body>
                 <Card.Title>Username: {appState.user.username}</Card.Title>

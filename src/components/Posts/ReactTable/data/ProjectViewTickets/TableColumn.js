@@ -55,7 +55,7 @@ const columns = [
     Cell: ({ row }) => (
       <span>
         {row.isExpanded ? null : (
-          <Link style={{ background: "black", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/ticket/${row.original._id}`}>
+          <Link style={{ background: "#404eed", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/ticket/${row.original._id}`}>
             view ticket
           </Link>
         )}
@@ -73,7 +73,7 @@ const columns = [
       return (
         <span>
           {row.isExpanded ? null : (
-            <Link style={{ background: "black", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/${row.original.project}`}>
+            <Link style={{ background: "#404eed", padding: "5px 20px", color: "white", textDecoration: "none", width: "200px", borderRadius: "5px", display: "inline", textAlign: "center" }} to={`/projects/${row.original.project}`}>
               Go to project
             </Link>
           )}

@@ -1,7 +1,7 @@
 // import { Container } from 'reactstrap';
 // import React, { useState } from "react"
 
-import { Form, Card, Button } from "react-bootstrap"
+import { Form, Card, Button, Row, Col } from "react-bootstrap"
 import { useContext, useEffect, useState } from "react"
 import StateContext from "../../../../context/StateContext"
 import { handleDate } from "../../../../helper/helper"
@@ -193,29 +193,38 @@ const RenderEditRow = props => {
   return (
     <>
       {edit ? (
-        <Card style={{ display: "flex", flexFlow: "row wrap", alignItems: "center", width: "100%", margin: "0 auto", padding: "10px" }}>
-          <Card.Title style={{ margin: "auto" }}>
-            {userState.firstName} {userState.lastName}{" "}
-          </Card.Title>
-
-          <Card.Img variant="top" src={userState.image} style={{ height: "50px", width: "50px", margin: "auto" }} />
-
-          <div style={{ padding: "10px", margin: "auto" }}>
-            <Card.Text>Email: {userState.email ? userState.email : "N/A"}</Card.Text>
-          </div>
-          <div style={{ padding: "10px", margin: "auto" }}>
-            <Card.Text>Created: {handleDate(userState.createdAt)}</Card.Text>
-          </div>
-          <div style={{ padding: "10px", margin: "auto" }}>
-            <Card.Text>Role: {userState.role}</Card.Text>
-          </div>
-          {/* <Card.Text>id: {userState._id}</Card.Text> */}
-
-          {/* <Button variant="primary">Go somewhere</Button> */}
-          <Button style={{ width: "10%", margin: "auto" }} variant="primary" onClick={handleEdit}>
-            Edit
-          </Button>
-        </Card>
+        <div>
+          <Row style={{ boxShadow: "1px 2px black" }}>
+            <Col style={{ maxWidth: "150px" }}></Col>
+            <Col style={{ maxWidth: "250px", padding: "0px" }}>
+              <div style={{ display: "flex", justifyContent: "left", alignItems: "center" }}>
+                <p style={{ margin: "0px", padding: "10px" }}>
+                  {userState.firstName} {userState.lastName}
+                </p>
+              </div>
+            </Col>
+            <Col style={{ maxWidth: "250px", padding: "5px" }}>
+              <div style={{ display: "flex", justifyContent: "left", alignItems: "center" }}>
+                <Card.Img variant="top" src={userState.image} style={{ height: "50px", width: "50px" }} />
+              </div>
+            </Col>
+            <Col style={{ maxWidth: "250px", padding: "0px" }}>
+              <div style={{ display: "flex", justifyContent: "left", alignItems: "center" }}>
+                <Card.Text>Created: {handleDate(userState.createdAt)}</Card.Text>
+              </div>
+            </Col>
+            <Col style={{ maxWidth: "250px", padding: "0px" }}>
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Card.Text>Role: {userState.role}</Card.Text>
+              </div>
+            </Col>
+            <Col style={{ maxWidth: "250px", padding: "0px" }}>
+              <Button style={{ width: "50%", margin: "auto" }} variant="primary" onClick={handleEdit}>
+                Edit
+              </Button>
+            </Col>
+          </Row>
+        </div>
       ) : (
         <>
           {/* <pre>{JSON.stringify(props.row.original)}</pre> */}
