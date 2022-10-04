@@ -249,18 +249,18 @@ function Login() {
         <div className="center-page">
           <Card style={{ width: "35rem", backgroundColor: "#36393f", marginTop: "100px" }}>
             <Card.Body>
-              <Card.Title className="card-center-title">Welcom Back!</Card.Title>
-              <Card.Subtitle className="card-sub-title">Nice to see you again!</Card.Subtitle>
+              <Card.Title className="card-center-title">Welcome Back!</Card.Title>
+              <Card.Subtitle className="card-sub-title">Nice to see you again.</Card.Subtitle>
 
               {/* Credentials */}
               <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control style={{ color: "white" }} name="email" type="email" value={login.email} placeholder="Enter email" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
+                  <Form.Control style={{ color: "white" }} name="email" type="email" value={login.email} required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control style={{ color: "white" }} name="password" type="password" value={login.password} placeholder="Enter password" required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
+                  <Form.Control style={{ color: "white" }} name="password" type="password" value={login.password} required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
                 <Button type="submit">Submit</Button>
                 {/* Navigation */}
