@@ -69,7 +69,7 @@ function BugsFeatures() {
   return (
     <>
       <div className="charts piecharts" style={{ borderRadius: "15px" }}>
-        <p className="graph-title">Ticket Status</p>
+        <p className="graph-title">Ticket Priority</p>
         <Doughnut data={data} options={options} />
       </div>
     </>

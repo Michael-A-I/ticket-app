@@ -79,7 +79,7 @@ function TicketStatus() {
   return (
     <>
       <div className="charts barcharts">
-        <p className="graph-title">Ticket Priorities</p>
+        <p className="graph-title">Ticket Status</p>
         <Bar data={data} options={options} />
       </div>
     </>

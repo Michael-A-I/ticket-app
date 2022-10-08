@@ -95,7 +95,7 @@ function MyTickets() {
   return (
     <>
       <div className="charts barcharts">
-        <p className="graph-title">Ticket Priorities</p>
+        <p className="graph-title">My Tickets</p>
         <Bar data={data} options={options} />
       </div>
     </>
