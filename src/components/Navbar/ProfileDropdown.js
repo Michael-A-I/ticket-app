@@ -17,6 +17,7 @@ function ProfileDropdown(props) {
   async function logout() {
     localStorage.clear()
     appDispatch({ type: "logout" })
+    appDispatch({ type: "initialLogin", value: true })
     Userfront.logout()
   }
 

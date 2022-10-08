@@ -47,6 +47,7 @@ import "./components/Navbar/css/Navbar.css"
 /* Context */
 import StateContext from "./context/StateContext"
 import DispatchContext from "./context/DispatchContext"
+import Toasty from "./components/ui/Toasty"
 
 /* LazyLoad Components */
 // const CreatePost = React.lazy(() => import("./components/CreatePost"))
@@ -71,8 +72,18 @@ function App() {
       id: localStorage.getItem("id"),
       createdAt: localStorage.getItem("createdAt")
     },
-    notification: false
+    notification: false,
+
+    message: {
+      show: false,
+      poisiton: "center",
+      msg: "",
+      title: "",
+      context: ""
+    },
+    initialLogin: JSON.parse(localStorage.getItem("initialLogin"))
   }
+
   /* set action type and return state */
   function ourReducer(draft, action) {
     // eslint-disable-next-line default-case
@@ -101,6 +112,18 @@ function App() {
       case "setNotification":
         draft.notification = !draft.notification
         return
+      case "message":
+        draft.message = {
+          show: action.show,
+          poisiton: "center",
+          msg: action.msg,
+          title: action.title,
+          context: action.context
+        }
+        return
+      case "initialLogin":
+        draft.initialLogin = action.value
+        return
     }
   }
 
@@ -112,6 +135,9 @@ function App() {
     <>
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
+          <div className="toast-display-center">
+            <Toasty />
+          </div>
           <BrowserRouter>
             <Suspense
               fallback={

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useState } from "react"
 import Navbar from "../Navbar/Navbar"
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -11,7 +11,9 @@ import { Button, Card, Form, Toast } from "react-bootstrap"
 /* Toasty Alerts */
 import Toasty from "../ui/Toasty"
 import msgConext from "../ui/helpers/toastyMessages"
-
+/* context */
+import StateContext from "../../context/StateContext"
+import DispatchContext from "../../context/DispatchContext"
 /* Userfront */
 import Userfront from "@userfront/core"
 Userfront.init("pn4qd8qb")
@@ -23,14 +25,7 @@ function Register() {
   const [show, setShow] = useState(false)
   const [position, setPosition] = useState("top-center")
   const [register, setRegister] = useState({ email: "", firstName: "", lastName: "", password: "", confirmPassword: "" })
-
-  const [msg, setMsg] = useState({
-    show: false,
-    poisiton: "center",
-    msg: "",
-    context: "",
-    title: ""
-  })
+  const appDispatch = useContext(DispatchContext)
 
   const handleChange = event => {
     event.preventDefault()
@@ -86,25 +81,17 @@ function Register() {
       )
 
       //! /* ! add check to make sure Userfront and BE BOTH succeed */
-      const serverRes = await res.json()
+      const data = await res.json()
       console.log("confirm(user)")
       /* send confirmation email */
-      console.log(serverRes.message)
+      console.log(data.message)
       /* if on submit server response is an Error then show error message */
-      if (serverRes.message !== "Success") {
-        setShow(true)
-      }
-      setMessage(serverRes.message)
+
+      appDispatch({ type: "message", show: true, msg: data.message, title: msgConext.good, context: msgConext.danger })
     } catch (err) {
       console.log(err)
 
-      setMsg({
-        show: true,
-        poisiton: "center",
-        msg: err.message,
-        title: "Error",
-        context: msgConext.danger
-      })
+      appDispatch({ type: "message", show: true, msg: err.message, title: msgConext.bad, context: msgConext.danger })
     }
   }
 
@@ -131,17 +118,12 @@ function Register() {
     <>
       {console.log(register)}{" "}
       <Page style={{ paddingLeft: "0px" }} title="Register">
-        {message === "Success" ? (
-          navigate("/login")
-        ) : (
-          <div className="toast-display-center">
-            <Toasty msg={msg} setMsg={setMsg} />
-          </div>
-        )}
+        {message === "Success" ? navigate("/login") : ""}
         <div className="center-page">
           <Card style={{ width: "35rem", backgroundColor: "#36393f", marginTop: "100px" }}>
             <Card.Body>
               <Card.Title className="card-center-title">Create an Account</Card.Title>
+              <Card.Subtitle className="card-sub-title">Kindly enter you registration details.</Card.Subtitle>
 
               <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -164,7 +146,9 @@ function Register() {
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control style={{ color: "white" }} name="confirmPassword" type="password" required minLength={5} maxLength={100} onChange={handleChange} />
                 </Form.Group>
-                <Button type="submit">Sumbit</Button>
+                <Button style={{ margin: "10px 0px 10px 0px" }} type="submit">
+                  Sumbit
+                </Button>
 
                 <p className="form-footer">
                   Already have an account{" "}

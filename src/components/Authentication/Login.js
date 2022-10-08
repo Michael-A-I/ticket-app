@@ -24,24 +24,15 @@ import msgConext from "../ui/helpers/toastyMessages"
 
 // Initialize Userfront Core JS
 Userfront.init("pn4qd8qb")
-
 function Login() {
+  /* context */
   const appState = useContext(StateContext)
-  const token = appState.user.token
-
-  const [message, setMessage] = useState("")
-  const [login, setLogin] = useState({ email: "", password: "" })
-  const [msg, setMsg] = useState({
-    show: false,
-    poisiton: "center",
-    msg: "",
-    context: "",
-    title: ""
-  })
-
-  const navigate = useNavigate()
-
   const appDispatch = useContext(DispatchContext)
+  console.log({ loggedIn: appState.loggedIn, initialLogin: appState.initialLogin })
+
+  const token = appState.user.token
+  const [login, setLogin] = useState({ email: "", password: "" })
+  const navigate = useNavigate()
 
   const handleChange = event => {
     console.log("handleChange")
@@ -55,7 +46,7 @@ function Login() {
     console.log("handleSubmit")
     event.preventDefault()
 
-    console.log(login)
+    console.log({ handleSubmit: appState.initialLogin })
 
     try {
       const data = await Userfront.login({
@@ -63,8 +54,6 @@ function Login() {
         email: login.email,
         password: login.password
       })
-
-      console.log(JSON.stringify(data.message))
 
       const token = `Bearer ${Userfront.tokens.accessToken}`
 
@@ -82,11 +71,8 @@ function Login() {
       const firstName = user.data.firstName
       const lastName = user.data.lastName
 
-      console.log(user)
-
-      console.log(email)
       logID(email)
-      console.log(data.message)
+
       if (data.message == "OK") {
         //   console.log("build local storage")
         const update = new Date(handleTimestamp(updatedAt)).toDateString()
@@ -95,6 +81,7 @@ function Login() {
         //   console.log(email)
         localStorage.setItem("token", token)
         //   localStorage.setItem("roles", roles)
+        localStorage.setItem("initialLogin", true)
 
         localStorage.setItem("avatar", avatar)
         // localStorage.setItem("id", data.id)
@@ -113,24 +100,13 @@ function Login() {
         appDispatch({ type: "setUser", value: name })
         appDispatch({ type: "setFirst", value: firstName })
         appDispatch({ type: "setLast", value: lastName })
-
-        setMessage(data.message)
+        appDispatch({ type: "initialLogin", value: true })
+        appDispatch({ type: "message", show: true, msg: data.message, title: msgConext.good, context: msgConext.success })
       }
-      console.log(data.message)
-      /*
-         if user autheticats set Success authentication message
-       */
-      console.log(message)
     } catch (err) {
       console.log("err")
       console.log(err.message)
-      setMsg({
-        show: true,
-        poisiton: "center",
-        msg: err.message,
-        title: "Error",
-        context: msgConext.danger
-      })
+      appDispatch({ type: "message", show: true, msg: err.message, title: msgConext.bad, context: msgConext.danger })
     }
   }
 
@@ -191,29 +167,21 @@ function Login() {
         localStorage.setItem("lastName", lastName)
         localStorage.setItem("userfrontId", id)
 
-        appDispatch({ type: "login" })
         appDispatch({ type: "setToken", value: token })
         appDispatch({ type: "setUser", value: name })
         appDispatch({ type: "setFirst", value: firstName })
         appDispatch({ type: "setLast", value: lastName })
-
-        setMessage(data.message)
+        appDispatch({ type: "message", show: true, msg: data.message, title: msgConext.good, context: msgConext.danger })
+        appDispatch({ type: "login" })
       }
       console.log(data.message)
       /*
          if user autheticats set Success authentication message
        */
-      console.log(message)
     } catch (err) {
       console.log("err")
       console.log(err.message)
-      setMsg({
-        show: true,
-        poisiton: "center",
-        msg: err.message,
-        title: "Error",
-        context: msgConext.danger
-      })
+      appDispatch({ type: "message", show: true, msg: err.message, title: msgConext.bad, context: msgConext.danger })
     }
   }
 
@@ -239,18 +207,11 @@ function Login() {
       <Page style={{ paddingLeft: "0px" }} title="Login">
         {console.log(appState.loggedIn)}
 
-        {message == "Success" ? (
-          navigate("/dashboard")
-        ) : (
-          <div className="toast-display-center">
-            <Toasty msg={msg} setMsg={setMsg} />
-          </div>
-        )}
         <div className="center-page">
           <Card style={{ width: "35rem", backgroundColor: "#36393f", marginTop: "100px" }}>
             <Card.Body>
-              <Card.Title className="card-center-title">Welcome Back!</Card.Title>
-              <Card.Subtitle className="card-sub-title">Nice to see you again.</Card.Subtitle>
+              <Card.Title className="card-center-title">Welcome!</Card.Title>
+              <Card.Subtitle className="card-sub-title">Kindly enter you login credentials.</Card.Subtitle>
 
               {/* Credentials */}
               <Form className="form-group-styles" onSubmit={e => handleSubmit(e)}>
@@ -262,7 +223,9 @@ function Login() {
                   <Form.Label>Password</Form.Label>
                   <Form.Control style={{ color: "white" }} name="password" type="password" value={login.password} required minLength={5} maxLength={30} onChange={e => handleChange(e)} />
                 </Form.Group>
-                <Button type="submit">Submit</Button>
+                <Button style={{ margin: "10px 0px 10px 0px" }} type="submit">
+                  Submit
+                </Button>
                 {/* Navigation */}
                 <p className="form-footer">
                   Forgot your{" "}
