@@ -46,7 +46,7 @@ function ProfileDropdown(props) {
           </Link>
         </li>
         <li>
-          <Link onClick={handleClick} className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
+          <Link onClick={handleClick} className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/Projects/index">
             Manage Projects
           </Link>
         </li>

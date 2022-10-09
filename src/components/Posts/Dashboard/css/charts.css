@@ -67,6 +67,10 @@
   .page-container {
     padding-left: 0px;
   }
+  .pie-chart {
+    margin: auto;
+    padding: 80px;
+  }
   body {
     /* background-color: red; */
   }
@@ -74,7 +78,7 @@
 /* Mobile */
 
 /* Media Query for low resolution  Tablets, Ipads */
-@media (min-width: 615px) and (max-width: 937px) {
+@media (min-width: 615px) and (max-width: 800px) {
   .page-container {
     padding-left: 0px;
   }
@@ -97,14 +101,14 @@
   }
   .pie-chart {
     margin: auto;
-    padding: 15%;
+    padding: 130px;
   }
   body {
-    /* background-color: yellow; */
+    background-color: purple;
   }
 }
 
-@media (min-width: 938px) and (max-width: 969px) {
+@media (min-width: 801px) and (max-width: 940px) {
   .page-container {
     padding-left: 0px;
   }
@@ -127,10 +131,40 @@
   }
   .pie-chart {
     margin: auto;
-    padding: 15%;
+    padding: 160px;
   }
   body {
-    /* background-color: black; */
+    background-color: yellow;
+  }
+}
+
+@media (min-width: 941px) and (max-width: 969px) {
+  .page-container {
+    padding-left: 0px;
+  }
+
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 80vw;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 200px;
+  }
+  body {
+    background-color: black;
   }
 }
 
