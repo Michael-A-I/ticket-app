@@ -55,19 +55,24 @@ function PieUserTickets() {
     ]
   }
 
+  const options = {
+    color: "#ffff",
+
+    plugins: {
+      title: {
+        display: true,
+        text: "Chart.js Bar Chart"
+      },
+      responsive: false,
+      maintainAspectRatio: true
+    }
+  }
+
   return (
     <>
       {console.log({ state })}
-      <div className="piechart2">
-        <Pie
-          data={data}
-          options={{
-            color: "black",
-            responsive: true,
-            maintainAspectRatio: false
-          }}
-        />
-      </div>
+
+      <Pie data={data} options={options} />
     </>
   )
 }

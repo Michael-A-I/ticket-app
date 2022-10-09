@@ -56,19 +56,25 @@ function ProjectCompleted() {
   }
 
   const options = {
-    color: "black",
-    responsive: true,
-    maintainAspectRatio: true
+    color: "#ffff",
+
+    plugins: {
+      title: {
+        display: true,
+        text: "Chart.js Bar Chart"
+      },
+      responsive: false,
+      maintainAspectRatio: true
+    }
   }
 
   return (
     <>
       {/* {console.log(state)} */}
       {/* {console.log(state.completed)} */}
-      <div className="charts piecharts">
-        <p className="graph-title">Projects Completed</p>
-        <Pie data={data} options={options} />
-      </div>
+
+      <p className="graph-title">Projects Completed</p>
+      <Pie data={data} options={options} />
     </>
   )
 }

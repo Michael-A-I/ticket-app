@@ -8,35 +8,188 @@
   align-items: center;
 }
 
-.charts {
-  position: relative;
-  /* height: 25vh; */
-  width: 35vw;
-  /* margin: auto; */
-  /* padding: ; */
-  max-width: "450px";
-  min-width: 185px;
-  border-radius: 5px;
-  border-radius: 15px;
-}
-
-.piecharts {
-  width: 15vw;
-  max-width: 300px;
-  border-radius: 15px;
-}
-.barcharts {
-  width: 25vw;
-  max-width: 400px;
-  border-radius: 15px;
-}
-
 .graph-title {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   color: black;
 }
-
-.graph-container {
+.page-container {
+  padding-left: 300px;
 }
+.graph-container {
+  border-radius: 15px;
+  box-shadow: 2.5px 5px #404eed;
+  height: 45vh;
+  width: 35vw;
+  min-height: 500px;
+  max-height: 600px;
+  /* min-width: 20vw; */
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: gainsboro;
+  position: relative;
+  flex-direction: column;
+  margin: 10px auto;
+}
+
+.bar-graph {
+  padding: 10px;
+}
+
+.pie-chart {
+  padding: 15%;
+}
+/* Responsive */
+
+/* Mobile */
+@media (max-width: 614px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 80vw;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+  }
+  .page-container {
+    padding-left: 0px;
+  }
+  body {
+    /* background-color: red; */
+  }
+}
+/* Mobile */
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 615px) and (max-width: 937px) {
+  .page-container {
+    padding-left: 0px;
+  }
+
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 80vw;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 15%;
+  }
+  body {
+    /* background-color: yellow; */
+  }
+}
+
+@media (min-width: 938px) and (max-width: 969px) {
+  .page-container {
+    padding-left: 0px;
+  }
+
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 80vw;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 15%;
+  }
+  body {
+    /* background-color: black; */
+  }
+}
+
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 970px) and (max-width: 1024px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 600px;
+    min-width: 60vw;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 15%;
+  }
+
+  .pie-chart {
+    padding: 17%;
+  }
+  body {
+    /* background-color: blue; */
+  }
+}
+
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1025px) and (max-width: 1288px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 55vh;
+    min-width: 60vw;
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 15%;
+  }
+
+  .pie-chart {
+    padding: 19%;
+  }
+  body {
+    /* background-color: pink; */
+  }
+}
+
+/* Media Query for Large screens */
+/* @media (min-width: 1289px) {
+} */

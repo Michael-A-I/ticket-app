@@ -6,7 +6,6 @@ import MyTickets from "./charts/myTickets"
 import { PiePie } from "./charts/Pie"
 import PieUserTickets from "./charts/PieUserTickets"
 import ProjectsCompleted from "./charts/ProjectsCompleted"
-import TicketsCompleted from "./charts/TicketsCompleted"
 import TicketStatus from "./charts/TicketStatus"
 import msgConext from "../../ui/helpers/toastyMessages.js"
 
@@ -23,15 +22,15 @@ function Dashboard() {
           <h1 style={{ paddingLeft: "60px" }}>Dashboard</h1>
         </div>
 
-        <div>
+        <div style={{ margin: "auto" }}>
           <Row>
             <Col>
-              <div style={graphContainer}>
+              <div className="graph-container pie-chart">
                 <ProjectsCompleted />
               </div>
             </Col>
             <Col>
-              <div style={graphContainer}>
+              <div className="graph-container bar-graph">
                 <MyTickets />
               </div>
             </Col>
@@ -39,12 +38,12 @@ function Dashboard() {
 
           <Row>
             <Col>
-              <div style={graphContainer}>
+              <div className="graph-container bar-graph">
                 <TicketStatus />
               </div>
             </Col>
             <Col>
-              <div style={graphContainer}>
+              <div className="graph-container pie-chart">
                 <BugsFeatures />
               </div>
             </Col>

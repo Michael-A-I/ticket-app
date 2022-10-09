@@ -87,17 +87,22 @@ function MyTickets() {
   }
 
   const options = {
-    color: "black",
-    responsive: true,
-    maintainAspectRatio: true
-  }
+    color: "#ffff",
 
+    plugins: {
+      title: {
+        display: true,
+        text: "Chart.js Bar Chart"
+      },
+      responsive: false,
+      maintainAspectRatio: true
+    }
+  }
   return (
     <>
-      <div className="charts barcharts">
-        <p className="graph-title">My Tickets</p>
-        <Bar data={data} options={options} />
-      </div>
+      {/* ! do not align items center for bar graph for full width. */}
+      <p className="graph-title">My Tickets</p>
+      <Bar data={data} options={options} />
     </>
   )
 }

@@ -9,7 +9,7 @@
   .ham-top {
     width: 35px;
     height: 5px;
-    background-color: #302b2b;
+    background-color: #fff;
     border-radius: 25px;
     margin: 6px 0;
     transition: all 1s;
@@ -18,7 +18,7 @@
     width: 35px;
     height: 5px;
     border-radius: 25px;
-    background-color: #302b2b;
+    background-color: #fff;
     margin: 6px 0;
     opacity: 1;
 
@@ -28,7 +28,7 @@
     width: 35px;
     height: 5px;
     border-radius: 25px;
-    background-color: #302b2b;
+    background-color: #fff;
     margin: 6px 0;
     transition: all 1s;
   }

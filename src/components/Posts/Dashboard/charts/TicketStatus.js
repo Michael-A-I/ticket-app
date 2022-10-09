@@ -58,7 +58,6 @@ function TicketStatus() {
       {
         label: "Dataset 1",
         data: status,
-        // data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         backgroundColor: "rgba(255, 99, 132, 0.5)"
       }
     ]
@@ -66,22 +65,21 @@ function TicketStatus() {
 
   const options = {
     color: "#ffff",
-    responsive: true,
+
     plugins: {
       title: {
         display: true,
         text: "Chart.js Bar Chart"
       },
+      responsive: false,
       maintainAspectRatio: true
     }
   }
 
   return (
     <>
-      <div className="charts barcharts">
-        <p className="graph-title">Ticket Status</p>
-        <Bar data={data} options={options} />
-      </div>
+      <p className="graph-title">Ticket Status</p>
+      <Bar data={data} options={options} />
     </>
   )
 }

@@ -38,6 +38,7 @@
     min-height: 100vh !important;
     z-index: 100;
     padding: 48px 0 0;
+    /* width: 0%; */
     box-shadow: 5px 0px 10px rgb(226, 226, 226);
     transition: all 1s ease;
   }

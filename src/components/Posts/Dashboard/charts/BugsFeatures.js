@@ -61,17 +61,22 @@ function BugsFeatures() {
   }
 
   const options = {
-    color: "black",
-    responsive: true,
-    maintainAspectRatio: true
+    color: "#ffff",
+
+    plugins: {
+      title: {
+        display: true,
+        text: "Chart.js Bar Chart"
+      },
+      responsive: false,
+      maintainAspectRatio: true
+    }
   }
 
   return (
     <>
-      <div className="charts piecharts" style={{ borderRadius: "15px" }}>
-        <p className="graph-title">Ticket Priority</p>
-        <Doughnut data={data} options={options} />
-      </div>
+      <p className="graph-title">Ticket Priority</p>
+      <Doughnut data={data} options={options} />
     </>
   )
 }

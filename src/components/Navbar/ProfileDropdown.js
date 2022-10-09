@@ -21,56 +21,49 @@ function ProfileDropdown(props) {
     Userfront.logout()
   }
 
+  const handleClick = () => {
+    props.setClick(!props.click)
+  }
+
+  if (props.click) {
+    document.body.style.overflow = "hidden"
+  }
+  if (!props.click) {
+    document.body.style.overflow = "visible"
+  }
+
   return (
     <>
       <ul className={props.click ? "nav-menu active" : "nav-menu"}>
         <li className="nav-profile">
-          <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/profile">
-            Profile
+          <Link onClick={handleClick} className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/dashboard">
+            Dashboard
           </Link>
         </li>
         <li>
-          <Link className="nav-search-buttons-item nav-search-buttons-item--primary hide-big" to="/post/new">
-            Create Posts
+          <Link onClick={handleClick} className="nav-search-buttons-item nav-search-buttons-item--primary hide-big" to="/manage/role">
+            Manage Roles
           </Link>
         </li>
         <li>
-          <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
-            View Posts
+          <Link onClick={handleClick} className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
+            Manage Projects
           </Link>
         </li>
         <li>
-          <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
-            Search
+          <Link onClick={handleClick} className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/myticket/:id">
+            My Tickets
           </Link>
         </li>
         <li>
-          <Link className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/post/new">
-            Create Posts
+          <Link onClick={handleClick} className="nav-search-buttons-item nav-search-buttons-item--primary  hide-big" to="/profile">
+            User Profile
           </Link>
         </li>
         <li>
           <Button onClick={logout} className="btn-warning nav-search-buttons-item hide-big">
             Logout
           </Button>
-        </li>
-        <li>
-          <Dropdown id="hide-small">
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              {appState.user.first} {appState.user.last}
-            </Dropdown.Toggle>
-
-            {/* <Dropdown.Toggle variant="success" id="dropdown-basic-md">
-              <i class="fa-solid fa-circle-chevron-down"></i>
-            </Dropdown.Toggle> */}
-
-            <Dropdown.Menu>
-              <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-              {/* <Dropdown.Item href={`#/u/${appState.user.id}/notifications`}>Subscription</Dropdown.Item>
-              <Dropdown.Item href="/contactme">Contact Me</Dropdown.Item> */}
-              <Dropdown.Item onClick={logout}>logout</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
         </li>
       </ul>
     </>

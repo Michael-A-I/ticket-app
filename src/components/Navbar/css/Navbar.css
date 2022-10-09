@@ -45,6 +45,7 @@
   align-items: center;
   /* width: 90%; */
   height: 80px;
+  padding: 0px 20px;
 }
 
 .fa-typo3 {
@@ -143,6 +144,7 @@ dropdown-item {
     transition: all 0.5s ease;
     margin-right: 0;
     align-items: center;
+    overflow: hidden;
   }
 
   /* hide serach bar and attached buttons */
@@ -168,12 +170,14 @@ dropdown-item {
 
   .nav-menu.active {
     padding: 80px 0px 0px 0px;
-    background: #242222;
+    background: #fff;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
     z-index: 1;
     padding-right: 0px;
+    overflow: hidden;
+    height: 1000vh;
   }
 
   .nav-links {
