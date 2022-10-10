@@ -9,5 +9,5 @@ module.exports = {
   dark: "dark",
   bad: "Error",
   good: "Success",
-  welcome: "Welcome"
+  welcome: "Welcome to Chatter!"
 }

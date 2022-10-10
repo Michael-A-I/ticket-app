@@ -15,6 +15,16 @@ import StateContext from "../../../context/StateContext"
 
 function Dashboard() {
   const graphContainer = { borderRadius: "15px", boxShadow: "2.5px 5px #404eed", height: "55vh", width: "35vw", minHeight: "55vh", minWidth: "150px", maxWidth: "600px", margin: "auto", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid black", background: "gainsboro" }
+
+  const appDispatch = useContext(DispatchContext)
+  const appState = useContext(StateContext)
+
+  if (appState.loggedIn && appState.initialLogin) {
+    appDispatch({ type: "message", show: true, msg: msgConext.welcome, context: msgConext.info })
+    localStorage.setItem("initialLogin", false)
+    appDispatch({ type: "initialLogin", value: false })
+  }
+
   return (
     <>
       <Page>

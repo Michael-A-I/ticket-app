@@ -81,7 +81,6 @@ function Navbar() {
                   {/* <SearchBox className="search-box" /> */}
                   {/* <Hits hitComponent={Hit} /> */}
                   {/* <NotificationButtion /> */}
-
                   <Autocomplete
                     Style={{ borderBotton: "none" }}
                     searchClient={searchClient}
