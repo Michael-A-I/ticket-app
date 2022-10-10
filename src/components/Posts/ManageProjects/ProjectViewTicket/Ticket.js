@@ -147,10 +147,16 @@ function Ticket() {
     // console.log({ target })
 
     let body
-    if (base64 != []) body = { status: target[0].value, priority: target[1].value, files: base64 }
-    else body = { status: target[0].value, priority: target[1].value }
 
-    // console.log(body)
+    if (target[0].value == "completed") {
+      if (base64 != []) body = { status: target[0].value, priority: target[1].value, files: base64, done: true }
+      else body = { status: target[0].value, priority: target[1].value, done: true }
+    } else {
+      if (base64 != []) body = { status: target[0].value, priority: target[1].value, files: base64, done: false }
+      else body = { status: target[0].value, priority: target[1].value, done: false }
+    }
+
+    // console.log({ body })
 
     try {
       const res = await fetch(`/api/projects/ticket/${id}`, {

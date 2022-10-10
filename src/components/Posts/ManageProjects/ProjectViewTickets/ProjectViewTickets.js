@@ -30,7 +30,7 @@ function ProjectViewTickets() {
         }
       })
       const tickets = await res.json()
-      console.log(tickets)
+      console.log({ tickets })
 
       setData(tickets)
     } catch (error) {

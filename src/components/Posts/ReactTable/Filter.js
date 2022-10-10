@@ -52,3 +52,31 @@ export const SelectColumnFilter = ({ column: { filterValue, setFilter, preFilter
     </Input>
   )
 }
+
+export const SelectColumnFilterArchive = ({ column: { filterValue, setFilter, preFilteredRows, id } }) => {
+  const options = React.useMemo(() => {
+    const options = new Set()
+    preFilteredRows.forEach(row => {
+      options.add(row.values[id])
+    })
+    return [...options.values()]
+  }, [id, preFilteredRows])
+
+  return (
+    <Input
+      id="custom-select"
+      type="select"
+      value={filterValue}
+      onChange={e => {
+        setFilter(e.target.value || undefined)
+      }}
+    >
+      <option value="">All</option>
+      {options.map(option => (
+        <option key={option} value={option}>
+          {option == true ? "Archived" : option == false ? "Active" : option}
+        </option>
+      ))}
+    </Input>
+  )
+}

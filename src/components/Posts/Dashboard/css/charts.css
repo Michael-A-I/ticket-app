@@ -104,7 +104,7 @@
     padding: 130px;
   }
   body {
-    background-color: purple;
+    /* background-color: purple; */
   }
 }
 
@@ -134,7 +134,7 @@
     padding: 160px;
   }
   body {
-    background-color: yellow;
+    /* background-color: yellow; */
   }
 }
 
@@ -164,7 +164,7 @@
     padding: 200px;
   }
   body {
-    background-color: black;
+    /* background-color: black; */
   }
 }
 
@@ -210,7 +210,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
     background: gainsboro;
     margin: 10px auto;
     padding: 15%;

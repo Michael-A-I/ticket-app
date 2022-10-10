@@ -141,7 +141,7 @@ function PostView(props) {
   }
 
   const archive = async () => {
-    const confirm = window.confirm("Archiving Project will automatically complete project and tickets")
+    const confirm = window.confirm("Archiving Project will complete project and set tickets to completed. Are you sure?")
 
     if (!confirm) {
       setMsg({

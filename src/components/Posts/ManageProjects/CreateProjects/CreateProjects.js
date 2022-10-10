@@ -9,6 +9,7 @@ import msgConext from "../../../ui/helpers/toastyMessages"
 import Toasty from "../../../ui/Toasty"
 import { useNavigate } from "react-router"
 import { v4 as uuid } from "uuid"
+import "./css/CreateProjects.css"
 
 // import { Dropdown } from "bootstrap"
 function CreateProjects(props) {

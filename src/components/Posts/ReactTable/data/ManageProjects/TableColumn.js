@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { Filter, SelectColumnFilter, DefaultColumnFilter } from "../../Filter"
+import { Filter, SelectColumnFilter, DefaultColumnFilter, SelectColumnFilterArchive } from "../../Filter"
 
 const columns = [
   {
@@ -49,15 +49,15 @@ const columns = [
     Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
   },
   {
-    Header: "status",
-    accessor: "done",
+    Header: "Project Status",
+    accessor: "archived",
     Cell: val => {
       const value = val.cell.value
       console.log({ value })
-      return value ? <p>Completed</p> : <p>Not Completed</p>
+      return value ? <p>Archived</p> : <p>Active</p>
     },
     // getResizerProps: () => {}
-    Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
+    Filter: SelectColumnFilterArchive //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
   },
   {
     Header: "Go to Tickets",

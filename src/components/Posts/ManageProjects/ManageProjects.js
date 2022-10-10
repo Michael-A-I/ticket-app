@@ -38,9 +38,9 @@ function ManageProjects() {
       })
       const projects = await res.json()
       console.log(projects)
-      const filteredProjects = projects.filter(project => project.archived == false)
+      // const filteredProjects = projects.filter(project => project.archived == false)
       console.log({ projects })
-      setData(filteredProjects)
+      setData(projects)
     } catch (error) {
       return error
     }

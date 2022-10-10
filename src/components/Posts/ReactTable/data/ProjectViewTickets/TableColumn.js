@@ -43,6 +43,8 @@ const columns = [
     accessor: "done",
     Cell: val => {
       const value = val.cell.value
+      console.log({ value })
+
       return value ? <p>Completed</p> : <p>Not Completed</p>
     },
     Filter: SelectColumnFilter //! /* Dropdown list that will have a submit button attached that will change a users role only if users is admin*/
