@@ -23,7 +23,7 @@
   width: 35vw;
   min-height: 500px;
   max-height: 600px;
-  /* min-width: 20vw; */
+  min-width: 550px;
   max-width: 600px;
   margin: auto;
   display: flex;
@@ -34,6 +34,7 @@
   position: relative;
   flex-direction: column;
   margin: 10px auto;
+  transition: all 0.5s ease;
 }
 
 .bar-graph {
@@ -41,19 +42,19 @@
 }
 
 .pie-chart {
-  padding: 15%;
+  padding: 80px;
 }
 /* Responsive */
 
 /* Mobile */
-@media (max-width: 614px) {
+@media (max-width: 455px) {
   .graph-container {
     border-radius: 15px;
     box-shadow: 2.5px 5px #404eed;
     height: 55vh;
     width: 35vw;
     min-height: 500px;
-    min-width: 80vw;
+    min-width: 340px;
     max-width: 600px;
     margin: auto;
     display: flex;
@@ -63,6 +64,66 @@
     background: gainsboro;
     margin: 10px auto;
     padding: 1%;
+  }
+  .page-container {
+    padding-left: 0px;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 20px;
+  }
+  body {
+    /* background-color: orange; */
+  }
+}
+@media (min-width: 456px) and (max-width: 557px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 440px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+  }
+  .page-container {
+    padding-left: 0px;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 20px;
+  }
+  body {
+    /* background-color: grey; */
+  }
+}
+
+@media (min-width: 558px) and (max-width: 614px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 530px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+    transition: all 0.5s ease;
   }
   .page-container {
     padding-left: 0px;
@@ -89,7 +150,7 @@
     height: 55vh;
     width: 35vw;
     min-height: 500px;
-    min-width: 80vw;
+    min-width: 530px;
     max-width: 600px;
     display: flex;
     justify-content: center;
@@ -98,10 +159,11 @@
     background: gainsboro;
     margin: 10px auto;
     padding: 1%;
+    transition: all 0.5s ease;
   }
   .pie-chart {
     margin: auto;
-    padding: 130px;
+    padding: 80px;
   }
   body {
     /* background-color: purple; */
@@ -119,15 +181,14 @@
     height: 55vh;
     width: 35vw;
     min-height: 500px;
-    min-width: 80vw;
-    max-width: 600px;
+    min-width: 710px;
     display: flex;
     justify-content: center;
     align-items: center;
-
     background: gainsboro;
     margin: 10px auto;
     padding: 1%;
+    transition: all 0.5s ease;
   }
   .pie-chart {
     margin: auto;
@@ -138,7 +199,7 @@
   }
 }
 
-@media (min-width: 941px) and (max-width: 969px) {
+@media (min-width: 941px) and (max-width: 975px) {
   .page-container {
     padding-left: 0px;
   }
@@ -149,7 +210,7 @@
     height: 55vh;
     width: 35vw;
     min-height: 500px;
-    min-width: 80vw;
+    min-width: 710px;
     max-width: 600px;
     display: flex;
     justify-content: center;
@@ -158,10 +219,11 @@
     background: gainsboro;
     margin: 10px auto;
     padding: 1%;
+    transition: all 0.5s ease;
   }
   .pie-chart {
     margin: auto;
-    padding: 200px;
+    padding: 160px;
   }
   body {
     /* background-color: black; */
@@ -169,7 +231,7 @@
 }
 
 /* Media Query for Tablets Ipads portrait mode */
-@media (min-width: 970px) and (max-width: 1024px) {
+@media (min-width: 976px) and (max-width: 1024px) {
   .graph-container {
     border-radius: 15px;
     box-shadow: 2.5px 5px #404eed;
@@ -186,6 +248,7 @@
     background: gainsboro;
     margin: 10px auto;
     padding: 15%;
+    transition: all 0.5s ease;
   }
 
   .pie-chart {
@@ -204,8 +267,8 @@
     height: 55vh;
     width: 35vw;
     min-height: 55vh;
-    min-width: 60vw;
-    max-width: 500px;
+    min-width: 600px;
+    max-width: 600px;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -213,10 +276,39 @@
     background: gainsboro;
     margin: 10px auto;
     padding: 15%;
+    transition: all 0.5s ease;
   }
 
   .pie-chart {
-    padding: 19%;
+    padding: 70px;
+  }
+  body {
+    /* background-color: pink; */
+  }
+}
+
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1289px) and (max-width: 1444px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 55vh;
+    min-width: 600px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 15%;
+    transition: all 0.5s ease;
+  }
+
+  .pie-chart {
+    padding: 70px;
   }
   body {
     /* background-color: pink; */

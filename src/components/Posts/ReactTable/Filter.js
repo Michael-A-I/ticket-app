@@ -1,11 +1,14 @@
 import React, { useCallback, useState } from "react"
+import { useEffect } from "react"
 import { Input } from "reactstrap"
+
 /* render filter from table columns array */
 export const Filter = ({ column }) => {
-  // console.log(column)
+  console.log(column)
   // checks if fileter is on and what filter to render from table columns.. if nothing default filter.
   return <div style={{ marginTop: 5 }}>{column.canFilter && column.render("Filter")}</div>
 }
+
 // default filter
 export const DefaultColumnFilter = ({
   column: {
@@ -62,12 +65,15 @@ export const SelectColumnFilterArchive = ({ column: { filterValue, setFilter, pr
     return [...options.values()]
   }, [id, preFilteredRows])
 
+  console.log({ filterValue })
+
   return (
     <Input
       id="custom-select"
       type="select"
-      value={filterValue}
+      value={false}
       onChange={e => {
+        console.log(e.target.value)
         setFilter(e.target.value || undefined)
       }}
     >

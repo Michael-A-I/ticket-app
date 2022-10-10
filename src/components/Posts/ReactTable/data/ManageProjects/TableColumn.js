@@ -11,7 +11,7 @@ const columns = [
   {
     Header: "Projects",
     accessor: "title"
-    // Filter: SelectColumnFilter,
+    // Filter: ""
     // filter: "equals" //! selection must equal whole value. not partial match
     // getResizerProps: () => {}
   },
