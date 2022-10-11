@@ -14,7 +14,7 @@ function Toasty(props) {
 
   return (
     <>
-      <Toast show={appState.message.show} onClose={toggleShow} bg={appState.message.context} position={appState.message.position} style={{ position: "absolute", zIndex: "999" }} delay={3000} autohide>
+      <Toast show={appState.message.show} onClose={toggleShow} bg={appState.message.context} position={appState.message.position} style={{ position: "absolute", zIndex: "999" }} delay={appState.message.delay || 3000} autohide>
         <Toast.Header>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
           <strong className="me-auto">{appState.message.title}</strong>

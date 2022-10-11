@@ -22,7 +22,7 @@ function Dashboard() {
 
   useEffect(() => {
     if (appState.loggedIn && appState.initialLogin) {
-      appDispatch({ type: "message", show: true, msg: msgConext.welcome, context: msgConext.info })
+      appDispatch({ type: "message", show: true, msg: msgConext.welcome, context: msgConext.info, delay: 10000 })
       localStorage.setItem("initialLogin", false)
       appDispatch({ type: "initialLogin", value: false })
     }

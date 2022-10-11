@@ -76,7 +76,8 @@ function App() {
       poisiton: "center",
       msg: "",
       title: "",
-      context: ""
+      context: "",
+      delay: 3000
     },
     initialLogin: JSON.parse(localStorage.getItem("initialLogin"))
   }
@@ -116,7 +117,8 @@ function App() {
           poisiton: "center",
           msg: action.msg,
           title: action.title,
-          context: action.context
+          context: action.context,
+          delay: action.delay
         }
         return
       case "initialLogin":
