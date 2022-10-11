@@ -18,7 +18,7 @@ function Dashboard() {
 
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
-
+  console.log({ initialLogin: appState.initialLogin })
   if (appState.loggedIn && appState.initialLogin) {
     appDispatch({ type: "message", show: true, msg: msgConext.welcome, context: msgConext.info })
     localStorage.setItem("initialLogin", false)
