@@ -69,7 +69,7 @@ function UserFeed() {
                   <blockquote className="blockquote mb-0">
                     <p>
                       <i class="fa-solid fa-ticket icon"></i>
-                      <a href="">{feed.name}</a> Assigned Ticket <Link to={`/project/ticket/${feed._id}`}>{feed.title}</Link>
+                      <a href="">{feed.name}</a> Assigned Ticket <Link to={`/projects/ticket/${feed._id}`}>{feed.title}</Link>
                     </p>
                     <footer className="blockquote-footer">
                       <p>{handleDate(feed.createdAt)}</p>
@@ -85,7 +85,7 @@ function UserFeed() {
                   <blockquote className="blockquote mb-0">
                     <p>
                       <i class="fa-solid fa-diagram-project icon"></i>
-                      <a href="">{feed.name}</a> Assigned Project <Link to={`/project/${feed._id}`}>{feed.title}</Link>
+                      <a href="">{feed.name}</a> Assigned Project <Link to={`/projects/${feed._id}`}>{feed.title}</Link>
                     </p>
                     <footer className="blockquote-footer">
                       <p>{handleDate(feed.createdAt)}</p>
@@ -103,7 +103,7 @@ function UserFeed() {
                   <blockquote className="blockquote mb-0">
                     <p>
                       <i class="fa-solid fa-comment icon"></i>
-                      <a href="">{feed.name}</a> Commented <Link to={`/project/ticket/${feed.ticket._id}`}>{feed.ticket.title}</Link>
+                      <a href="">{feed.name}</a> Commented <Link to={`/projects/ticket/${feed.ticket._id}`}>{feed.ticket.title}</Link>
                     </p>
                     <footer className="blockquote-footer">
                       <p>{handleDate(feed.createdAt)}</p>
