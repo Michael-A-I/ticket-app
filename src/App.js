@@ -98,6 +98,7 @@ function App() {
         draft.user.token = action.value
         return
       case "setAvatar":
+        // change avatar?
         draft.user.avatar = action.value
         return
       case "setUser":

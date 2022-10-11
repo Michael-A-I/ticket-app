@@ -1,6 +1,6 @@
-import { Button } from "bootstrap"
+import Button from "react-bootstrap/Button"
 import React, { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import StateContext from "../../../context/StateContext"
 import Page from "../../ui/Page"
 // import tableColumn from "../Table/data/TableColumn"
@@ -18,7 +18,7 @@ function ManageProjects() {
   const token = appState.user.token
   /* table data state */
   const [data, setData] = useState([])
-
+  const navigate = useNavigate()
   /* set state of table data on render */
   useEffect(() => {
     console.log("useEffect")
@@ -39,8 +39,9 @@ function ManageProjects() {
       const projects = await res.json()
       console.log(projects)
       // const filteredProjects = projects.filter(project => project.archived == false)
+      const projectSorted = projects.sort((a, b) => a.archived - b.archived)
       console.log({ projects })
-      setData(projects)
+      setData(projectSorted)
     } catch (error) {
       return error
     }
@@ -55,6 +56,7 @@ function ManageProjects() {
           </div>
 
           <div className="button-container">
+            {/* <Button onClick={() => navigate(-1)}>Go back</Button> */}
             <Link className="button" to="/projects/new">
               Create Project
             </Link>

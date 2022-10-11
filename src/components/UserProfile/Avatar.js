@@ -6,7 +6,7 @@ import StateContext from "../../context/StateContext"
 function Avatar(props) {
   const appState = useContext(StateContext)
 
-  return <img src={`${appState.user.avatar}`} alt="avatar" className="img-thumbnail mt-2" style={{ height: `${props.height}`, width: `${props.width}` }} />
+  return <img src={`${props.defaultImage || appState.user.avatar}`} alt="avatar" className="img-thumbnail mt-2" style={{ height: `${props.height}`, width: `${props.width}` }} />
 }
 
 export default Avatar

@@ -110,14 +110,17 @@ function ProfileEditAvatar() {
           </Row>
           {/* current profile */}
           <h1>Picture being used</h1>
-          <Avatar width={"250px"} height={"200px"} />
+          <div style={{ margin: "20px 0px" }}>
+            <Avatar width={"250px"} height={"200px"} />
+          </div>
+
           <Row>
             <Col>
-              <h1>Upload Pic</h1>
+              <h1>Uploaded </h1>
               {file ? <Thumb file={file} /> : <img src={`${image}`} className="img-thumbnail mt-2" style={{ height: "152px", width: "200px", background: "white" }} />}
             </Col>
             <Col>
-              <h1>Defaul Pic</h1>
+              <h1>Default </h1>
               <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "152px", width: "200px" }} />
             </Col>
           </Row>

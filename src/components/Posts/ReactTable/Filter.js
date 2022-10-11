@@ -71,7 +71,7 @@ export const SelectColumnFilterArchive = ({ column: { filterValue, setFilter, pr
     <Input
       id="custom-select"
       type="select"
-      value={false}
+      value={filterValue}
       onChange={e => {
         console.log(e.target.value)
         setFilter(e.target.value || undefined)
