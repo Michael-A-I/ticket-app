@@ -171,7 +171,6 @@ function Login() {
         appDispatch({ type: "setUser", value: name })
         appDispatch({ type: "setFirst", value: firstName })
         appDispatch({ type: "setLast", value: lastName })
-        appDispatch({ type: "message", show: true, msg: data.message, title: msgConext.good, context: msgConext.danger })
         appDispatch({ type: "login" })
       }
       console.log(data.message)

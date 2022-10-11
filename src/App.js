@@ -9,10 +9,7 @@ import Login from "./components/Authentication/Login"
 import Register from "./components/Authentication/Register"
 import ResetPassword from "./components/Authentication/ResetPassword"
 import SendReset from "./components/Authentication/SendReset"
-import Engineer from "./components/Posts/Engineer"
-import Support from "./components/Posts/Support"
-import Product from "./components/Posts/Product"
-import General from "./components/Posts/General"
+
 import Profile from "./components/UserProfile/Profile"
 import ProfileEdit from "./components/UserProfile/ProfileEdit"
 import ProfileEditAvatar from "./components/UserProfile/ProfileEditAvatar"
@@ -164,11 +161,6 @@ function App() {
                   exact
                   path="/dashboard"
                 />
-
-                <Route element={<General />} exact path="/general" />
-                <Route element={<Engineer />} exact path="/engineer" />
-                <Route element={<Product />} exact path="/product" />
-                <Route element={<Support />} exact path="/support" />
 
                 {/* Authentication Routes */}
                 <Route element={<Login />} exact path="/login" />
