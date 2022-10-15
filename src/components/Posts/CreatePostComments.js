@@ -13,7 +13,7 @@ function CreatePostCommnet(props) {
       {props.postCommentClick ? (
         <Col xs={{ span: 9 }}>
           {" "}
-          <Form onSubmit={props.handleSubmit} style={{ paddingTop: "30px" }}>
+          <Form onSubmit={props.handleSubmit} style={{ paddingTop: "30px", display: props.closeComment ? "inherit" : "none" }}>
             <Form.Group>
               <InputGroup className="">
                 <FloatingLabel controlId="floatingInput" label="Post Comment" className="mb-3">
@@ -33,7 +33,7 @@ function CreatePostCommnet(props) {
         </Col>
       ) : (
         <div style={{ width: "80%", padding: "0px" }}>
-          <Button style={{ width: "100%", margin: "0px" }} onClick={props.handlePostComment}>
+          <Button style={{ width: "100%", margin: "0px", display: props.closeComment ? "inherit" : "none" }} onClick={props.handlePostComment}>
             Add Comment
           </Button>
         </div>

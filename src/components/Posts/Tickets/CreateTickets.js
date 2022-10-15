@@ -11,6 +11,7 @@ import Status from "../Status"
 import Priority from "../Priority"
 import Toasty from "../../ui/Toasty"
 import msgConext from "../../ui/helpers/toastyMessages"
+import DispatchContext from "../../../context/DispatchContext"
 
 function CreateTickets(props) {
   const [files, setFiles] = useState([])
@@ -26,13 +27,7 @@ function CreateTickets(props) {
   /* filter developers */
   const [filter, setFilter] = useState()
 
-  const [msg, setMsg] = useState({
-    show: false,
-    poisiton: "center",
-    msg: "",
-    context: "",
-    title: ""
-  })
+  const appDispatch = useContext(DispatchContext)
 
   const log = () => {
     if (editorRef.current) {
@@ -64,11 +59,8 @@ function CreateTickets(props) {
     const target = event.target
     const userId = localStorage.getItem("Id")
     const priority = target.name
-    console.log({ value })
-    console.log({ priority })
-    console.log(formVal)
+
     const ticket = { title: target[0].value, description: value, files: base64, developer: target[18].value, email: appState.user.email, assigned: assigned._id, priority: formVal.priority, status: formVal.status }
-    console.log({ ticket })
 
     try {
       const res = await fetch(`/api/projects/${id}/tickets/new`, {
@@ -80,9 +72,11 @@ function CreateTickets(props) {
         body: JSON.stringify(ticket)
       })
 
-      console.log(res)
-    } catch (error) {
-      console.log(error)
+      const msg = await res.json()
+
+      appDispatch({ type: "message", show: true, msg: msg.msg, title: msgConext.success, context: msgConext.success })
+    } catch (err) {
+      appDispatch({ type: "message", show: true, msg: err.message, title: msgConext.danger, context: msgConext.danger })
     }
   }
 
@@ -170,43 +164,10 @@ function CreateTickets(props) {
     const target = e.target
     setForm(prev => ({ ...prev, [target.name]: target.value }))
   }
-  const msgHandler = msg => {
-    if (msg.err || msg.error) {
-      setMsg({
-        show: true,
-        poisiton: "center",
-        msg: msg.err,
-        title: "Error",
-        context: msgConext.danger
-      })
-    } else {
-      setMsg({
-        show: true,
-        poisiton: "center",
-        msg: msg.msg,
-        title: "OK",
-        context: msgConext.success
-      })
-    }
-  }
-
-  const errHandler = err => {
-    console.log(err)
-    setMsg({
-      show: true,
-      poisiton: "center",
-      msg: err.message,
-      title: "Error",
-      context: msgConext.danger
-    })
-  }
 
   return (
     <>
       <Page>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Toasty msg={msg} setMsg={setMsg} />
-        </div>
         <h1>Create Tickets</h1>
         <Form onSubmit={handleSubmit}>
           <Row>

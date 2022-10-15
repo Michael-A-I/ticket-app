@@ -1,0 +1,319 @@
+.row {
+  justify-content: center;
+  align-items: center;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.graph-title {
+  display: flex;
+  justify-content: center;
+  color: black;
+}
+.page-container {
+  padding-left: 300px;
+}
+.graph-container {
+  border-radius: 15px;
+  box-shadow: 2.5px 5px #404eed;
+  height: 45vh;
+  width: 35vw;
+  min-height: 500px;
+  max-height: 600px;
+  min-width: 550px;
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: gainsboro;
+  position: relative;
+  flex-direction: column;
+  margin: 10px auto;
+  transition: all 0.5s ease;
+}
+
+.bar-graph {
+  padding: 10px;
+}
+
+.pie-chart {
+  padding: 80px;
+}
+/* Responsive */
+/* Mobile */
+@media (max-width: 455px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 340px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+  }
+  .page-container {
+    padding-left: 0px;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 20px;
+  }
+  body {
+    /* background-color: orange; */
+  }
+}
+@media (min-width: 456px) and (max-width: 557px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 440px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+  }
+  .page-container {
+    padding-left: 0px;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 20px;
+  }
+  body {
+    /* background-color: grey; */
+  }
+}
+
+@media (min-width: 558px) and (max-width: 614px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 530px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+    transition: all 0.5s ease;
+  }
+  .page-container {
+    padding-left: 0px;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 80px;
+  }
+  body {
+    /* background-color: red; */
+  }
+}
+/* Mobile */
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 615px) and (max-width: 800px) {
+  .page-container {
+    padding-left: 0px;
+  }
+
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 530px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+    transition: all 0.5s ease;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 80px;
+  }
+  body {
+    /* background-color: purple; */
+  }
+}
+
+@media (min-width: 801px) and (max-width: 940px) {
+  .page-container {
+    padding-left: 0px;
+  }
+
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 710px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+    transition: all 0.5s ease;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 160px;
+  }
+  body {
+    /* background-color: yellow; */
+  }
+}
+
+@media (min-width: 941px) and (max-width: 975px) {
+  .page-container {
+    padding-left: 0px;
+  }
+
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 500px;
+    min-width: 710px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 1%;
+    transition: all 0.5s ease;
+  }
+  .pie-chart {
+    margin: auto;
+    padding: 160px;
+  }
+  body {
+    /* background-color: black; */
+  }
+}
+
+/* Media Query for Tablets Ipads portrait mode */
+@media (min-width: 976px) and (max-width: 1024px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 600px;
+    min-width: 60vw;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 15%;
+    transition: all 0.5s ease;
+  }
+
+  .pie-chart {
+    padding: 17%;
+  }
+  body {
+    /* background-color: blue; */
+  }
+}
+
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1025px) and (max-width: 1288px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 55vh;
+    min-width: 600px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 15%;
+    transition: all 0.5s ease;
+  }
+
+  .pie-chart {
+    padding: 70px;
+  }
+  body {
+    /* background-color: pink; */
+  }
+}
+
+/* Media Query for Laptops and Desktops */
+@media (min-width: 1289px) and (max-width: 1444px) {
+  .graph-container {
+    border-radius: 15px;
+    box-shadow: 2.5px 5px #404eed;
+    height: 55vh;
+    width: 35vw;
+    min-height: 55vh;
+    min-width: 600px;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: gainsboro;
+    margin: 10px auto;
+    padding: 15%;
+    transition: all 0.5s ease;
+  }
+
+  .pie-chart {
+    padding: 70px;
+  }
+  body {
+    /* background-color: pink; */
+  }
+}
+
+/* Media Query for Large screens */
+/* @media (min-width: 1289px) {
+} */

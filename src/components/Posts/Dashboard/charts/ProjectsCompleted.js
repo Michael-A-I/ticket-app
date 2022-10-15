@@ -41,6 +41,7 @@ function ProjectCompleted() {
 
     setState(data)
   }
+  const randomNumber = Math.random() * 255 + 1
 
   const data = {
     labels: ["Projects Completed", "Projects Not Completed"],
@@ -48,6 +49,7 @@ function ProjectCompleted() {
       {
         label: "# of Votes",
         data: state,
+        // hoverBorderColor: `rgba(${randomNumber},${randomNumber},${randomNumber},${randomNumber})`,
         backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
         borderWidth: 1
@@ -56,16 +58,33 @@ function ProjectCompleted() {
   }
 
   const options = {
-    color: "#ffff",
-
     plugins: {
+      // responsive: true,
+      legend: {
+        position: "top",
+        labels: {
+          color: "black",
+          font: 18
+        }
+      },
       title: {
         display: true,
-        text: "Chart.js Bar Chart"
+        text: "Projects Completed",
+        color: "black"
       },
+
       responsive: false,
       maintainAspectRatio: true
     }
+    // layout: {
+    //   padding: {
+    //     top: 100,
+    //     bottom: 100,
+    //     left: 100,
+    //     right: 100
+    //   },
+
+    // }
   }
 
   return (
@@ -73,7 +92,6 @@ function ProjectCompleted() {
       {/* {console.log(state)} */}
       {/* {console.log(state.completed)} */}
 
-      <p className="graph-title">Projects Completed</p>
       <Pie data={data} options={options} />
     </>
   )

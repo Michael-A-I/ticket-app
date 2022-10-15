@@ -18,8 +18,8 @@ thead {
 }
 .yo {
   height: 61px;
-  overflow: hidden;
-  white-space: nowrap;
+  overflow: clip;
+  white-space: break-spaces;
   text-overflow: " ...";
   font-size: 10px;
 }

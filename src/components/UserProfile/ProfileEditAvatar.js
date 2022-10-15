@@ -11,6 +11,7 @@ import { useEffect } from "react"
 import Avatar from "./Avatar"
 import Feedback from "react-bootstrap/esm/Feedback"
 import ProfileEditNav from "./ProfileEditNav"
+import msgConext from "../ui/helpers/toastyMessages"
 
 function ProfileEditAvatar() {
   const appState = useContext(StateContext)
@@ -84,16 +85,19 @@ function ProfileEditAvatar() {
         if (base64) {
           localStorage.setItem("avatar", base64)
           appDispatch({ type: "setAvatar", value: base64 })
+          appDispatch({ type: "message", show: true, msg: "Avatar Set", title: msgConext.success, context: msgConext.success })
         } else {
           localStorage.setItem("avatar", image)
           appDispatch({ type: "setAvatar", value: image })
+          appDispatch({ type: "message", show: true, msg: "Avatar Set", title: msgConext.success, context: msgConext.success })
         }
       } else {
         localStorage.setItem("avatar", "/default-profile.jpg")
         appDispatch({ type: "setAvatar", value: "/default-profile.jpg" })
+        appDispatch({ type: "message", show: true, msg: "Default Set", title: msgConext.success, context: msgConext.success })
       }
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      appDispatch({ type: "message", show: true, msg: err.message, title: msgConext.danger, context: msgConext.danger })
     }
   }
 
@@ -104,74 +108,79 @@ function ProfileEditAvatar() {
           {/* ROW */}
           {/* Two Images */}
           <ProfileEditNav button={"avatar"} />
+          <div>
+            <Row>
+              <p>Choose an existing avatar, or drag and drop a photo from your computer.</p>
+            </Row>
+            {/* current profile */}
+            <h1>Picture being used</h1>
+            <div style={{ margin: "20px 0px" }}>
+              <Avatar width={"250px"} height={"200px"} />
+            </div>
 
-          <Row>
-            <p>Choose an existing avatar, or drag and drop a photo from your computer.</p>
-          </Row>
-          {/* current profile */}
-          <h1>Picture being used</h1>
-          <div style={{ margin: "20px 0px" }}>
-            <Avatar width={"250px"} height={"200px"} />
-          </div>
+            <Row>
+              <Col>
+                <h1>Uploaded </h1>
+                {file ? <Thumb file={file} /> : <img src={`${image}`} className="img-thumbnail mt-2" style={{ height: "152px", width: "200px", background: "white" }} />}
+              </Col>
+              <Col>
+                <h1>Default </h1>
+                <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "152px", width: "200px" }} />
+              </Col>
+            </Row>
+            {/* ROW */}
+            <Row>
+              {/* Form */}
 
-          <Row>
-            <Col>
-              <h1>Uploaded </h1>
-              {file ? <Thumb file={file} /> : <img src={`${image}`} className="img-thumbnail mt-2" style={{ height: "152px", width: "200px", background: "white" }} />}
-            </Col>
-            <Col>
-              <h1>Default </h1>
-              <img src="/default-profile.jpg" className="img-thumbnail mt-2" style={{ height: "152px", width: "200px" }} />
-            </Col>
-          </Row>
-          {/* ROW */}
-          <Row>
-            {/* Form */}
+              <Form onSubmit={e => handleSubmit(e)} id="checkbox">
+                <div style={{ margin: "15px 0px" }} onClick={() => handleChange()}>
+                  <FormCheck>
+                    <FormCheck.Input style={{ opacity: "1" }} type={"checkbox"} checked={profile.avatar} />
+                    <FormCheck.Label>Avatar</FormCheck.Label>
+                    {/* <Feedback type="invalid">Yo this is required</Feedback> */}
+                  </FormCheck>
+                </div>
 
-            <Form onSubmit={e => handleSubmit(e)} id="checkbox">
-              <div onClick={() => handleChange()}>
-                <FormCheck>
-                  <FormCheck.Input style={{ opacity: "1" }} type={"checkbox"} checked={profile.avatar} />
-                  <FormCheck.Label>Avatar</FormCheck.Label>
-                  {/* <Feedback type="invalid">Yo this is required</Feedback> */}
-                </FormCheck>
-              </div>
-              <div onClick={() => handleChange()}>
-                <FormCheck>
-                  <FormCheck.Input style={{ opacity: "1" }} type={"checkbox"} checked={profile.gravatar} />
-                  <FormCheck.Label>Default</FormCheck.Label>
-                  {/* <Feedback type="invalid">Yo this is required</Feedback> */}
-                </FormCheck>
-              </div>
+                <div style={{ margin: "15px 0px" }} onClick={() => handleChange()}>
+                  <FormCheck>
+                    <FormCheck.Input style={{ opacity: "1" }} type={"checkbox"} checked={profile.gravatar} />
+                    <FormCheck.Label>Default</FormCheck.Label>
+                    {/* <Feedback type="invalid">Yo this is required</Feedback> */}
+                  </FormCheck>
+                </div>
 
-              {/* <Form.Check type="switch" label="Avatar" style={{ opacity: "1" }} />
+                {/* <Form.Check type="switch" label="Avatar" style={{ opacity: "1" }} />
                 <Form.Check type="switch" label="Defaul Profile" id="checkbox" /> */}
 
-              {/* Switch to select Image type */}
-              {/* Image upload */}
-              <input
-                id="file"
-                name="file"
-                type="file"
-                onChange={event => {
-                  const fileReader = new FileReader()
-                  fileReader.onload = () => {
-                    if (fileReader.readyState === 2) {
-                      // Base64 conversion
-                      setBase64(fileReader.result)
+                {/* Switch to select Image type */}
+                {/* Image upload */}
+                <input
+                  id="file"
+                  name="file"
+                  type="file"
+                  onChange={event => {
+                    const fileReader = new FileReader()
+                    fileReader.onload = () => {
+                      if (fileReader.readyState === 2) {
+                        // Base64 conversion
+                        setBase64(fileReader.result)
+                      }
                     }
-                  }
-                  // File from computer
-                  fileReader.readAsDataURL(event.target.files[0])
-                  setFile(event.target.files[0])
-                }}
-                className="form-control"
-              />
+                    // File from computer
+                    fileReader.readAsDataURL(event.target.files[0])
+                    setFile(event.target.files[0])
+                  }}
+                  className="form-control"
+                  style={{ margin: "15px 0px" }}
+                />
 
-              <Button type="submit">Submit</Button>
-            </Form>
-            {/* Submit Button */}
-          </Row>
+                <Button style={{ margin: "15px 0px" }} type="submit">
+                  Submit
+                </Button>
+              </Form>
+              {/* Submit Button */}
+            </Row>
+          </div>
         </Container>
       </Page>
     </>

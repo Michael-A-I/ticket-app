@@ -15,18 +15,23 @@ function BugsFeatures() {
     getData()
   }, [])
 
+  const randomNumber = Math.random() * 255 + 1
   const data = {
     labels: ["low", "medium", "high", "none"],
+
     datasets: [
       {
         label: "# of Votes",
         data: priority,
-        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
+        backgroundColor: ["rgba(255, 99, 112, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(255, 159, 64, 0.2)"],
+        // hoverBorderColor: `rgba(${randomNumber},${randomNumber},${randomNumber},${randomNumber})`,
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)", "rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"],
-        borderWidth: 3
+        borderWidth: 1
       }
     ]
   }
+
+  console.log({ donought: data })
 
   const getData = async () => {
     const email = localStorage.getItem("email")
@@ -64,9 +69,16 @@ function BugsFeatures() {
     color: "#ffff",
 
     plugins: {
+      legend: {
+        labels: {
+          color: "black",
+          font: 18
+        }
+      },
       title: {
         display: true,
-        text: "Chart.js Bar Chart"
+        text: "Ticket Priority",
+        color: "black"
       },
       responsive: false,
       maintainAspectRatio: true
@@ -75,7 +87,6 @@ function BugsFeatures() {
 
   return (
     <>
-      <p className="graph-title">Ticket Priority</p>
       <Doughnut data={data} options={options} />
     </>
   )

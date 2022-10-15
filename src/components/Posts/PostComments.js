@@ -136,11 +136,24 @@ function PostComments(props) {
 
     // props.setComments(prev => [...prev])
   }
+
   return (
     <>
       {/* <pre>{JSON.stringify(props.comments[0].user.image)}</pre> */}
-      <h1 style={{ fontSize: "16px", boxShadow: "2px 1px #404eed" }}>Comments</h1>
-      <div style={{ border: "1px solid black", borderRadius: "5px", height: "747px", padding: "10px", overflow: "scroll", boxShadow: "2.5px 5px #404eed" }}>
+      <div style={{ boxShadow: "2px 1px #404eed", display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+        <h1 style={{ fontSize: "16px" }}>Comments</h1>
+        {props.closeComment ? (
+          <Button style={{ padding: "0px 10px", margin: "0px 10px 10px", width: "150px", height: "30px", fontSize: "12px" }} onClick={props.closeComments}>
+            Close
+          </Button>
+        ) : (
+          <Button style={{ padding: "0px 10px", margin: "0px 10px 10px", width: "150px", height: "30px", fontSize: "12px" }} onClick={props.closeComments}>
+            Open
+          </Button>
+        )}
+      </div>
+
+      <div style={{ border: "1px solid black", borderRadius: "5px", height: "747px", display: props.closeComment ? "inherit" : "none", padding: "10px", overflow: "scroll", boxShadow: "2.5px 5px #404eed" }}>
         {props.comments.map((comment, index) => (
           <Row>
             {console.log("edit after click JSX " + edit)}

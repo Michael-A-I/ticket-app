@@ -90,9 +90,16 @@ function MyTickets() {
     color: "#ffff",
 
     plugins: {
+      legend: {
+        labels: {
+          color: "black",
+          font: 18
+        }
+      },
       title: {
         display: true,
-        text: "Chart.js Bar Chart"
+        text: "My Tickets",
+        color: "black"
       },
       responsive: false,
       maintainAspectRatio: true
@@ -101,7 +108,7 @@ function MyTickets() {
   return (
     <>
       {/* ! do not align items center for bar graph for full width. */}
-      <p className="graph-title">My Tickets</p>
+
       <Bar data={data} options={options} />
     </>
   )

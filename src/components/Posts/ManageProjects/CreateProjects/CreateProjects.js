@@ -10,6 +10,7 @@ import Toasty from "../../../ui/Toasty"
 import { useNavigate } from "react-router"
 import { v4 as uuid } from "uuid"
 import "./css/CreateProjects.css"
+import DispatchContext from "../../../../context/DispatchContext"
 
 // import { Dropdown } from "bootstrap"
 function CreateProjects(props) {
@@ -24,13 +25,6 @@ function CreateProjects(props) {
   const [matches, setMatch] = useState([])
   const [filter, setFilter] = useState()
   const [assigned, setAssigned] = useState()
-  const [msg, setMsg] = useState({
-    show: false,
-    poisiton: "center",
-    msg: "",
-    context: "",
-    title: ""
-  })
 
   //form uuid
   const unique_id = uuid()
@@ -40,6 +34,7 @@ function CreateProjects(props) {
   useEffect(() => setEditorValue(props.initialValue ?? ""), [props.initialValue])
 
   const appState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
   const token = appState.user.token
 
   useEffect(() => {
@@ -87,13 +82,16 @@ function CreateProjects(props) {
 
       const msg = await res.json()
       console.log({ msg })
+      // dispatch success
+      // msgHandler(msg)
 
-      msgHandler(msg)
-      return
+      appDispatch({ type: "message", show: true, msg: msg, title: msg.success, context: msg.context })
       navigate(`/projects/${msg._id}`)
-    } catch (error) {
-      console.log(error)
-      errHandler(error)
+    } catch (err) {
+      console.log(err)
+      // dispatch error
+      // errHandler(error)
+      appDispatch({ type: "message", show: true, msg: err.message, title: msgConext.bad, context: msgConext.danger })
     }
   }
 
@@ -125,37 +123,6 @@ function CreateProjects(props) {
           setBase64(prev => [...prev, response])
         }
       }
-    })
-  }
-
-  const msgHandler = msg => {
-    if (msg.err || msg.error) {
-      setMsg({
-        show: true,
-        poisiton: "center",
-        msg: msg.err,
-        title: "Error",
-        context: msgConext.danger
-      })
-    } else {
-      setMsg({
-        show: true,
-        poisiton: "center",
-        msg: msg.msg,
-        title: "OK",
-        context: msgConext.success
-      })
-    }
-  }
-
-  const errHandler = err => {
-    console.log(err)
-    setMsg({
-      show: true,
-      poisiton: "center",
-      msg: err.message,
-      title: "Error",
-      context: msgConext.danger
     })
   }
 
@@ -223,10 +190,6 @@ function CreateProjects(props) {
   return (
     <>
       <Page>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Toasty msg={msg} setMsg={setMsg} />
-        </div>
-
         <Form onSubmit={handleSubmit}>
           <Row>
             <InputGroup className="mb-3">
@@ -310,9 +273,7 @@ function CreateProjects(props) {
             </Col>
           </Row>
 
-          <Button type="submit" onClick={log}>
-            Submit
-          </Button>
+          <Button type="submit">Submit</Button>
         </Form>
       </Page>
     </>

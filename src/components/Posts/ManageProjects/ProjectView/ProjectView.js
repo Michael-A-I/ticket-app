@@ -18,7 +18,7 @@ function ProjectView() {
   const navigate = useNavigate()
   const [base64, setBase64] = useState()
   const [post, setPost] = useState([])
-
+  const [closeComment, setCloseComment] = useState(true)
   useEffect(() => {
     project()
   }, [])
@@ -189,6 +189,16 @@ function ProjectView() {
     navigate(`/projects/tickets/${id}/createtickets`)
   }
 
+  const closeComments = () => {
+    setCloseComment(!closeComment)
+  }
+
+  const [closeProject, setCloseProject] = useState(true)
+
+  const closeProjects = () => {
+    setCloseProject(!closeProject)
+  }
+
   return (
     <>
       <Page>
@@ -206,16 +216,16 @@ function ProjectView() {
 
           <PostViews post={post} deletePost={deletePost} handleProjectViewImgSubmit={handleProjectViewImgSubmit} getStatus={getStatus} status={status} showStatus={false} setBase64={setBase64} base64={base64} projectViewImg={true} archiveButton={true} />
 
-          <PostComments comments={comments} getComments={getComments} />
+          <PostComments comments={comments} getComments={getComments} closeComments={closeComments} closeComment={closeComment} />
 
           {/* Post Comments Create */}
 
           <div style={{ width: "100%", height: "154px", display: "flex", placeContent: "center", alignItems: "center" }}>
-            <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} />
+            <CreatePostComments post={post} getComments={getComments} handleSubmit={handleCommentSubmit} postCommentClick={postCommentClick} handlePostComment={handlePostComment} closeComment={closeComment} />
           </div>
 
           <div style={{}}>
-            <ProjectTickets />
+            <ProjectTickets closeProject={closeProject} closeProjects={closeProjects} />
           </div>
 
           {/* post views */}

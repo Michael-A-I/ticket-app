@@ -56,7 +56,7 @@ function TicketStatus() {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
+        label: "Status Data",
         data: status,
         backgroundColor: "rgba(255, 99, 132, 0.5)"
       }
@@ -67,9 +67,16 @@ function TicketStatus() {
     color: "#ffff",
 
     plugins: {
+      legend: {
+        labels: {
+          color: "black",
+          font: 18
+        }
+      },
       title: {
         display: true,
-        text: "Chart.js Bar Chart"
+        text: "Ticket Status",
+        color: "black"
       },
       responsive: false,
       maintainAspectRatio: true
@@ -78,7 +85,6 @@ function TicketStatus() {
 
   return (
     <>
-      <p className="graph-title">Ticket Status</p>
       <Bar data={data} options={options} />
     </>
   )
