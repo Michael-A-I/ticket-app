@@ -103,7 +103,7 @@ function ProfileEditAvatar() {
 
   return (
     <>
-      <Page>
+      <Page title={"Avatar"}>
         <Container>
           {/* ROW */}
           {/* Two Images */}

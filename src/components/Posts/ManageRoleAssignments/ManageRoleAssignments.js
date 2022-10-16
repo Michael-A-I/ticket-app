@@ -48,7 +48,7 @@ function ManageRoleAssignments() {
       {/* create user w/o password or generic password  */}
       {/* <Link to="#">Create User</Link> */}
 
-      <Page>
+      <Page title={"Manage Role Assignments"}>
         <div>
           <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
             <h1 style={{ paddingLeft: "60px" }}>Manage Role Assignments</h1>

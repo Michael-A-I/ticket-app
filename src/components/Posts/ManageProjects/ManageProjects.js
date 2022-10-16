@@ -49,7 +49,7 @@ function ManageProjects() {
 
   return (
     <>
-      <Page>
+      <Page title={"Manage Projects"}>
         <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ paddingLeft: "60px" }}>
             <h1>Manage Projects</h1>

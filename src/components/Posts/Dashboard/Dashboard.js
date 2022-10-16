@@ -28,7 +28,7 @@ function Dashboard() {
 
   return (
     <>
-      <Page>
+      <Page title={"Dashboard"}>
         <div style={{ width: "100%", display: "flex", margin: "25px 100px 50px 0px", justifyContent: "space-between", alignItems: "center" }}>
           <h1 style={{ paddingLeft: "60px" }}>Dashboard</h1>
         </div>
