@@ -25,4 +25,15 @@
 .toast-display-center {
   display: flex;
   justify-content: center;
+  padding: 0px 0px 0px 300px;
+  transition: all 1s ease;
+}
+
+@media (max-width: 976px) {
+  .toast-display-center {
+    display: flex;
+    justify-content: center;
+    padding: 0px 0px 0px 0px;
+    transition: all 1s ease;
+  }
 }
